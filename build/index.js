@@ -153,8 +153,7 @@ var WordCloud = function (_React$Component) {
         {
           ref: function ref(container) {
             _this2._container = container;
-          }
-        },
+          } },
         React.createElement('div', {
           ref: function ref(chart) {
             _this2._chart = chart;
