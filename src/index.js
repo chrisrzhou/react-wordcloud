@@ -10,7 +10,7 @@ import * as d3Array from 'd3-array';
 import cloud from 'd3-cloud';
 import * as d3Scale from 'd3-scale';
 import * as d3Selection from 'd3-selection';
-import {event as currentEvent} from 'd3-selection';
+import { event as currentEvent } from 'd3-selection';
 import * as d3SelectionMulti from 'd3-selection-multi';
 import invariant from 'invariant';
 import _ from 'lodash';
@@ -168,7 +168,7 @@ class WordCloud extends React.Component<TProps, TState> {
   }
 
   render(): React.Element<any> {
-    const {tooltipContent, tooltipEnabled, tooltipX, tooltipY} = this.state;
+    const { tooltipContent, tooltipEnabled, tooltipX, tooltipY } = this.state;
     const tooltip = tooltipEnabled ? (
       <Tooltip
         content={tooltipContent}
@@ -223,7 +223,7 @@ class WordCloud extends React.Component<TProps, TState> {
       .remove();
 
     // create svg and vis nodes
-    const {height, width} = props;
+    const { height, width } = props;
     this._setDimensions(height, width);
     this._svg = d3.select(this._chart).append('svg');
     this._vis = this._svg.append('g');
@@ -304,7 +304,7 @@ class WordCloud extends React.Component<TProps, TState> {
 
   _draw(words: Array<Object>, props: TProps): void {
     // d3.layout.cloud adds 'x', 'y', 'rotate', 'size' accessors to 'd' object
-    const {fontFamily, transitionDuration, onWordClick} = props;
+    const { fontFamily, transitionDuration, onWordClick } = props;
     this._words = this._vis.selectAll('text').data(words);
 
     // enter transition
@@ -361,14 +361,14 @@ class WordCloud extends React.Component<TProps, TState> {
   };
 
   _colorScale = (d: Object, i: number): string => {
-    const {colorScale, colors} = this.props;
+    const { colorScale, colors } = this.props;
     return colorScale
       ? colorScale(d, i)
       : _chooseRandom(colors || DEFAULT_COLORS);
   };
 
   _onMouseOver = (d: Object): void => {
-    const {tooltipEnabled, wordKey, wordCountKey, onSetTooltip} = this.props;
+    const { tooltipEnabled, wordKey, wordCountKey, onSetTooltip } = this.props;
     const tooltipContent = onSetTooltip
       ? onSetTooltip(d)
       : `${d[wordKey]} (${d[wordCountKey]})`;
@@ -391,7 +391,7 @@ class WordCloud extends React.Component<TProps, TState> {
   };
 
   _validateProps(): void {
-    const {maxAngle, minAngle, words, wordCountKey, wordKey} = this.props;
+    const { maxAngle, minAngle, words, wordCountKey, wordKey } = this.props;
     invariant(
       Math.abs(minAngle) <= 90 && Math.abs(maxAngle) <= 90,
       'Angles must have values between -90 to 90 degrees',

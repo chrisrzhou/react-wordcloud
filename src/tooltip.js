@@ -46,15 +46,15 @@ class Tooltip extends React.Component<TProps, TState> {
   };
 
   componentWillReceiveProps(nextProps: TProps): void {
-    const {x, y} = nextProps;
+    const { x, y } = nextProps;
     if (this.props.x !== x || this.props.y !== y) {
-      this.setState({x, y});
+      this.setState({ x, y });
     }
   }
 
   render(): React.Node {
-    const {content, isEnabled, style} = this.props;
-    const {x, y} = this.state;
+    const { content, isEnabled, style } = this.props;
+    const { x, y } = this.state;
     const mergedStyle = {
       ...style,
       left: x,
@@ -74,7 +74,7 @@ class Tooltip extends React.Component<TProps, TState> {
   }
 
   _updatePosition = (currentX: number, currentY: number): void => {
-    const {offsetHeight, offsetWidth} = this._container;
+    const { offsetHeight, offsetWidth } = this._container;
     const maxX = Math.min(window.innerWidth - offsetWidth, currentX);
     const maxY = Math.min(window.innerHeight - offsetHeight, currentY);
     if (maxX !== currentX || maxY !== currentY) {
