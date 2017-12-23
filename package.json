@@ -1,17 +1,14 @@
 {
   "name": "react-wordcloud",
   "version": "0.1.0",
-  "description":
-    "Powerful React + D3 word cloud component with rich features. Based on the original word cloud generator: https://www.jasondavies.com/wordcloud/.",
-  "main": "dist/index.js",
+  "description": "Powerful React + D3 word cloud component with rich features. Based on the original word cloud generator: https://www.jasondavies.com/wordcloud/.",
+  "main": "build/index.js",
   "repository": "https://github.com/chrisrzhou/react-wordcloud",
   "author": "Chris Zhou <christoper.r.zhou@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf dist/*",
-    "start": "webpack-dev-server",
-    "build": "yarn clean && babel src --out-dir dist",
-    "prepublish": "npm run build"
+    "clean": "rimraf build/*",
+    "build": "yarn clean && babel src --out-dir build"
   },
   "dependencies": {
     "d3-array": "^1.2.1",
@@ -34,7 +31,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.10.0",
-    "flow-bin": "^0.59.0",
+    "flow-bin": "^0.61.0",
     "path": "^0.12.7",
     "prettier": "1.7.4",
     "rimraf": "^2.6.2",
