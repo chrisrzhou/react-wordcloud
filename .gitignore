@@ -1,0 +1,19 @@
+# node
+node_modules
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# others
+*.swo
+*.swp
+*.*~
+.DS_Store
+
+# repo
+dist
+build
