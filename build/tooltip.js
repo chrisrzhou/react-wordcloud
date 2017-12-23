@@ -90,8 +90,7 @@ var Tooltip = function (_React$Component) {
           ref: function ref(container) {
             _this2._container = container;
           },
-          style: mergedStyle
-        },
+          style: mergedStyle },
         content
       );
     }
