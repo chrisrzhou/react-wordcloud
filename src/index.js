@@ -81,10 +81,6 @@ type TProps = {
    */
   scale: TScale,
   /**
-   * Provides an explicit control for re-rendering the word cloud.
-   */
-  shouldUpdate: boolean,
-  /**
    * Determines how words are placed (starting from the center).
    */
   spiral: TSpiral,
@@ -142,7 +138,6 @@ class WordCloud extends React.Component<TProps, TState> {
     minAngle: 0,
     orientations: 1,
     scale: 'sqrt',
-    shouldUpdate: true,
     spiral: 'rectangular',
     tooltipEnabled: true,
     transitionDuration: 1000,
@@ -162,9 +157,7 @@ class WordCloud extends React.Component<TProps, TState> {
   }
 
   componentWillReceiveProps(nextProps: TProps): void {
-    if (nextProps.shouldUpdate) {
-      this._update(nextProps);
-    }
+    this._update(nextProps);
   }
 
   render(): React.Element<any> {
