@@ -127,9 +127,7 @@ var WordCloud = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.shouldUpdate) {
-        this._update(nextProps);
-      }
+      this._update(nextProps);
     }
   }, {
     key: 'render',
@@ -338,7 +336,6 @@ WordCloud.defaultProps = {
   minAngle: 0,
   orientations: 1,
   scale: 'sqrt',
-  shouldUpdate: true,
   spiral: 'rectangular',
   tooltipEnabled: true,
   transitionDuration: 1000,
