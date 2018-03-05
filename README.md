@@ -26,8 +26,8 @@ const words = [
   {word: 'code', value: 1},
 ];
 
-const WORD_COUNT_KEY = 'word';
-const WORD_KEY = 'value';
+const WORD_COUNT_KEY = 'value';
+const WORD_KEY = 'word';
 
 const MyWordCloud = () => {
   return (
