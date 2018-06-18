@@ -243,8 +243,7 @@ class WordCloud extends React.Component<TProps, TState> {
       .attrs({
         height: this._height,
         width: this._width,
-      })
-      .style('background-color', 'white');
+      });
     this._vis.attr(
       'transform',
       `translate(${this._width / 2}, ${this._height / 2})`,
