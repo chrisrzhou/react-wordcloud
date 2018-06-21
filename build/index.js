@@ -219,7 +219,7 @@ var WordCloud = function (_React$Component) {
       this._svg.attrs({
         height: this._height,
         width: this._width
-      }).style('background-color', 'white');
+      });
       this._vis.attr('transform', 'translate(' + this._width / 2 + ', ' + this._height / 2 + ')');
 
       // update fontScale by rescaling to min/max values of data
