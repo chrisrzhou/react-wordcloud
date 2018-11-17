@@ -13,7 +13,7 @@ import * as d3Selection from 'd3-selection';
 import {event as currentEvent} from 'd3-selection';
 import * as d3SelectionMulti from 'd3-selection-multi';
 import invariant from 'invariant';
-import _ from 'lodash';
+import uniqBy from 'lodash.uniqby';
 
 import Tooltip from './tooltip';
 
@@ -254,7 +254,7 @@ class WordCloud extends React.Component<TProps, TState> {
     const d3Scale = _getScale(scale);
     const filteredWords = words.slice(0, maxWords);
     this._fontScale =
-      _.uniqBy(filteredWords, wordCountKey).length > 1
+      uniqBy(filteredWords, wordCountKey).length > 1
         ? d3Scale().range([10, 100])
         : d3Scale().range([100, 100]);
     if (filteredWords.length) {
