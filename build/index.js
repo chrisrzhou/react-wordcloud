@@ -41,7 +41,7 @@ var _invariant = require('invariant');
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
-var _lodash = require('lodash');
+var _lodash = require('lodash.uniqby');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -226,7 +226,7 @@ var WordCloud = function (_React$Component) {
       // if min === max, we prefer the upper bound range value
       var d3Scale = _getScale(scale);
       var filteredWords = words.slice(0, maxWords);
-      this._fontScale = _lodash2.default.uniqBy(filteredWords, wordCountKey).length > 1 ? d3Scale().range([10, 100]) : d3Scale().range([100, 100]);
+      this._fontScale = (0, _lodash2.default)(filteredWords, wordCountKey).length > 1 ? d3Scale().range([10, 100]) : d3Scale().range([100, 100]);
       if (filteredWords.length) {
         this._fontScale.domain([d3.min(filteredWords, function (d) {
           return d[wordCountKey];
