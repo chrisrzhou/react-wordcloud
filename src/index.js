@@ -54,6 +54,14 @@ type TProps = {
    */
   fontFamily: string,
   /**
+   * e.g.  Min font size, default 10
+   */
+  minFontSize: number,
+  /**
+   * e.g.  Max font size, default 100
+   */
+  maxFontSize: number,
+  /**
    * Height of the word cloud.  If 'null' is provided, the component will
    * inherit from the parent height.
    */
@@ -133,6 +141,8 @@ class WordCloud extends React.Component<TProps, TState> {
     colors: DEFAULT_COLORS,
     fontFamily: 'impact',
     height: null,
+    minFontSize: 10,
+    maxFontSize: 100,
     maxAngle: 0,
     maxWords: 300,
     minAngle: 0,
@@ -227,6 +237,8 @@ class WordCloud extends React.Component<TProps, TState> {
     const {
       fontFamily,
       height,
+      minFontSize,
+      maxFontSize,
       maxAngle,
       maxWords,
       minAngle,
@@ -255,8 +267,8 @@ class WordCloud extends React.Component<TProps, TState> {
     const filteredWords = words.slice(0, maxWords);
     this._fontScale =
       uniqBy(filteredWords, wordCountKey).length > 1
-        ? d3Scale().range([10, 100])
-        : d3Scale().range([100, 100]);
+        ? d3Scale().range([minFontSize, maxFontSize])
+        : d3Scale().range([maxFontSize, maxFontSize]);
     if (filteredWords.length) {
       this._fontScale.domain([
         d3.min(filteredWords, (d: Object): number => d[wordCountKey]),
