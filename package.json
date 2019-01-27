@@ -1,6 +1,6 @@
 {
   "name": "react-wordcloud",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Powerful React + D3 word cloud component with rich features. Based on the original word cloud generator: https://www.jasondavies.com/wordcloud/.",
   "main": "build/index.js",
   "repository": "https://github.com/chrisrzhou/react-wordcloud",
