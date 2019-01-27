@@ -204,6 +204,8 @@ var WordCloud = function (_React$Component) {
 
       var fontFamily = props.fontFamily,
           height = props.height,
+          minFontSize = props.minFontSize,
+          maxFontSize = props.maxFontSize,
           maxAngle = props.maxAngle,
           maxWords = props.maxWords,
           minAngle = props.minAngle,
@@ -226,7 +228,7 @@ var WordCloud = function (_React$Component) {
       // if min === max, we prefer the upper bound range value
       var d3Scale = _getScale(scale);
       var filteredWords = words.slice(0, maxWords);
-      this._fontScale = (0, _lodash2.default)(filteredWords, wordCountKey).length > 1 ? d3Scale().range([10, 100]) : d3Scale().range([100, 100]);
+      this._fontScale = (0, _lodash2.default)(filteredWords, wordCountKey).length > 1 ? d3Scale().range([minFontSize, maxFontSize]) : d3Scale().range([maxFontSize, maxFontSize]);
       if (filteredWords.length) {
         this._fontScale.domain([d3.min(filteredWords, function (d) {
           return d[wordCountKey];
@@ -331,6 +333,8 @@ WordCloud.defaultProps = {
   colors: DEFAULT_COLORS,
   fontFamily: 'impact',
   height: null,
+  minFontSize: 10,
+  maxFontSize: 100,
   maxAngle: 0,
   maxWords: 300,
   minAngle: 0,
