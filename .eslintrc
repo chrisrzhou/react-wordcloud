@@ -1,30 +1,39 @@
-/*
- yarn add --dev \
-  eslint-config-fbjs \
-  eslint-config-prettier \
-  eslint-plugin-babel \
-  eslint-plugin-flowtype \
-  eslint-plugin-jsx-a11y \
-  eslint-plugin-prettier \
-  eslint-plugin-react \
-  eslint-plugin-relay \
-  eslint \
-  babel-eslint
-*/
-
 {
-  extends: ['fbjs', 'prettier'],
-  plugins: ['prettier'],
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-	bracketSpacing: false,
-	jsxBracketSameLine: true,
-	singleQuote: true,
-	trailingComma: 'all',
-	useTabs: false,
-      },
-    ],
+  "env": {
+    "browser": true,
+    "node": true
   },
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "no-unused-vars": [
+      2,
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "useTabs": false
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "^16.8.0"
+    }
+  }
 }
