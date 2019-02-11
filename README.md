@@ -1,23 +1,21 @@
 # React Wordcloud
-Powerful React + D3 word cloud component with rich features. Based on the
-original word cloud generator: https://www.jasondavies.com/wordcloud/.
 
-![Example cloud of Twitter search results for “amazing”](http://www.jasondavies.com/wordcloud/amazing.png)
+React + D3 word cloud component with rich features.  Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
+
+![image](./wordcloud.png)
 
 ## Install
-Add to `package.json` with `yarn` or `npm`.
 
 ```bash
 yarn add https://github.com/chrisrzhou/react-wordcloud.git
 ```
 
-## Usage
+## Simple Example
 
-This is a simple example using minimal props.
+Using only required props:
 ```js
 import * as React from 'react';
-
-import ReactWordCloud from 'react-wordcloud';
+import ReactWordcloud from 'react-wordcloud';
 
 const words = [
   {word: 'hello', value: 3},
@@ -26,16 +24,16 @@ const words = [
   {word: 'code', value: 1},
 ];
 
-const WORD_COUNT_KEY = 'value';
-const WORD_KEY = 'word';
+const wordCountKey = 'value';
+const wordKey = 'word';
 
-const MyWordCloud = () => {
+function MyWordcloud() {
   return (
     <div style={{width: 600, height: 400}}>
-      <ReactWordCloud
-	words={words}
-	wordCountKey={WORD_COUNT_KEY}
-	wordKey={WORD_KEY}
+      <ReactWordcloud
+        words={words}
+        wordCountKey={wordCountKey}
+        wordKey={wordKey}
       />
     </div>
   );
@@ -44,12 +42,18 @@ const MyWordCloud = () => {
 export default MyWordCloud;
 ```
 
-## Word Cloud Generator Example
-Check out the code in this [word cloud generator](https://github.com/chrisrzhou/wordcloud-generator)
-to see how to use `react-wordcloud` in production.
+## Documented Examples
+View all documented examples at https://worcloud.chrisrzhou.io.
 
-This generator allows you to tweak many properties of the word cloud component.
+You can also run the examples locally:
+```bash
+yarn dev
+```
 
-It also demonstrates how we can parse string into words, and bind click actions
-on the words to highlight their occurrences in the original text.
+## Wordcloud Generator
+Create wordclouds using this [wordcloud generator](https://github.com/chrisrzhou/wordcloud-generator).
 
+The generator supports:
+- Copy/paste/edit/upload text inputs
+- Wordcloud configurations
+- Export/save/share wordclouds
