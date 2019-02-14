@@ -4,10 +4,12 @@ export default [
   {
     plugins: [
       babel({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         exclude: 'node_modules/**',
       }),
     ],
-    input: 'src/index.js',
+    input: 'src/index.tsx',
+    external: ['d3-cloud', 'react'],
     output: [
       {
         file: 'dist/index.js',

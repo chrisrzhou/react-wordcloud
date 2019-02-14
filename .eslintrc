@@ -3,28 +3,21 @@
     "browser": true,
     "node": true
   },
-  "parser": "babel-eslint",
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "prettier"
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint"
   ],
-  "plugins": [
-    "prettier"
-  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "no-unused-vars": [
-      2,
-      {
-        "ignoreRestSiblings": true
-      }
-    ],
     "prettier/prettier": [
       "error",
       {
         "bracketSpacing": true,
         "jsxBracketSameLine": true,
         "singleQuote": true,
+        "tabWidth": 2,
         "trailingComma": "all",
         "useTabs": false
       }
