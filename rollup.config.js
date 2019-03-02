@@ -1,12 +1,13 @@
 import babel from 'rollup-plugin-babel';
+import typescript from 'rollup-plugin-typescript';
 
 export default [
   {
     plugins: [
       babel({
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         exclude: 'node_modules/**',
       }),
+      typescript(),
     ],
     input: 'src/index.tsx',
     external: ['d3-cloud', 'react'],
