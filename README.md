@@ -1,6 +1,6 @@
-# React Wordcloud
+# ☁️ React Wordcloud
 
-React + D3 word cloud component with rich features.  Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
+Simple React + D3 wordcloud component with powerful features. Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
 
 ![image](./wordcloud.png)
 
@@ -10,50 +10,61 @@ React + D3 word cloud component with rich features.  Uses the [`d3-cloud`](https
 yarn add https://github.com/chrisrzhou/react-wordcloud.git
 ```
 
-## Simple Example
+## Examples
 
-Using only required props:
+View all documented examples at https://chrisrzhou.github.io/wordcloud.
+
+A simple example using only required props:
+
 ```js
-import * as React from 'react';
-import ReactWordcloud from 'react-wordcloud';
+import * as React from "react";
+import ReactWordcloud from "react-wordcloud";
 
 const words = [
-  {word: 'hello', value: 3},
-  {word: 'world', value: 1},
-  {word: 'github', value: 1},
-  {word: 'code', value: 1},
+  { text: "hello", count: 3 },
+  { text: "world", count: 1 },
+  { text: "github", count: 1 },
+  { text: "code", count: 1 }
 ];
 
-const wordCountKey = 'value';
-const wordKey = 'word';
-
-function MyWordcloud() {
+function MyApp() {
   return (
-    <div style={{width: 600, height: 400}}>
-      <ReactWordcloud
-        words={words}
-        wordCountKey={wordCountKey}
-        wordKey={wordKey}
-      />
+    <div style={{ width: 600, height: 400 }}>
+      <ReactWordcloud words={words} />
     </div>
   );
-};
-
-export default MyWordCloud;
+}
 ```
 
-## Documented Examples
-View all documented examples at https://worcloud.chrisrzhou.io.
-
 You can also run the examples locally:
+
 ```bash
+git clone git@github.com:chrisrzhou/react-wordcloud
+
+cd react-wordcloud
+yarn
 yarn dev
 ```
 
-## Wordcloud Generator
-Create wordclouds using this [wordcloud generator](https://github.com/chrisrzhou/wordcloud-generator).
+## Development
 
-The generator supports:
-- Copy/paste/edit/upload text inputs
+`react-wordcloud` is built with the following main dependencies:
+
+- `react`
+- `d3`
+- `d3-cloud`
+
+The code is written in `typescript`, linted with `eslint` + `prettier`, and built with `rollup`. Examples and documentations are built with `docz`.
+
+Feel free to contribute by submitting a pull request.
+
+## Wordcloud Generator
+
+Create wordclouds using this wordcloud generator: https://wordcloud.chrisrzhou.io.
+
+Features supported:
+
+- Editing and uploading text inputs
+- Various NLP methods (stopwords, ngrams)
 - Wordcloud configurations
 - Export/save/share wordclouds

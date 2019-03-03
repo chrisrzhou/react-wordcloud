@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 export enum Scale {
   Linear = 'linear',
   Log = 'log',
@@ -7,6 +9,16 @@ export enum Scale {
 export enum Spiral {
   Archimedean = 'archimedean',
   Rectangular = 'rectangular',
+}
+
+export type Selection = d3.Selection<SVGElement, {}, SVGElement, {}>;
+
+export interface Callbacks {
+  getWordColor?: (word: Word) => string;
+  getWordTooltip?: (word: Word) => string;
+  onWordClick?: (word: Word) => void;
+  onWordMouseOut?: (word: Word) => void;
+  onWordMouseOver?: (word: Word) => void;
 }
 
 export interface Options {

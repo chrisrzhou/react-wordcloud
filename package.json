@@ -1,7 +1,7 @@
 {
   "name": "react-wordcloud",
   "version": "1.0.0",
-  "description": "React + D3 word cloud component with rich features. Based on the original word cloud generator: https://www.jasondavies.com/wordcloud/.",
+  "description": "Simple React + D3 wordcloud component with powerful features.",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "keywords": [
@@ -29,16 +29,10 @@
     "size": "bundlesize"
   },
   "dependencies": {
-    "@types/d3-array": "^1.2.6",
+    "@types/d3": "^5.7.1",
     "@types/d3-cloud": "^1.2.1",
-    "@types/d3-scale": "^2.1.1",
-    "@types/d3-selection": "^1.4.1",
-    "@types/d3-selection-multi": "^1.0.7",
-    "d3-array": "^2.0.3",
-    "d3-cloud": "^1.2.5",
-    "d3-scale": "^2.2.2",
-    "d3-selection": "^1.4.0",
-    "d3-selection-multi": "^1.0.1"
+    "d3": "^5.9.1",
+    "d3-cloud": "^1.2.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.3.4",
@@ -69,8 +63,5 @@
   ],
   "peerDependencies": {
     "react": "^16.8.3"
-  },
-  "resolutions": {
-    "@types/react": "^16.8.6"
   }
 }

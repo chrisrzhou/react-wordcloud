@@ -5,7 +5,8 @@ route: /examples
 
 import { useState } from "react";
 import { Playground, PropsTable } from "docz";
-import ReactWordcloud, { defaultOptions } from "./../src/index";
+import ReactWordcloud, { defaultOptions } from "./../src";
+import { choose } from "./../src/utils";
 import words from "./words";
 
 # Examples
@@ -43,47 +44,6 @@ By default, `ReactWordcloud` inherits the size of the parent container responsiv
   />
 </Playground>
 
-## Word Colors and Tooltips
-
-`ReactWordcloud` applies a random color palette to word colors. It also defaults to selecting the `text` field for rendering tooltips. In the example below, we can pass custom `getWordColor` and `getWordTooltip` callbacks to update word colors and tooltips in data-driven way.
-
-<Playground>
-  <ReactWordcloud
-    words={words}
-    getWordColor={word => {
-      console.log(word);
-    }}
-    getWordTooltip={word => {
-      return "adfadfdf";
-    }}
-  />
-</Playground>
-
-## Customize Options
-
-Use the code editor to customize the many options of `ReactWordcloud`. You can tweak various visual properties of the wordcloud (such as size, colors, tooltips, font and layout properties).
-
-<Playground>
-  {() => {
-    const options = {
-      colors: ["red", "blue", "green", "yellow", "purple"],
-      enableTooltip: true,
-      fontFamily: "impact",
-      fontSizes: [10, 100],
-      fontStyle: "normal",
-      fontWeight: "normal",
-      padding: 1,
-      rotationAngles: [-90, 90],
-      rotations: 0,
-      scale: "sqrt",
-      size: [400, 300],
-      spiral: "archimedean",
-      transitionDuration: 1000
-    };
-    return <ReactWordcloud words={words} options={options} />;
-  }}
-</Playground>
-
 ## Update Transitions
 
 `ReactWordcloud` handles updating D3 transitions when `words`, `size` and `options` prop change. The following example demonstrates this behavior when their respective buttons are clicked.
@@ -98,11 +58,17 @@ Use the code editor to customize the many options of `ReactWordcloud`. You can t
         <button onClick={() => setUpdatingOptions({ ...defaultOptions })}>
           Update options
         </button>
-        <button onClick={() => setUpdatingWords([...words])}>
+        <button
+          onClick={() => {
+            setUpdatingWords([...words].slice(0, choose([50, 100])));
+          }}
+        >
           Update words
         </button>
         <button
-          onClick={() => setSize(size[0] === 400 ? [600, 300] : [400, 300])}
+          onClick={() => {
+            setSize(choose([[600, 300], [400, 300]]));
+          }}
         >
           Update size
         </button>
@@ -118,16 +84,35 @@ Use the code editor to customize the many options of `ReactWordcloud`. You can t
 
 ## Callbacks
 
+`ReactWordcloud` provides a `callbacks` prop to configure detailed word colors, tooltips and events.
+
+### Word Colors and Tooltips
+
+`ReactWordcloud` applies a random color palette to word colors. It also defaults to selecting the `text` field for rendering tooltips. In the example below, we can pass custom `getWordColor` and `getWordTooltip` callbacks to update word colors and tooltips in data-driven way.
+
+<Playground>
+  <ReactWordcloud
+    words={words}
+    callbacks={{
+      getWordColor: word => {
+        return "red";
+      },
+      getWordTooltip: word => {
+        return "adfadfdf";
+      }
+    }}
+  />
+</Playground>
+
+### Word Events
+
 You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture various events.
 
 <Playground>
   {() => {
-    const [callbackLog, setCallbackLog] = useState({
-      callback: '',
-      log: '',
-    });
+    const [callbackLog, setCallbackLog] = useState({callback: '', log: ''});
 
-    function handleCallback(callback) {
+    function getCallback(callback) {
       return function(word) {
         setCallbackLog({
           callback,
@@ -140,9 +125,11 @@ You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMous
       <>
         <ReactWordcloud
           words={words}
-          onWordClick={handleCallback('onWordClick')}
-          onWordMouseOver={handleCallback('onWordMouseOver')}
-          onWordMouseOut={handleCallback('onWordMouseOut')}
+          callbacks={{
+            onWordClick: getCallback('onWordClick'),
+            onWordMouseOut: getCallback('onWordMouseOut'),
+            onWordMouseOver: getCallback('onWordMouseOver'),
+          }}
         />
         <h3>Callback Log: {callbackLog.callback}</h3>
         <pre style={{fontSize: 12}}>
@@ -153,4 +140,50 @@ You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMous
 
 }}
 
+</Playground>
+
+## Customize Options
+
+Use the code editor to customize the many options of `ReactWordcloud`. You can tweak various visual properties of the wordcloud (such as size, colors, tooltips, font and layout properties).
+
+<Playground>
+  {() => {
+    const options = {
+      colors: [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#e377c2",
+        "#7f7f7f",
+        "#bcbd22",
+        "#17becf",
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#e377c2",
+        "#7f7f7f",
+        "#bcbd22",
+        "#17becf"
+      ],
+      enableTooltip: true,
+      fontFamily: "times new roman",
+      fontSizes: [5, 40],
+      fontStyle: "normal",
+      fontWeight: "normal",
+      padding: 1,
+      rotationAngles: [-90, 90],
+      rotations: 3,
+      scale: "sqrt",
+      size: [600, 400],
+      spiral: "archimedean",
+      transitionDuration: 1000
+    };
+    return <ReactWordcloud words={words} options={options} />;
+  }}
 </Playground>
