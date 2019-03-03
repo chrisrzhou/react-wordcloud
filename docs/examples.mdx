@@ -1,0 +1,156 @@
+---
+name: Examples
+route: /examples
+---
+
+import { useState } from "react";
+import { Playground, PropsTable } from "docz";
+import ReactWordcloud, { defaultOptions } from "./../src/index";
+import words from "./words";
+
+# Examples
+
+All examples are interactive and can be updated by editing code in the editor.
+
+## Props
+
+<PropsTable of={ReactWordcloud} />
+
+## Getting Started
+
+Simply provide an array of words with valid `text` and `count` fields to begin!
+
+<Playground>
+  <ReactWordcloud words={words} />
+</Playground>
+
+## Setting Wordcloud Size
+
+By default, `ReactWordcloud` inherits the size of the parent container responsively. You can override this by providing explicit width and height values in the `size` prop.
+
+### Responsive parent container
+
+<Playground>
+  <ReactWordcloud words={words} />
+</Playground>
+
+### Explicit size values
+
+<Playground>
+  <ReactWordcloud
+    words={words}
+    options={{ ...defaultOptions, size: [600, 600] }}
+  />
+</Playground>
+
+## Word Colors and Tooltips
+
+`ReactWordcloud` applies a random color palette to word colors. It also defaults to selecting the `text` field for rendering tooltips. In the example below, we can pass custom `getWordColor` and `getWordTooltip` callbacks to update word colors and tooltips in data-driven way.
+
+<Playground>
+  <ReactWordcloud
+    words={words}
+    getWordColor={word => {
+      console.log(word);
+    }}
+    getWordTooltip={word => {
+      return "adfadfdf";
+    }}
+  />
+</Playground>
+
+## Customize Options
+
+Use the code editor to customize the many options of `ReactWordcloud`. You can tweak various visual properties of the wordcloud (such as size, colors, tooltips, font and layout properties).
+
+<Playground>
+  {() => {
+    const options = {
+      colors: ["red", "blue", "green", "yellow", "purple"],
+      enableTooltip: true,
+      fontFamily: "impact",
+      fontSizes: [10, 100],
+      fontStyle: "normal",
+      fontWeight: "normal",
+      padding: 1,
+      rotationAngles: [-90, 90],
+      rotations: 0,
+      scale: "sqrt",
+      size: [400, 300],
+      spiral: "archimedean",
+      transitionDuration: 1000
+    };
+    return <ReactWordcloud words={words} options={options} />;
+  }}
+</Playground>
+
+## Update Transitions
+
+`ReactWordcloud` handles updating D3 transitions when `words`, `size` and `options` prop change. The following example demonstrates this behavior when their respective buttons are clicked.
+
+<Playground>
+  {() => {
+    const [updatingOptions, setUpdatingOptions] = useState(defaultOptions);
+    const [updatingWords, setUpdatingWords] = useState(words);
+    const [size, setSize] = useState([400, 300]);
+    return (
+      <>
+        <button onClick={() => setUpdatingOptions({ ...defaultOptions })}>
+          Update options
+        </button>
+        <button onClick={() => setUpdatingWords([...words])}>
+          Update words
+        </button>
+        <button
+          onClick={() => setSize(size[0] === 400 ? [600, 300] : [400, 300])}
+        >
+          Update size
+        </button>
+        <ReactWordcloud
+          words={updatingWords}
+          size={size}
+          options={updatingOptions}
+        />
+      </>
+    );
+  }}
+</Playground>
+
+## Callbacks
+
+You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture various events.
+
+<Playground>
+  {() => {
+    const [callbackLog, setCallbackLog] = useState({
+      callback: '',
+      log: '',
+    });
+
+    function handleCallback(callback) {
+      return function(word) {
+        setCallbackLog({
+          callback,
+          log: JSON.stringify(word, null, 2),
+        });
+      }
+    }
+
+    return (
+      <>
+        <ReactWordcloud
+          words={words}
+          onWordClick={handleCallback('onWordClick')}
+          onWordMouseOver={handleCallback('onWordMouseOver')}
+          onWordMouseOut={handleCallback('onWordMouseOut')}
+        />
+        <h3>Callback Log: {callbackLog.callback}</h3>
+        <pre style={{fontSize: 12}}>
+          {callbackLog.log}
+        </pre>
+      </>
+    );
+
+}}
+
+</Playground>
