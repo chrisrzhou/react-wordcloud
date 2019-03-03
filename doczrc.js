@@ -1,7 +1,6 @@
 export default {
   dest: 'dist/docs',
-  hashRouter: true,
-  menu: ['Introduction', 'Usage', 'Wordcloud Generator'],
+  menu: ['README', 'Examples', 'Wordcloud Generator'],
   public: 'docs/public',
   typescript: true,
 };

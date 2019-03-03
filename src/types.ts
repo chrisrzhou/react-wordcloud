@@ -10,13 +10,26 @@ export enum Spiral {
 }
 
 export interface Options {
-  angles: [number, number];
   colors: string[];
   enableTooltip: boolean;
   fontFamily: string;
   fontSizes: [number, number];
-  orientations: number;
+  fontStyle: string;
+  fontWeight: string;
+  padding: number;
+  rotationAngles: [number, number];
+  rotations?: number;
   scale: Scale;
+  size?: [number, number];
   spiral: Spiral;
   transitionDuration: number;
+}
+
+export interface Word {
+  text: string;
+  count: number;
+  rotate?: number;
+  size?: number;
+  x?: number;
+  y?: number;
 }
