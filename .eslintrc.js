@@ -10,6 +10,7 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'prettier',
+    'react-hooks',
   ],
   rules: {
     'prettier/prettier': [
@@ -23,6 +24,8 @@ module.exports = {
         useTabs: false,
       },
     ],
+    'react-hooks/rules-of-hooks': 'error',
+    // 'react-hooks/exhaustive-deps': 'warn',
   },
   settings: {
     react: {
