@@ -35,60 +35,22 @@ In the example below, we can pass custom `getWordColor` and `getWordTooltip` cal
 
 ## Mouse Events
 
-You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture various mouse events.
+You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture various mouse events. Check the browser console to track these mouse events.
 
 <Playground>
   {() => {
-    const [callbackLog, setCallbackLog] = useState({ callback: "", log: "" });
     function getCallback(callback) {
-      return function({
-        count,
-        rotate,
-        size,
-        text,
-        weight,
-        x1,
-        y1,
-        x0,
-        y0,
-        x,
-        y
-      }) {
-        setCallbackLog({
-          callback,
-          log: JSON.stringify(
-            {
-              count,
-              rotate,
-              size,
-              text,
-              weight,
-              x1,
-              y1,
-              x0,
-              y0,
-              x,
-              y
-            },
-            null,
-            2
-          )
-        });
+      return function(word) {
+        console.log(
+          `Callback: "${callback}". Word: ${JSON.stringify(word, null, 2)}`
+        );
       };
     }
-    return (
-      <>
-        <ReactWordcloud
-          words={words}
-          callbacks={{
-            onWordClick: getCallback("onWordClick"),
-            onWordMouseOut: getCallback("onWordMouseOut"),
-            onWordMouseOver: getCallback("onWordMouseOver")
-          }}
-        />
-        <h3>Callback Log: {callbackLog.callback}</h3>
-        <pre style={{ fontSize: 12 }}>{callbackLog.log}</pre>
-      </>
-    );
+    const callbacks = {
+      onWordClick: getCallback("onWordClick"),
+      onWordMouseOut: getCallback("onWordMouseOut"),
+      onWordMouseOver: getCallback("onWordMouseOver")
+    };
+    return <ReactWordcloud words={words} callbacks={callbacks} />;
   }}
 </Playground>

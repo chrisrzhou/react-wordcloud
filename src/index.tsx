@@ -47,11 +47,14 @@ function Wordcloud({
   words,
 }: Props): React.ReactNode {
   const [ref, selection, size] = useResponsiveSVG(minSize, initialSize);
-  const layout = d3.cloud();
 
   // render viz
   useEffect(() => {
-    if (selection && size) {
+    const layout = d3.cloud();
+    const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
+    const mergedOptions = { ...defaultOptions, ...options };
+
+    if (selection) {
       const {
         fontFamily,
         fontStyle,
@@ -61,7 +64,7 @@ function Wordcloud({
         rotationAngles,
         spiral,
         scale,
-      } = options;
+      } = mergedOptions;
 
       const sortedWords = words
         .concat()
@@ -86,14 +89,11 @@ function Wordcloud({
         .fontStyle(fontStyle)
         .fontWeight(fontWeight)
         .on('end', () => {
-          // merge options and callbacks to handle missing values
-          const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
-          const mergedOptions = { ...defaultOptions, ...options };
           render(selection, sortedWords, mergedOptions, mergedCallbacks);
         })
         .start();
     }
-  }, [options, maxWords, selection, size, words]);
+  }, [callbacks, maxWords, options, selection, size, words]);
 
   return <div ref={ref} />;
 }

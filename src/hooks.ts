@@ -6,6 +6,14 @@ import { MinMaxPair, Selection } from './types';
 
 const { useEffect, useRef, useState } = React;
 
+export function usePrevious<T>(value: T): T {
+  const ref = useRef<T>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
 export function useResize(ref: React.RefObject<HTMLDivElement>): MinMaxPair {
   const [size, setSize] = useState<MinMaxPair>([0, 0]);
 
