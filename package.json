@@ -32,7 +32,9 @@
     "@types/d3": "^5.7.1",
     "@types/d3-cloud": "^1.2.1",
     "d3": "^5.9.1",
-    "d3-cloud": "^1.2.5"
+    "d3-cloud": "^1.2.5",
+    "resize-observer-polyfill": "^1.5.1",
+    "tippy.js": "^4.0.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.3.4",

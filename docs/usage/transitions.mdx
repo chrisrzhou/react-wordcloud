@@ -1,0 +1,40 @@
+---
+name: Transitions
+route: /usage/transitions
+menu: Usage
+---
+
+import { useState } from "react";
+import { Playground } from "docz";
+import ReactWordcloud, { defaultOptions } from "./../../src";
+import words from "./words";
+
+# Transitions
+
+`ReactWordcloud` handles updating D3 transitions when `words`, `size` and `options` prop change. The following example demonstrates this behavior when their respective buttons are clicked.
+
+<Playground>
+  {() => {
+    const [updatedOptions, setUpdatedOptions] = useState(defaultOptions);
+    const [wordsFlag, toggleWordsFlag] = useState(false);
+    const [sizeFlag, toggleSizeFlag] = useState(false);
+    const updatedWords = wordsFlag ? words : words.slice(0, 50);
+    const updatedSize = sizeFlag ? [600, 300] : [300, 600];
+    return (
+      <>
+        <button onClick={() => setUpdatedOptions({ ...defaultOptions })}>
+          Update options
+        </button>
+        <button onClick={() => toggleWordsFlag(!wordsFlag)}>
+          Update words
+        </button>
+        <button onClick={() => toggleSizeFlag(!sizeFlag)}>Update size</button>
+        <ReactWordcloud
+          words={updatedWords}
+          size={updatedSize}
+          options={updatedOptions}
+        />
+      </>
+    );
+  }}
+</Playground>
