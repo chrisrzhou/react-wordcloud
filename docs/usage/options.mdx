@@ -1,0 +1,42 @@
+---
+name: Options
+route: /usage/options
+menu: Usage
+---
+
+import { Playground } from "docz";
+import ReactWordcloud from "./../../src";
+import words from "./words";
+
+# Options
+
+You can customize many visual and layout properties of `ReactWordcloud` by using the `options` prop.
+
+Use the code editor to edit and play around with some of these options!
+
+<Playground>
+  <ReactWordcloud
+    words={words}
+    options={{
+      colors: [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b"
+      ],
+      enableTooltip: true,
+      fontFamily: "times new roman",
+      fontSizes: [5, 40],
+      fontStyle: "normal",
+      fontWeight: "normal",
+      padding: 1,
+      rotationAngles: [-90, 90],
+      rotations: 3,
+      scale: "sqrt",
+      spiral: "archimedean",
+      transitionDuration: 1000
+    }}
+  />
+</Playground>

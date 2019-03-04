@@ -1,5 +1,9 @@
 import * as d3 from 'd3';
 
+export type MinMaxPair = [number, number];
+
+export type Selection = d3.Selection<SVGElement, {}, SVGElement, {}>;
+
 export enum Scale {
   Linear = 'linear',
   Log = 'log',
@@ -10,8 +14,6 @@ export enum Spiral {
   Archimedean = 'archimedean',
   Rectangular = 'rectangular',
 }
-
-export type Selection = d3.Selection<SVGElement, {}, SVGElement, {}>;
 
 export interface Callbacks {
   getWordColor?: (word: Word) => string;
@@ -25,14 +27,14 @@ export interface Options {
   colors: string[];
   enableTooltip: boolean;
   fontFamily: string;
-  fontSizes: [number, number];
+  fontSizes: MinMaxPair;
   fontStyle: string;
   fontWeight: string;
   padding: number;
-  rotationAngles: [number, number];
+  rotationAngles: MinMaxPair;
   rotations?: number;
   scale: Scale;
-  size?: [number, number];
+  size?: MinMaxPair;
   spiral: Spiral;
   transitionDuration: number;
 }

@@ -1,6 +1,15 @@
 export default {
   dest: 'dist/docs',
-  menu: ['README', 'Examples', 'Wordcloud Generator'],
+  menu: [
+    'README',
+    {
+      name: 'Usage',
+      menu: ['Props', 'Basic', 'Size', 'Callbacks', 'Transitions', 'Options'],
+    },
+    'Wordcloud Generator',
+    'CHANGELOG',
+    { name: 'Github', href: 'https://github.com/chrisrzhou/react-wordcloud' },
+  ],
   public: 'docs/public',
   typescript: true,
 };
