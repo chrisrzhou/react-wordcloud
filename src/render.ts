@@ -1,5 +1,9 @@
+import tippy from 'tippy.js';
+
 import { Callbacks, Options, Selection, Word } from './types';
-import { choose, getFontSize, getText, getTransform, TIPPY_CLASS } from './utils';
+import { choose, getFontSize, getText, getTransform } from './utils';
+
+const TIPPY_CLASS = 'react-wordcloud-word';
 
 export default function render(
   selection: Selection,
@@ -14,13 +18,14 @@ export default function render(
     onWordMouseOver,
     onWordMouseOut,
   } = callbacks;
-  const { colors, fontStyle, fontWeight } = options;
+  const { colors, enableTooltip, fontStyle, fontWeight } = options;
   const { fontFamily, transitionDuration } = options;
 
   function getFill(word: Word): string {
     return getWordColor ? getWordColor(word) : choose(colors);
   }
 
+  // load data
   const vizWords = selection.selectAll('text').data(words);
 
   // enter transition
@@ -62,4 +67,8 @@ export default function render(
     .duration(transitionDuration)
     .attr('fill-opacity', 0)
     .remove();
+
+  if (enableTooltip) {
+    tippy(`.${TIPPY_CLASS}`, { animation: 'scale', arrow: true });
+  }
 }

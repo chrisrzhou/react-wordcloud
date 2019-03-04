@@ -1,17 +1,10 @@
 import * as d3Cloud from 'd3-cloud';
 import * as React from 'react';
-import tippy from 'tippy.js';
 
 import { useResponsiveSVG } from './hooks';
 import render from './render';
 import { Callbacks, MinMaxPair, Options, Scale, Spiral, Word } from './types';
-import {
-  getDefaultColors,
-  getFontScale,
-  getText,
-  rotate,
-  TIPPY_CLASS,
-} from './utils';
+import { getDefaultColors, getFontScale, getText, rotate } from './utils';
 
 const { useEffect } = React;
 
@@ -60,7 +53,6 @@ function Wordcloud({
   useEffect(() => {
     if (selection && size) {
       const {
-        enableTooltip,
         fontFamily,
         fontStyle,
         fontSizes,
@@ -70,10 +62,6 @@ function Wordcloud({
         spiral,
         scale,
       } = options;
-
-      if (enableTooltip) {
-        tippy(`.${TIPPY_CLASS}`);
-      }
 
       const sortedWords = words
         .concat()

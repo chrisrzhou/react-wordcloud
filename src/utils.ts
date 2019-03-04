@@ -8,8 +8,6 @@ export const Scales = {
   [Scale.Sqrt]: d3.scaleLinear,
 };
 
-export const TIPPY_CLASS = 'react-wordcloud-word';
-
 export function choose<T = number | string>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }
