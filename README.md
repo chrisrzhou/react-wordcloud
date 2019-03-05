@@ -2,7 +2,7 @@
 
 Simple React + D3 wordcloud component with powerful features. Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
 
-![image](./wordcloud.png)
+![image](https://github.com/chrisrzhou/react-wordcloud/raw/master/wordcloud.png)
 
 ## Install
 
@@ -12,9 +12,11 @@ yarn add https://github.com/chrisrzhou/react-wordcloud.git
 
 Note that `react-wordcloud` requires `react^16.8.3` as a peer dependency.
 
+> I will try to reach out to the NPM owner of `react-wordcloud` to see if this package can replace it :)
+
 ## Examples
 
-View all documented examples at https://chrisrzhou.github.io/wordcloud/
+View all documented examples at https://react-wordcloud.netlify.com/
 
 A simple example using only required props:
 

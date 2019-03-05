@@ -1,5 +1,6 @@
 export default {
   dest: 'dist/docs',
+  hashRouter: true,
   menu: [
     'README',
     {

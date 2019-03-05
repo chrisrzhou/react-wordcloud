@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/chrisrzhou/react-wordcloud/issues"
   },
-  "homepage": "https://wordcloud.chrisrzhou.io",
+  "homepage": "https://react-wordcloud.netlify.com/",
   "scripts": {
     "build": "rollup -c",
     "build:docs": "yarn docz build",
