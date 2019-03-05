@@ -1,47 +1,70 @@
 {
   "name": "react-wordcloud",
-  "version": "0.1.1",
-  "description": "Powerful React + D3 word cloud component with rich features. Based on the original word cloud generator: https://www.jasondavies.com/wordcloud/.",
-  "main": "build/index.js",
-  "repository": "https://github.com/chrisrzhou/react-wordcloud",
+  "version": "1.0.0",
+  "description": "Simple React + D3 wordcloud component with powerful features.",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "keywords": [
+    "react",
+    "d3",
+    "wordcloud"
+  ],
   "author": "Chris Zhou <christoper.r.zhou@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisrzhou/react-wordcloud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chrisrzhou/react-wordcloud/issues"
+  },
+  "homepage": "https://wordcloud.chrisrzhou.io",
   "scripts": {
-    "clean": "rimraf build/*",
-    "build": "yarn clean && babel src --out-dir build",
-    "lint": "flow && eslint --fix src"
+    "build": "rollup -c",
+    "build:docs": "yarn docz build",
+    "clean": "rm -rf dist .docz",
+    "dev": "yarn docz dev",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx, --fix src",
+    "prepare": "yarn clean && yarn build",
+    "size": "bundlesize"
   },
   "dependencies": {
-    "d3-array": "^1.2.1",
-    "d3-cloud": "^1.2.4",
-    "d3-scale": "^1.0.6",
-    "d3-selection": "^1.1.0",
-    "d3-selection-multi": "^1.0.1",
-    "invariant": "^2.2.2",
-    "lodash.uniqby": "^4.7.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "@types/d3": "^5.7.1",
+    "@types/d3-cloud": "^1.2.1",
+    "d3": "^5.9.1",
+    "d3-cloud": "^1.2.5",
+    "resize-observer-polyfill": "^1.5.1",
+    "tippy.js": "^4.0.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.3",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.13.1",
-    "eslint-config-fbjs": "^2.0.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-babel": "^4.1.2",
-    "eslint-plugin-flowtype": "^2.40.1",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-prettier": "^2.4.0",
-    "eslint-plugin-react": "^7.5.1",
-    "eslint-plugin-relay": "^0.0.20",
-    "flow-bin": "^0.61.0",
-    "prettier": "1.9.2",
-    "rimraf": "^2.6.2"
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/react": "^16.8.6",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "bundlesize": "^0.17.0",
+    "docz": "^0.13.7",
+    "docz-theme-default": "^0.13.7",
+    "eslint": "^5.15.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.4.0",
+    "prettier": "^1.15.3",
+    "react": "^16.8.3",
+    "rollup": "^1.4.0",
+    "rollup-plugin-babel": "^4.1.0",
+    "rollup-plugin-typescript": "^1.0.0",
+    "typescript": "^3.3.3333"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/*.js",
+      "maxSize": "10 kB"
+    }
+  ],
+  "peerDependencies": {
+    "react": "^16.8.3"
   }
 }
