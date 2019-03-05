@@ -95,7 +95,12 @@ function Wordcloud({
     }
   }, [callbacks, maxWords, options, selection, size, words]);
 
-  return <div ref={ref} />;
+  // outer div is the parent container while inner div houses the wordcloud svg
+  return (
+    <div>
+      <div ref={ref} />
+    </div>
+  );
 }
 
 Wordcloud.defaultProps = {

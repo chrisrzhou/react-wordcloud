@@ -59,8 +59,8 @@ yarn dev
 
 ### Codebase Overview
 
-- `index.tsx`: Pure React code that exposes an interface of props. Tooltip and cloud layout is also configured here.
-- `render.ts`: Pure D3 rendering code when a D3 selection and other data are provided.
+- `index.tsx`: Pure React code that exposes an interface of props.
+- `render.ts`: Pure D3 rendering code to render wordcloud given a valid D3 selection and other data.
 - `hooks.ts`: React hooks that build and destroy responsive SVG containers with D3.
 - `types.ts`: Typescript types.
 - `utils.ts`: Various simple functions used to compute derived data.
