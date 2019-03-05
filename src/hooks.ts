@@ -6,14 +6,6 @@ import { MinMaxPair, Selection } from './types';
 
 const { useEffect, useRef, useState } = React;
 
-export function usePrevious<T>(value: T): T {
-  const ref = useRef<T>();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
 export function useResize(ref: React.RefObject<HTMLDivElement>): MinMaxPair {
   const [size, setSize] = useState<MinMaxPair>([0, 0]);
 
@@ -28,7 +20,7 @@ export function useResize(ref: React.RefObject<HTMLDivElement>): MinMaxPair {
     });
     resizeObserver.observe(element);
     return () => resizeObserver.unobserve(element);
-  }, []);
+  }, [ref]);
   return size;
 }
 
@@ -41,6 +33,8 @@ export function useResponsiveSVG<T>(
   const [size, setSize] = useState(initialSize);
   const resized = useResize(ref);
 
+  const hasResized = initialSize === undefined && (resized[0] || resized[1]);
+
   useEffect(() => {
     const element = ref.current;
     const {
@@ -48,23 +42,22 @@ export function useResponsiveSVG<T>(
       offsetHeight: parentHeight,
     } = element.parentNode;
 
-    // Update size with the following logic:
-    // - Use initialSize if it is provided
-    // - Use parentNode size if resized has not updated
-    // - Use resized when there are resize changes
-    // - Ensure that minSize is always applied/handled before updating size
-    let width;
-    let height;
+    let width = 0;
+    let height = 0;
+    // Use initialSize if it is provided
     if (initialSize !== undefined) {
       [width, height] = initialSize;
     } else {
-      if (resized[0] === 0 && resized[0] === 0) {
+      // Use parentNode size if resized has not updated
+      if (resized[0] === 0 && resized[1] === 0) {
         width = parentWidth;
         height = parentHeight;
+        // Use resized when there are resize changes
       } else {
         [width, height] = resized;
       }
     }
+    // Ensure that minSize is always applied/handled before updating size
     width = Math.max(width, minSize[0]);
     height = Math.max(height, minSize[1]);
     setSize([width, height]);
@@ -82,11 +75,12 @@ export function useResponsiveSVG<T>(
     }
 
     return () => {
-      d3.select(ref.current)
+      d3.select(element)
         .selectAll('*')
         .remove();
     };
-  }, [initialSize, initialSize === undefined && (resized[0] || resized[1])]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialSize, hasResized]);
 
   return [ref, selection, size];
 }
