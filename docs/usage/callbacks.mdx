@@ -1,0 +1,56 @@
+---
+name: Callbacks
+route: /usage/callbacks
+menu: Usage
+---
+
+import { useState } from "react";
+import { Playground } from "docz";
+import ReactWordcloud from "./../../src";
+import words from "./words";
+
+# Callbacks
+
+`ReactWordcloud` provides a `callbacks` prop to configure detailed word colors, tooltips and events.
+
+## Colors and Tooltips
+
+By default, `ReactWordcloud` randomnly applies colors to words using `colors` prop. It also defaults to using the `text` field for rendering tooltips.
+
+In the example below, we can pass custom `getWordColor` and `getWordTooltip` callbacks to update word colors and tooltips in a more data-driven fashion.
+
+<Playground>
+  <ReactWordcloud
+    words={words}
+    callbacks={{
+      getWordColor: ({ count }) => {
+        return count > 50 ? "blue" : "red";
+      },
+      getWordTooltip: ({ count, text }) => {
+        return count > 50 ? `${text.toUpperCase()} (> 50)` : `${text} (<= 50)`;
+      }
+    }}
+  />
+</Playground>
+
+## Mouse Events
+
+You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture various mouse events. Check the browser console to track these mouse events.
+
+<Playground>
+  {() => {
+    function getCallback(callback) {
+      return function(word) {
+        console.log(
+          `Callback: "${callback}". Word: ${JSON.stringify(word, null, 2)}`
+        );
+      };
+    }
+    const callbacks = {
+      onWordClick: getCallback("onWordClick"),
+      onWordMouseOut: getCallback("onWordMouseOut"),
+      onWordMouseOver: getCallback("onWordMouseOver")
+    };
+    return <ReactWordcloud words={words} callbacks={callbacks} />;
+  }}
+</Playground>

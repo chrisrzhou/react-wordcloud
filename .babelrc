@@ -1,4 +1,18 @@
 {
-  "presets": ["es2015", "flow", "react", "stage-0"],
-  "plugins": ["transform-flow-strip-types"]
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "loose": true
+      }
+    ],
+    [
+      "@babel/preset-typescript",
+      {
+        "isTSX": true,
+        "allExtensions": true
+      }
+    ],
+    "@babel/react"
+  ]
 }
