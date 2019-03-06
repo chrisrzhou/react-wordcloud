@@ -24,8 +24,8 @@ export function getFontScale(
   fontSizes: MinMaxPair,
   scale: Scale,
 ): (n: number) => number {
-  const minSize = d3.min(words, (word: Word) => word.count);
-  const maxSize = d3.max(words, (word: Word) => word.count);
+  const minSize = d3.min(words, (word: Word) => word.value);
+  const maxSize = d3.max(words, (word: Word) => word.value);
   const fontScale = Scales[scale]()
     .domain([minSize, maxSize])
     .range(fontSizes);

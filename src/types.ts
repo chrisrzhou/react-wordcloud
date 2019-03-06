@@ -41,7 +41,7 @@ export interface Options {
 
 export interface Word {
   text: string;
-  count: number;
+  value: number;
   rotate?: number;
   size?: number;
   x?: number;

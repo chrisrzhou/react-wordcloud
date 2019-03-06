@@ -23,11 +23,11 @@ In the example below, we can pass custom `getWordColor` and `getWordTooltip` cal
   <ReactWordcloud
     words={words}
     callbacks={{
-      getWordColor: ({ count }) => {
-        return count > 50 ? "blue" : "red";
+      getWordColor: ({ value }) => {
+        return value > 50 ? "blue" : "red";
       },
-      getWordTooltip: ({ count, text }) => {
-        return count > 50 ? `${text.toUpperCase()} (> 50)` : `${text} (<= 50)`;
+      getWordTooltip: ({ text, value }) => {
+        return value > 50 ? `${text.toUpperCase()} (> 50)` : `${text} (<= 50)`;
       }
     }}
   />

@@ -25,10 +25,10 @@ import * as React from "react";
 import ReactWordcloud from "react-wordcloud";
 
 const words = [
-  { text: "hello", count: 3 },
-  { text: "world", count: 1 },
-  { text: "github", count: 1 },
-  { text: "code", count: 1 }
+  { text: "hello", value: 3 },
+  { text: "world", value: 12.5 },
+  { text: "github", value: 1 },
+  { text: "code", value: 1 }
 ];
 
 function MyApp() {
