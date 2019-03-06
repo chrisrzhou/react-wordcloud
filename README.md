@@ -7,12 +7,10 @@ Simple React + D3 wordcloud component with powerful features. Uses the [`d3-clou
 ## Install
 
 ```bash
-yarn add https://github.com/chrisrzhou/react-wordcloud.git
+yarn add react-wordcloud
 ```
 
 Note that `react-wordcloud` requires `react^16.8.3` as a peer dependency.
-
-> I will try to reach out to the NPM owner of `react-wordcloud` to see if this package can replace it :)
 
 ## Examples
 
