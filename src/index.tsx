@@ -11,7 +11,7 @@ const { useEffect } = React;
 const d3 = { cloud: d3Cloud };
 
 export const defaultCallbacks: Callbacks = {
-  getWordTooltip: ({ count, text }: Word) => `${text} (${count})`,
+  getWordTooltip: ({ text, value }: Word) => `${text} (${value})`,
 };
 
 export const defaultOptions: Options = {
@@ -84,7 +84,7 @@ function Wordcloud({
         .font(fontFamily)
         .fontSize((word: Word) => {
           const fontScale = getFontScale(words, fontSizes, scale);
-          return fontScale(word.count);
+          return fontScale(word.value);
         })
         .fontStyle(fontStyle)
         .fontWeight(fontWeight)
