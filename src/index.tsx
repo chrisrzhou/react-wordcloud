@@ -82,16 +82,31 @@ function Wordcloud({
         .spiral(spiral)
         .text(getText)
         .font(fontFamily)
-        .fontSize((word: Word) => {
-          const fontScale = getFontScale(words, fontSizes, scale);
-          return fontScale(word.value);
-        })
         .fontStyle(fontStyle)
-        .fontWeight(fontWeight)
-        .on('end', () => {
-          render(selection, sortedWords, mergedOptions, mergedCallbacks);
-        })
-        .start();
+        .fontWeight(fontWeight);
+
+      const draw = (fontSizes: MinMaxPair): void => {
+        layout
+          .fontSize((word: Word) => {
+            const fontScale = getFontScale(words, fontSizes, scale);
+            return fontScale(word.value);
+          })
+          .on('end', output => {
+            if (words.length !== output.length) {
+              // https://github.com/jasondavies/d3-cloud/issues/36
+              // recursively draw and decrease maxFontSize by minFontSize.
+              // Ensure that minFontSize is at least of value '1'
+              const minFontSize = fontSizes[0] || 1;
+              const maxFontSize = fontSizes[1] - fontSizes[0];
+              draw([minFontSize, maxFontSize]);
+              return;
+            } else {
+              render(selection, sortedWords, mergedOptions, mergedCallbacks);
+            }
+          })
+          .start();
+      };
+      draw(fontSizes);
     }
   }, [callbacks, maxWords, options, selection, size, words]);
 
