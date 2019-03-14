@@ -3,11 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.2...v1.0.3) (2019-03-14)
+
+Bug fixes
+
+- https://github.com/chrisrzhou/react-wordcloud/issues/5
+- https://github.com/chrisrzhou/react-wordcloud/issues/11
+
+Tooltip bug is fixed by programmatically creating and destroying the `tippy` instance. Word implosion and missing words are related to https://github.com/jasondavies/d3-cloud/issues/36, and is fixed with a recursive solution.
+
 ## [1.0.2](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.1...v1.0.2) (2019-03-06)
+
 Thanks to @warlock for transferring the NPM `react-wordcloud` to me!
 Updating `package.json` and pushing package to NPM.
 
 ## [1.0.1](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.0...v1.0.1) (2019-03-06)
+
 Change `word.count` to `word.key` because the weight of the word could be a float.
 
 ## [1.0.0](https://github.com/chrisrzhou/react-wordcloud/compare/v0.1.1...v1.0.0) (2019-03-03)
