@@ -35,8 +35,10 @@ export function getText(word: Word): string {
   return word.text;
 }
 
-export function getFontSize(word: Word): string {
-  return `${word.size}px`;
+export function getFontSize(scaleFactor: number): (word: Word) => string {
+  return function(word: Word): string {
+    return `${word.size * scaleFactor}px`;
+  };
 }
 
 export function getTransform(word: Word): string {

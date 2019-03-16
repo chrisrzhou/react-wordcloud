@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { Word as CloudWord } from 'd3-cloud';
 
 export type MinMaxPair = [number, number];
 
@@ -38,11 +39,7 @@ export interface Options {
   transitionDuration: number;
 }
 
-export interface Word {
+export interface Word extends CloudWord {
   text: string;
   value: number;
-  rotate?: number;
-  size?: number;
-  x?: number;
-  y?: number;
 }

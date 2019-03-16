@@ -1,7 +1,8 @@
+import { descending } from 'd3';
 import * as d3Cloud from 'd3-cloud';
 import * as React from 'react';
 
-import { useResponsiveSVG } from './hooks';
+import { useResponsiveSVGSelection } from './hooks';
 import render from './render';
 import { Callbacks, MinMaxPair, Options, Scale, Spiral, Word } from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
@@ -17,7 +18,7 @@ export const defaultCallbacks: Callbacks = {
 export const defaultOptions: Options = {
   colors: getDefaultColors(),
   enableTooltip: true,
-  fontFamily: 'impact',
+  fontFamily: 'times new roman',
   fontSizes: [5, 40],
   fontStyle: 'normal',
   fontWeight: 'normal',
@@ -30,17 +31,33 @@ export const defaultOptions: Options = {
 };
 
 export interface Props {
-  /** Callbacks to control various word properties and behaviors (getWordColor, getWordTooltip, onWordClick, onWordMouseOut, onWordMouseOver). */
+  /**
+   * Callbacks to control various word properties and behaviors (getWordColor,
+   * getWordTooltip, onWordClick, onWordMouseOut, onWordMouseOver).
+   */
   callbacks?: Callbacks;
-  /** Set minimum [width, height] values for the SVG container. */
+  /**
+   * Set minimum [width, height] values for the SVG container.
+   */
   minSize?: MinMaxPair;
-  /** Maximum number of words to display. */
+  /**
+   * Maximum number of words to display.
+   */
   maxWords?: number;
-  /** Configure wordcloud with various options (colors, enableTooltip, fontFamily, fontSizes, fontStyle, fontWeight, padding, rotationAngles, rotations, scale, spiral, transitionDuration). */
+  /**
+   * Configure wordcloud with various options (colors, enableTooltip,
+   * fontFamily, fontSizes, fontStyle, fontWeight, padding, rotationAngles,
+   * rotations, scale, spiral, transitionDuration).
+   */
   options?: Options;
-  /** Set explicit [width, height] values for the SVG container.  This will disable responsive resizing. */
+  /**
+   * Set explicit [width, height] values for the SVG container.  This will
+   * disable responsive resizing.
+   */
   size?: MinMaxPair;
-  /** An array of word.  A word must contain the 'text' and 'value' keys. */
+  /**
+   * An array of word.  A word must contain the 'text' and 'value' keys.
+   */
   words: Word[];
 }
 
@@ -52,7 +69,11 @@ function Wordcloud({
   size: initialSize,
   words,
 }: Props): React.ReactElement {
-  const [ref, selection, size] = useResponsiveSVG(minSize, initialSize);
+  const { ref, selections, size } = useResponsiveSVGSelection(
+    minSize,
+    initialSize,
+  );
+  const selection = selections.g;
 
   // render viz
   useEffect(() => {
@@ -66,25 +87,28 @@ function Wordcloud({
         fontStyle,
         fontSizes,
         fontWeight,
+        padding,
         rotations,
         rotationAngles,
         spiral,
         scale,
       } = mergedOptions;
-
-      const sortedWords = words
-        .concat()
-        .sort()
-        .slice(0, maxWords);
+      const ctx = document.createElement('canvas').getContext('2d');
+      ctx.font = `${fontSizes[1]}px ${fontFamily}`;
 
       if (rotations !== undefined) {
         layout.rotate(() => rotate(rotations, rotationAngles));
       }
 
+      const sortedWords = words
+        .concat()
+        .sort((x, y) => descending(x.value, y.value))
+        .slice(0, maxWords);
+
       layout
         .size(size)
-        .padding(1)
-        .words(words)
+        .padding(padding)
+        .words(sortedWords)
         .spiral(spiral)
         .text(getText)
         .font(fontFamily)
@@ -97,18 +121,29 @@ function Wordcloud({
             const fontScale = getFontScale(words, fontSizes, scale);
             return fontScale(word.value);
           })
-          .on('end', output => {
-            if (words.length !== output.length) {
-              // https://github.com/jasondavies/d3-cloud/issues/36
-              // recursively draw and decrease maxFontSize by minFontSize.
-              // Ensure that minFontSize is at least of value '1'
-              const minFontSize = fontSizes[0] || 1;
-              const maxFontSize = fontSizes[1] - fontSizes[0];
-              draw([minFontSize, maxFontSize]);
-              return;
-            } else {
-              render(selection, sortedWords, mergedOptions, mergedCallbacks);
-            }
+          .on('end', () => {
+            // For each word, we derive the x/y width projections based on the
+            // rotation angle.  Calculate the scale factor of the respective
+            // width projections against the svg container width and height.
+            // Apply a universal font-size scaling (maximum value = 1) in render
+            let widthX = 0;
+            let widthY = 0;
+            sortedWords.forEach(word => {
+              const wordWidth = ctx.measureText(word.text).width * 1.1;
+              const angle = (word.rotate / 180) * Math.PI;
+              widthX = Math.max(wordWidth * Math.cos(angle), widthX);
+              widthY = Math.max(wordWidth * Math.sin(angle), widthY);
+            });
+            const scaleFactorX = size[0] / widthX;
+            const scaleFactorY = size[1] / widthY;
+            const scaleFactor = Math.min(1, scaleFactorX, scaleFactorY);
+            render(
+              selection,
+              sortedWords,
+              mergedOptions,
+              mergedCallbacks,
+              scaleFactor,
+            );
           })
           .start();
       };
@@ -116,12 +151,7 @@ function Wordcloud({
     }
   }, [callbacks, maxWords, options, selection, size, words]);
 
-  // outer div is the parent container while inner div houses the wordcloud svg
-  return (
-    <div>
-      <div ref={ref} />
-    </div>
-  );
+  return <div ref={ref} />;
 }
 
 Wordcloud.defaultProps = {
