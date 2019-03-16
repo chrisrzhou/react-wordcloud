@@ -2,12 +2,6 @@ import * as d3 from 'd3';
 
 import { MinMaxPair, Scale, Word } from './types';
 
-export const Scales = {
-  [Scale.Linear]: d3.scaleLinear,
-  [Scale.Log]: d3.scaleLinear,
-  [Scale.Sqrt]: d3.scaleLinear,
-};
-
 export function choose<T = number | string>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }
@@ -26,6 +20,11 @@ export function getFontScale(
 ): (n: number) => number {
   const minSize = d3.min(words, (word: Word) => word.value);
   const maxSize = d3.max(words, (word: Word) => word.value);
+  const Scales = {
+    [Scale.Linear]: d3.scaleLinear,
+    [Scale.Log]: d3.scaleLinear,
+    [Scale.Sqrt]: d3.scaleLinear,
+  };
   const fontScale = Scales[scale]()
     .domain([minSize, maxSize])
     .range(fontSizes);

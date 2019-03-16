@@ -10,9 +10,16 @@ export default [
       typescript(),
     ],
     input: 'src/index.tsx',
-    external: ['d3-cloud', 'react'],
+    external: [
+      'd3',
+      'd3-cloud',
+      'react',
+      'resize-observer-polyfill',
+      'tippy.js',
+    ],
     output: [
       {
+        exports: 'named',
         file: 'dist/index.js',
         format: 'cjs',
       },

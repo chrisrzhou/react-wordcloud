@@ -15,9 +15,9 @@ import words from "./words";
 
 ## Colors and Tooltips
 
-By default, `ReactWordcloud` randomnly applies colors to words using `colors` prop. It also defaults to using the `text` field for rendering tooltips.
+By default, `ReactWordcloud` randomnly applies colors to words using colors from the `colors` prop. It also defaults to using the `word.text` field for rendering tooltips.
 
-In the example below, we can pass custom `getWordColor` and `getWordTooltip` callbacks to update word colors and tooltips in a more data-driven fashion.
+In the example below, we can pass custom `getWordColor` and `getWordTooltip` callbacks to update word colors and tooltips based on the `word` data.
 
 <Playground>
   <ReactWordcloud

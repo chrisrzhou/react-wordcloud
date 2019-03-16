@@ -34,7 +34,6 @@ export interface Options {
   rotationAngles: MinMaxPair;
   rotations?: number;
   scale: Scale;
-  size?: MinMaxPair;
   spiral: Spiral;
   transitionDuration: number;
 }

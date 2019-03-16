@@ -26,7 +26,7 @@ export default function render(
     return getWordColor ? getWordColor(word) : choose(colors);
   }
 
-  // load data
+  // load words
   const vizWords = selection.selectAll('text').data(words);
 
   // enter transition

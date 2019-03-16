@@ -29,12 +29,18 @@ export const defaultOptions: Options = {
   transitionDuration: 600,
 };
 
-interface Props {
-  callbacks: Callbacks;
-  minSize: MinMaxPair;
-  maxWords: number;
-  options: Options;
-  size: MinMaxPair;
+export interface Props {
+  /** Callbacks to control various word properties and behaviors (getWordColor, getWordTooltip, onWordClick, onWordMouseOut, onWordMouseOver). */
+  callbacks?: Callbacks;
+  /** Set minimum [width, height] values for the SVG container. */
+  minSize?: MinMaxPair;
+  /** Maximum number of words to display. */
+  maxWords?: number;
+  /** Configure wordcloud with various options (colors, enableTooltip, fontFamily, fontSizes, fontStyle, fontWeight, padding, rotationAngles, rotations, scale, spiral, transitionDuration). */
+  options?: Options;
+  /** Set explicit [width, height] values for the SVG container.  This will disable responsive resizing. */
+  size?: MinMaxPair;
+  /** An array of word.  A word must contain the 'text' and 'value' keys. */
   words: Word[];
 }
 
@@ -45,7 +51,7 @@ function Wordcloud({
   minSize,
   size: initialSize,
   words,
-}: Props): React.ReactNode {
+}: Props): React.ReactElement {
   const [ref, selection, size] = useResponsiveSVG(minSize, initialSize);
 
   // render viz

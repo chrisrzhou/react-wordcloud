@@ -32,10 +32,8 @@ Provide explicit values with the `size` prop. The wordcloud will no longer respo
 
 ## Minimum size
 
-The `d3-cloud` layout algorithm requires valid `size` and `fontSize` to be provided. Providing a value that is zero or low will incur long and potentially infinite computations.
-
-You can customize the minimum size by adjusting the `minSize` prop. If the provided `size` or resized values are smaller than the `minSize`, it will use the `minSize` value, as demonstrated in the following example:
+You can customize the minimum size by adjusting the `minSize` prop. If the provided `size` or resized values are smaller than the `minSize`, it will use the `minSize` value, as demonstrated in the following example (`minSize = [400, 400]`, `size = [100, 100]`):
 
 <Playground>
-  <ReactWordcloud words={words} minSize={[200, 150]} size={[100, 100]} />
+  <ReactWordcloud words={words} minSize={[400, 400]} size={[100, 100]} />
 </Playground>

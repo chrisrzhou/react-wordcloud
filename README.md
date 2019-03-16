@@ -60,12 +60,12 @@ yarn dev
 ### Codebase Overview
 
 - `index.tsx`: Pure React code that exposes an interface of props.
-- `render.ts`: Pure D3 rendering code to render wordcloud given a valid D3 selection and other data.
-- `hooks.ts`: React hooks that build and destroy responsive SVG containers with D3.
+- `render.ts`: Pure D3 code to render wordcloud given a valid D3 selection and other data.
+- `hooks.ts`: React hooks to construct and resize a responsive SVG container.
 - `types.ts`: Typescript types.
-- `utils.ts`: Various simple functions used to compute derived data.
+- `utils.ts`: Various simple functions to compute derived data.
 
-The code is written in `typescript`, linted with `eslint` + `prettier`, and built with `rollup`. Examples and documentations are built with `docz`.
+The code is written in `typescript`, linted with `eslint` + `prettier`, and bundled with `rollup`. Examples and documentations are built with `docz`.
 
 Feel free to contribute by submitting a pull request.
 
