@@ -11,6 +11,9 @@ const { useEffect } = React;
 
 const d3 = { cloud: d3Cloud };
 
+const MAX_LAYOUT_ATTEMPTS = 10;
+const SHRINK_FACTOR = 0.95;
+
 export const defaultCallbacks: Callbacks = {
   getWordTooltip: ({ text, value }: Word) => `${text} (${value})`,
 };
@@ -19,7 +22,7 @@ export const defaultOptions: Options = {
   colors: getDefaultColors(),
   enableTooltip: true,
   fontFamily: 'times new roman',
-  fontSizes: [5, 40],
+  fontSizes: [4, 32],
   fontStyle: 'normal',
   fontWeight: 'normal',
   padding: 1,
@@ -77,7 +80,6 @@ function Wordcloud({
 
   // render viz
   useEffect(() => {
-    const layout = d3.cloud();
     const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
     const mergedOptions = { ...defaultOptions, ...options };
 
@@ -93,57 +95,61 @@ function Wordcloud({
         spiral,
         scale,
       } = mergedOptions;
-      const ctx = document.createElement('canvas').getContext('2d');
-      ctx.font = `${fontSizes[1]}px ${fontFamily}`;
-
-      if (rotations !== undefined) {
-        layout.rotate(() => rotate(rotations, rotationAngles));
-      }
 
       const sortedWords = words
         .concat()
         .sort((x, y) => descending(x.value, y.value))
         .slice(0, maxWords);
 
-      layout
+      const layout = d3
+        .cloud()
         .size(size)
         .padding(padding)
         .words(sortedWords)
+        .rotate(() => {
+          if (rotations === undefined) {
+            // default rotation algorithm
+            return (~~(Math.random() * 6) - 3) * 30;
+          } else {
+            return rotate(rotations, rotationAngles);
+          }
+        })
         .spiral(spiral)
         .text(getText)
         .font(fontFamily)
         .fontStyle(fontStyle)
         .fontWeight(fontWeight);
 
-      const draw = (fontSizes: MinMaxPair): void => {
+      const draw = (fontSizes: MinMaxPair, attempts: number = 1): void => {
         layout
           .fontSize((word: Word) => {
-            const fontScale = getFontScale(words, fontSizes, scale);
+            const fontScale = getFontScale(sortedWords, fontSizes, scale);
             return fontScale(word.value);
           })
-          .on('end', () => {
-            // For each word, we derive the x/y width projections based on the
-            // rotation angle.  Calculate the scale factor of the respective
-            // width projections against the svg container width and height.
-            // Apply a universal font-size scaling (maximum value = 1) in render
-            let widthX = 0;
-            let widthY = 0;
-            sortedWords.forEach(word => {
-              const wordWidth = ctx.measureText(word.text).width * 1.1;
-              const angle = (word.rotate / 180) * Math.PI;
-              widthX = Math.max(wordWidth * Math.cos(angle), widthX);
-              widthY = Math.max(wordWidth * Math.sin(angle), widthY);
-            });
-            const scaleFactorX = size[0] / widthX;
-            const scaleFactorY = size[1] / widthY;
-            const scaleFactor = Math.min(1, scaleFactorX, scaleFactorY);
-            render(
-              selection,
-              sortedWords,
-              mergedOptions,
-              mergedCallbacks,
-              scaleFactor,
-            );
+          .on('end', (computedWords: Word[]) => {
+            if (
+              sortedWords.length !== computedWords.length &&
+              attempts <= MAX_LAYOUT_ATTEMPTS
+            ) {
+              // KNOWN ISSUE: Unable to render long words with high frequency.
+              // (https://github.com/jasondavies/d3-cloud/issues/36)
+              // Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
+              // Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
+              if (attempts === MAX_LAYOUT_ATTEMPTS) {
+                console.warn(
+                  `Unable to layout ${sortedWords.length -
+                    computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
+                );
+              }
+              const minFontSize = Math.max(fontSizes[0] * SHRINK_FACTOR, 1);
+              const maxFontSize = Math.max(
+                fontSizes[1] * SHRINK_FACTOR,
+                minFontSize,
+              );
+              draw([minFontSize, maxFontSize], attempts + 1);
+            } else {
+              render(selection, computedWords, mergedOptions, mergedCallbacks);
+            }
           })
           .start();
       };
@@ -157,7 +163,7 @@ function Wordcloud({
 Wordcloud.defaultProps = {
   callbacks: defaultCallbacks,
   maxWords: 100,
-  minSize: [200, 150],
+  minSize: [300, 300],
   options: defaultOptions,
 };
 

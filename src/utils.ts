@@ -22,10 +22,10 @@ export function getFontScale(
   const maxSize = d3.max(words, (word: Word) => word.value);
   const Scales = {
     [Scale.Linear]: d3.scaleLinear,
-    [Scale.Log]: d3.scaleLinear,
-    [Scale.Sqrt]: d3.scaleLinear,
+    [Scale.Log]: d3.scaleLog,
+    [Scale.Sqrt]: d3.scaleSqrt,
   };
-  const fontScale = Scales[scale]()
+  const fontScale = (Scales[scale] || d3.scaleLinear)()
     .domain([minSize, maxSize])
     .range(fontSizes);
   return fontScale;
@@ -35,10 +35,8 @@ export function getText(word: Word): string {
   return word.text;
 }
 
-export function getFontSize(scaleFactor: number): (word: Word) => string {
-  return function(word: Word): string {
-    return `${word.size * scaleFactor}px`;
-  };
+export function getFontSize(word: Word): string {
+  return `${word.size}px`;
 }
 
 export function getTransform(word: Word): string {
@@ -56,7 +54,7 @@ export function rotate(rotations: number, rotationAngles: MinMaxPair): number {
   if (rotations === 1) {
     angles = [rotationAngles[0]];
   } else {
-    angles = rotationAngles;
+    angles = [...rotationAngles];
     const increment = (rotationAngles[1] - rotationAngles[0]) / (rotations - 1);
     let angle = rotationAngles[0] + increment;
     while (angle < rotationAngles[1]) {

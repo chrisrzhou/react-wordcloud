@@ -12,6 +12,65 @@ import words from "./words";
 
 You can customize many visual and layout properties of `ReactWordcloud` by using the `options` prop.
 
+## Colors
+
+`ReactWordcloud` will randomnly apply colors from an array of color hex codes.
+
+<Playground>
+  <ReactWordcloud
+    options={{
+      colors: ["#1f77b4", "#9467bd", "#8c564b"]
+    }}
+    words={words}
+  />
+</Playground>
+
+## Font Styles
+
+Configure wordfont styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fontWeight` options.
+
+<Playground>
+  <ReactWordcloud
+    options={{
+      fontFamily: "courier new",
+      fontSizes: [10, 20],
+      fontStyle: "italic",
+      fontWeight: "bold"
+    }}
+    words={words}
+  />
+</Playground>
+
+## Rotations
+
+By default `ReactWordcloud` will apply random rotations if the `rotations` option is not specified. If `rotations` option is specified, it will use evenly-divided angles from the `rotationAngles` option based on the `rotations` value. The following example demonstrates using rotation angles of `0`, `45` and `90` degrees (i.e. `rotations = 3` and `rotationAngles=[0, 90]`).
+
+<Playground>
+  <ReactWordcloud
+    options={{
+      rotations: 3,
+      rotationAngles: [0, 90]
+    }}
+    words={words}
+  />
+</Playground>
+
+## Layout
+
+Configure the wordcloud layout by using the `scale`, `spiral` options.
+
+<Playground>
+  <ReactWordcloud
+    options={{
+      scale: "log",
+      spiral: "rectangular"
+    }}
+    words={words}
+  />
+</Playground>
+
+## Interactive
+
 Use the code editor to edit and play around with some of these options!
 
 <Playground>
@@ -27,13 +86,13 @@ Use the code editor to edit and play around with some of these options!
         "#8c564b"
       ],
       enableTooltip: true,
-      fontFamily: "times new roman",
-      fontSizes: [5, 40],
+      fontFamily: "impact",
+      fontSizes: [5, 60],
       fontStyle: "normal",
       fontWeight: "normal",
       padding: 1,
       rotations: 3,
-      rotationAngles: [-90, 90],
+      rotationAngles: [0, 90],
       scale: "sqrt",
       spiral: "archimedean",
       transitionDuration: 1000

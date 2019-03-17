@@ -8,6 +8,7 @@ export default {
       menu: ['Props', 'Basic', 'Size', 'Callbacks', 'Transitions', 'Options'],
     },
     'Wordcloud Generator',
+    'FAQ',
     'CHANGELOG',
     { name: 'Github', href: 'https://github.com/chrisrzhou/react-wordcloud' },
   ],

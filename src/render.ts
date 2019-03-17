@@ -11,7 +11,6 @@ export default function render(
   words: Word[],
   options: Options,
   callbacks: Callbacks,
-  scaleFactor: number,
 ): void {
   const {
     getWordColor,
@@ -22,7 +21,6 @@ export default function render(
   } = callbacks;
   const { colors, enableTooltip, fontStyle, fontWeight } = options;
   const { fontFamily, transitionDuration } = options;
-  const scaledFontSize = getFontSize(scaleFactor);
 
   function getFill(word: Word): string {
     return getWordColor ? getWordColor(word) : choose(colors);
@@ -63,7 +61,7 @@ export default function render(
     .attr('transform', 'translate(0, 0) rotate(0)')
     .transition()
     .duration(transitionDuration)
-    .attr('font-size', scaledFontSize)
+    .attr('font-size', getFontSize)
     .attr('transform', getTransform)
     .text(getText);
 
@@ -73,7 +71,7 @@ export default function render(
     .duration(transitionDuration)
     .attr('fill', getFill)
     .attr('font-family', fontFamily)
-    .attr('font-size', scaledFontSize)
+    .attr('font-size', getFontSize)
     .attr('transform', getTransform)
     .text(getText);
 
