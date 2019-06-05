@@ -34,6 +34,7 @@
     "d3": "^5.9.2",
     "d3-cloud": "^1.2.5",
     "resize-observer-polyfill": "^1.5.1",
+    "seedrandom": "^3.0.1",
     "tippy.js": "^4.2.0"
   },
   "devDependencies": {

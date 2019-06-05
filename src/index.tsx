@@ -21,6 +21,7 @@ export const defaultCallbacks: Callbacks = {
 export const defaultOptions: Options = {
   colors: getDefaultColors(),
   enableTooltip: true,
+  deterministic: false,
   fontFamily: 'times new roman',
   fontSizes: [4, 32],
   fontStyle: 'normal',
@@ -101,6 +102,14 @@ function Wordcloud({
         .sort((x, y) => descending(x.value, y.value))
         .slice(0, maxWords);
 
+      let randomGenerator = Math.random;
+
+      if (options.deterministic){
+        const seedrandom = require('seedrandom');
+        randomGenerator = seedrandom('alwaysTheSame');
+      }
+
+
       const layout = d3
         .cloud()
         .size(size)
@@ -115,6 +124,7 @@ function Wordcloud({
           }
         })
         .spiral(spiral)
+        .random(randomGenerator)
         .text(getText)
         .font(fontFamily)
         .fontStyle(fontStyle)
