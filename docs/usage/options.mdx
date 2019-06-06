@@ -25,6 +25,20 @@ You can customize many visual and layout properties of `ReactWordcloud` by using
   />
 </Playground>
 
+## Deterministic behaviour
+
+If enabled will produce the same output given a certain input. In contrast, by default the words are randomly positioned and rotated.
+
+<Playground>
+  <ReactWordcloud
+    options={{
+      deterministic: true
+    }}
+    words={words}
+  />
+</Playground>
+
+
 ## Font Styles
 
 Configure wordfont styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fontWeight` options.
