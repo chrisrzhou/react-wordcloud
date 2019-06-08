@@ -26,6 +26,7 @@ export interface Callbacks {
 
 export interface Options {
   colors: string[];
+  deterministic: boolean;
   enableTooltip: boolean;
   fontFamily: string;
   fontSizes: MinMaxPair;

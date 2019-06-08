@@ -2,8 +2,11 @@ import * as d3 from 'd3';
 
 import { MinMaxPair, Scale, Word } from './types';
 
-export function choose<T = number | string>(array: T[]): T {
-  return array[Math.floor(Math.random() * array.length)];
+export function choose<T = number | string>(
+  array: T[],
+  random: () => number,
+): T {
+  return array[Math.floor(random() * array.length)];
 }
 
 export function getDefaultColors(): string[] {
@@ -46,7 +49,11 @@ export function getTransform(word: Word): string {
   return translate + rotate;
 }
 
-export function rotate(rotations: number, rotationAngles: MinMaxPair): number {
+export function rotate(
+  rotations: number,
+  rotationAngles: MinMaxPair,
+  random: () => number,
+): number {
   if (rotations < 1) {
     return 0;
   }
@@ -62,5 +69,5 @@ export function rotate(rotations: number, rotationAngles: MinMaxPair): number {
       angle += increment;
     }
   }
-  return choose(angles);
+  return choose(angles, random);
 }
