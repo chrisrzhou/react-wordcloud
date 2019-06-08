@@ -2,7 +2,7 @@
 
 Simple React + D3 wordcloud component with powerful features. Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
 
-![image](https://github.com/chrisrzhou/react-wordcloud/raw/master/wordcloud.png)
+![image](/public/wordcloud.png)
 
 ## Install
 
@@ -16,37 +16,28 @@ Note that `react-wordcloud` requires `react^16.8.3` as a peer dependency.
 
 ### Documented Examples
 
-View all documented examples and gallery of `react-globe` applications at https://react-globe.netlify.com/.
+View all documented examples and gallery of `react-wordcloud` applications at https://react-wordcloud.netlify.com/.
 
 ### Local Examples
 
 You can also run the examples locally:
 
 ```bash
-git clone git@github.com:chrisrzhou/react-globe
-
-cd react-globe
-yarn
-yarn dev
+git clone git@github.com:chrisrzhou/react-wordcloud
+cd react-wordcloud && yarn && yarn dev
 ```
 
 ### Basic Example (no props)
 
-<img src="/public/basic.png" width="500px" />
-
-[![Edit react-globe-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/bgov9)
+[![Edit react-wordcloud-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/bgov9)
 
 ### Responsive Example
 
-<img src="/public/basic.png" width="500px" />
-
-[![Edit react-globe-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/55sb8)
+[![Edit react-wordcloud-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/55sb8)
 
 ### Configurable Options Example
 
-<img src="/public/options.png" width="500px" />
-
-[![Edit react-globe-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fnk8w)
+[![Edit react-wordcloud-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fnk8w)
 
 ## Development
 
@@ -71,21 +62,14 @@ Feel free to contribute by submitting a pull request.
 
 ## Wordcloud Generator
 
-Create wordclouds using this wordcloud generator: https://chrisrzhou.github.io/wordcloud-generator/
+Create wordclouds using this wordcloud generator: https://wordcloud-generator.netlify.com/
 
 Features supported:
 
-- Editing and uploading text inputs
+- Edit and Upload text inputs
 - Various NLP methods (stopwords, ngrams)
 - Wordcloud configurations
 - Export/save/share wordclouds
-
-## TODOs
-
-- [ ] Update dependencies and `docz`
-- [ ] Expose types
-- [ ] Update CHANGELOG
-- [ ] Update `react-wordcloud-generator`
 
 ## Donate
 

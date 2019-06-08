@@ -2,9 +2,10 @@ export default {
   dest: 'dist/docs',
   menu: [
     'README',
+    'Props',
     {
       name: 'Usage',
-      menu: ['Props', 'Basic', 'Size', 'Callbacks', 'Transitions', 'Options'],
+      menu: ['Basic', 'Size', 'Callbacks', 'Transitions', 'Options'],
     },
     'Wordcloud Generator',
     'FAQ',

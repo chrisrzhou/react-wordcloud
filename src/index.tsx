@@ -109,16 +109,14 @@ function Wordcloud({
         .size(size)
         .padding(padding)
         .words(sortedWords)
-        .rotate(
-          (): number => {
-            if (rotations === undefined) {
-              // default rotation algorithm
-              return (~~(random() * 6) - 3) * 30;
-            } else {
-              return rotate(rotations, rotationAngles, random);
-            }
-          },
-        )
+        .rotate((): number => {
+          if (rotations === undefined) {
+            // default rotation algorithm
+            return (~~(random() * 6) - 3) * 30;
+          } else {
+            return rotate(rotations, rotationAngles, random);
+          }
+        })
         .spiral(spiral)
         .random(random)
         .text(getText)
@@ -128,46 +126,41 @@ function Wordcloud({
 
       const draw = (fontSizes: MinMaxPair, attempts: number = 1): void => {
         layout
-          .fontSize(
-            (word: Word): number => {
-              const fontScale = getFontScale(sortedWords, fontSizes, scale);
-              return fontScale(word.value);
-            },
-          )
-          .on(
-            'end',
-            (computedWords: Word[]): void => {
-              if (
-                sortedWords.length !== computedWords.length &&
-                attempts <= MAX_LAYOUT_ATTEMPTS
-              ) {
-                // KNOWN ISSUE: Unable to render long words with high frequency.
-                // (https://github.com/jasondavies/d3-cloud/issues/36)
-                // Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
-                // Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
-                if (attempts === MAX_LAYOUT_ATTEMPTS) {
-                  console.warn(
-                    `Unable to layout ${sortedWords.length -
-                      computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
-                  );
-                }
-                const minFontSize = Math.max(fontSizes[0] * SHRINK_FACTOR, 1);
-                const maxFontSize = Math.max(
-                  fontSizes[1] * SHRINK_FACTOR,
-                  minFontSize,
-                );
-                draw([minFontSize, maxFontSize], attempts + 1);
-              } else {
-                render(
-                  selection,
-                  computedWords,
-                  mergedOptions,
-                  random,
-                  mergedCallbacks,
+          .fontSize((word: Word): number => {
+            const fontScale = getFontScale(sortedWords, fontSizes, scale);
+            return fontScale(word.value);
+          })
+          .on('end', (computedWords: Word[]): void => {
+            if (
+              sortedWords.length !== computedWords.length &&
+              attempts <= MAX_LAYOUT_ATTEMPTS
+            ) {
+              // KNOWN ISSUE: Unable to render long words with high frequency.
+              // (https://github.com/jasondavies/d3-cloud/issues/36)
+              // Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
+              // Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
+              if (attempts === MAX_LAYOUT_ATTEMPTS) {
+                console.warn(
+                  `Unable to layout ${sortedWords.length -
+                    computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
                 );
               }
-            },
-          )
+              const minFontSize = Math.max(fontSizes[0] * SHRINK_FACTOR, 1);
+              const maxFontSize = Math.max(
+                fontSizes[1] * SHRINK_FACTOR,
+                minFontSize,
+              );
+              draw([minFontSize, maxFontSize], attempts + 1);
+            } else {
+              render(
+                selection,
+                computedWords,
+                mergedOptions,
+                random,
+                mergedCallbacks,
+              );
+            }
+          })
           .start();
       };
       draw(fontSizes);

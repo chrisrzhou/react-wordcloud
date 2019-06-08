@@ -56,7 +56,7 @@ export function useResponsiveSVGSelection<T>(
   });
 
   // set initial svg and size
-  useEffect((): void => {
+  useEffect(() => {
     function updateSize(width: number, height: number): void {
       svg.current.attr('height', height).attr('width', width);
       g.current.attr('transform', `translate(${width / 2}, ${height / 2})`);
@@ -96,21 +96,19 @@ export function useResponsiveSVGSelection<T>(
     updateSize(width, height);
 
     // update resize using a resize observer
-    const resizeObserver = new ResizeObserver(
-      (entries): void => {
-        if (!entries || !entries.length) {
-          return;
-        }
-        if (initialSize === undefined) {
-          let { width, height } = entries[0].contentRect;
-          updateSize(width, height);
-        }
-      },
-    );
+    const resizeObserver = new ResizeObserver((entries): void => {
+      if (!entries || !entries.length) {
+        return;
+      }
+      if (initialSize === undefined) {
+        let { width, height } = entries[0].contentRect;
+        updateSize(width, height);
+      }
+    });
     resizeObserver.observe(element);
 
     // cleanup
-    return (): void => {
+    return () => {
       resizeObserver.unobserve(element);
       select(element)
         .selectAll('*')

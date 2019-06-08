@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.5...v1.0.6) (2019-06-08)
+
+- Support deterministic behavior for randomn layout and colors by configuring the `options.deterministic` field. This makes testing and creating fixed wordcloud views convenient.
+- Expose Typescript types.
+- Use various `d3-*` packages instead of importing `d3` entirely.
+- Update `docz` and docs. Add Codesandbox examples.
+- Move prettier rules from `.eslintrc.js` to `.prettierrc.js`. This supports better formatting in MDX files with VSCode.
+
 ## [1.0.5](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.4...v1.0.5) (2019-03-16)
 
 ### New:

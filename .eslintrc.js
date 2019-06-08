@@ -7,23 +7,20 @@ module.exports = {
     'prettier/@typescript-eslint',
   ],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    }
+  },
   plugins: [
     '@typescript-eslint',
     'prettier',
     'react-hooks',
   ],
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        bracketSpacing: true,
-        jsxBracketSameLine: true,
-        singleQuote: true,
-        tabWidth: 2,
-        trailingComma: 'all',
-        useTabs: false,
-      },
-    ],
+    '@typescript-eslint/explicit-function-return-type': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },

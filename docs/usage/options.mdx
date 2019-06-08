@@ -4,9 +4,10 @@ route: /usage/options
 menu: Usage
 ---
 
-import { Playground } from "docz";
-import ReactWordcloud from "./../../src";
-import words from "./words";
+import { Playground } from 'docz';
+
+import ReactWordcloud from '../ReactWordcloud';
+import words from './words';
 
 # Options
 
@@ -19,7 +20,7 @@ You can customize many visual and layout properties of `ReactWordcloud` by using
 <Playground>
   <ReactWordcloud
     options={{
-      colors: ["#1f77b4", "#9467bd", "#8c564b"]
+      colors: ['#1f77b4', '#9467bd', '#8c564b'],
     }}
     words={words}
   />
@@ -32,7 +33,7 @@ If enabled, will produce the same output given a certain input. In contrast, the
 <Playground>
   <ReactWordcloud
     options={{
-      deterministic: true
+      deterministic: true,
     }}
     words={words}
   />
@@ -45,10 +46,10 @@ Configure wordfont styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fon
 <Playground>
   <ReactWordcloud
     options={{
-      fontFamily: "courier new",
+      fontFamily: 'courier new',
       fontSizes: [10, 20],
-      fontStyle: "italic",
-      fontWeight: "bold"
+      fontStyle: 'italic',
+      fontWeight: 'bold',
     }}
     words={words}
   />
@@ -62,7 +63,7 @@ By default `ReactWordcloud` will apply random rotations if the `rotations` optio
   <ReactWordcloud
     options={{
       rotations: 3,
-      rotationAngles: [0, 90]
+      rotationAngles: [0, 90],
     }}
     words={words}
   />
@@ -75,8 +76,8 @@ Configure the wordcloud layout by using the `scale`, `spiral` options.
 <Playground>
   <ReactWordcloud
     options={{
-      scale: "log",
-      spiral: "rectangular"
+      scale: 'log',
+      spiral: 'rectangular',
     }}
     words={words}
   />
@@ -91,25 +92,25 @@ Use the code editor to edit and play around with some of these options!
     words={words}
     options={{
       colors: [
-        "#1f77b4",
-        "#ff7f0e",
-        "#2ca02c",
-        "#d62728",
-        "#9467bd",
-        "#8c564b"
+        '#1f77b4',
+        '#ff7f0e',
+        '#2ca02c',
+        '#d62728',
+        '#9467bd',
+        '#8c564b',
       ],
       enableTooltip: true,
       deterministic: false,
-      fontFamily: "impact",
+      fontFamily: 'impact',
       fontSizes: [5, 60],
-      fontStyle: "normal",
-      fontWeight: "normal",
+      fontStyle: 'normal',
+      fontWeight: 'normal',
       padding: 1,
       rotations: 3,
       rotationAngles: [0, 90],
-      scale: "sqrt",
-      spiral: "archimedean",
-      transitionDuration: 1000
+      scale: 'sqrt',
+      spiral: 'archimedean',
+      transitionDuration: 1000,
     }}
   />
 </Playground>

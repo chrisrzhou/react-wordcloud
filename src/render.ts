@@ -34,34 +34,28 @@ export default function render(
 
   // enter transition
   vizWords.join(
-    (enter): void =>
+    enter =>
       enter
         .append('text')
         .on('click', onWordClick)
-        .on(
-          'mouseover',
-          (word): void => {
-            if (enableTooltip) {
-              tooltipInstance = tippy(event.target, {
-                animation: 'scale',
-                arrow: true,
-                content: (): string => {
-                  return getWordTooltip(word);
-                },
-              }) as Instance;
-            }
-            onWordMouseOver && onWordMouseOver(word);
-          },
-        )
-        .on(
-          'mouseout',
-          (word): void => {
-            if (tooltipInstance) {
-              tooltipInstance.destroy();
-            }
-            onWordMouseOut && onWordMouseOut(word);
-          },
-        )
+        .on('mouseover', (word): void => {
+          if (enableTooltip) {
+            tooltipInstance = tippy(event.target, {
+              animation: 'scale',
+              arrow: true,
+              content: (): string => {
+                return getWordTooltip(word);
+              },
+            }) as Instance;
+          }
+          onWordMouseOver && onWordMouseOver(word);
+        })
+        .on('mouseout', (word): void => {
+          if (tooltipInstance) {
+            tooltipInstance.destroy();
+          }
+          onWordMouseOut && onWordMouseOut(word);
+        })
         .attr('cursor', onWordClick ? 'pointer' : 'default')
         .attr('fill', getFill)
         .attr('font-family', fontFamily)
@@ -69,16 +63,16 @@ export default function render(
         .attr('font-weight', fontWeight)
         .attr('text-anchor', 'middle')
         .attr('transform', 'translate(0, 0) rotate(0)')
-        .call(
-          (enter): void =>
-            enter
-              .transition()
-              .duration(transitionDuration)
-              .attr('font-size', getFontSize)
-              .attr('transform', getTransform)
-              .text(getText),
+        .call(enter =>
+          enter
+            .transition()
+            .duration(transitionDuration)
+            .attr('font-size', getFontSize)
+            .attr('transform', getTransform)
+            .text(getText),
         ),
-    (update): void =>
+    update =>
+      // @ts-ignore
       update
         .transition()
         .duration(transitionDuration)
@@ -87,7 +81,7 @@ export default function render(
         .attr('font-size', getFontSize)
         .attr('transform', getTransform)
         .text(getText),
-    (exit): void =>
+    exit =>
       exit
         .transition()
         .duration(transitionDuration)

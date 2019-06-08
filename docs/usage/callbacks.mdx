@@ -4,10 +4,11 @@ route: /usage/callbacks
 menu: Usage
 ---
 
-import { useState } from "react";
-import { Playground } from "docz";
-import ReactWordcloud from "./../../src";
-import words from "./words";
+import { Playground } from 'docz';
+import { useState } from 'react';
+
+import ReactWordcloud from '../ReactWordcloud';
+import words from './words';
 
 # Callbacks
 
@@ -24,11 +25,11 @@ In the example below, we can pass custom `getWordColor` and `getWordTooltip` cal
     words={words}
     callbacks={{
       getWordColor: ({ value }) => {
-        return value > 50 ? "blue" : "red";
+        return value > 50 ? 'blue' : 'red';
       },
       getWordTooltip: ({ text, value }) => {
         return value > 50 ? `${text.toUpperCase()} (> 50)` : `${text} (<= 50)`;
-      }
+      },
     }}
   />
 </Playground>
@@ -42,14 +43,14 @@ You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMous
     function getCallback(callback) {
       return function(word) {
         console.log(
-          `Callback: "${callback}". Word: ${JSON.stringify(word, null, 2)}`
+          `Callback: "${callback}". Word: ${JSON.stringify(word, null, 2)}`,
         );
       };
     }
     const callbacks = {
-      onWordClick: getCallback("onWordClick"),
-      onWordMouseOut: getCallback("onWordMouseOut"),
-      onWordMouseOver: getCallback("onWordMouseOver")
+      onWordClick: getCallback('onWordClick'),
+      onWordMouseOut: getCallback('onWordMouseOut'),
+      onWordMouseOver: getCallback('onWordMouseOver'),
     };
     return <ReactWordcloud words={words} callbacks={callbacks} />;
   }}

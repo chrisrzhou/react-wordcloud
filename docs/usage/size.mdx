@@ -4,9 +4,10 @@ route: /usage/size
 menu: Usage
 ---
 
-import { Playground } from "docz";
-import ReactWordcloud from "./../../src";
-import words from "./words";
+import { Playground } from 'docz';
+
+import ReactWordcloud from '../ReactWordcloud';
+import words from './words';
 
 # Size
 
@@ -17,7 +18,7 @@ By default, `ReactWordcloud` will inherit its parent container's size unless an 
 This is the default behavior. You can resize the Playground container to watch the wordcloud update when parent size changes.
 
 <Playground>
-  <div style={{ backgroundColor: "#efefef", height: "300px", width: "100%" }}>
+  <div style={{ backgroundColor: '#efefef', height: '300px', width: '100%' }}>
     <ReactWordcloud words={words} />
   </div>
 </Playground>

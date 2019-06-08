@@ -3,8 +3,9 @@ name: FAQ
 route: /faq
 ---
 
-import { Playground } from "docz";
-import ReactWordcloud from "./../src";
+import { Playground } from 'docz';
+
+import ReactWordcloud from './ReactWordcloud';
 
 # FAQ
 
@@ -22,9 +23,9 @@ This issue happens when the most frequent word is also the **longest** word. For
   <ReactWordcloud
     size={[200, 200]}
     words={[
-      { text: "this_is_a_long_word_and_also_the_most_frequent", value: 45 },
-      { text: "some_word", value: 35 },
-      { text: "another_word", value: 20 }
+      { text: 'this_is_a_long_word_and_also_the_most_frequent', value: 45 },
+      { text: 'some_word', value: 35 },
+      { text: 'another_word', value: 20 },
     ]}
   />
 </Playground>
