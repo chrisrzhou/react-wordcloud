@@ -14,39 +14,39 @@ Note that `react-wordcloud` requires `react^16.8.3` as a peer dependency.
 
 ## Examples
 
-View all documented examples at https://react-wordcloud.netlify.com/
+### Documented Examples
 
-A simple example using only required props:
+View all documented examples and gallery of `react-globe` applications at https://react-globe.netlify.com/.
 
-```js
-import * as React from "react";
-import ReactWordcloud from "react-wordcloud";
-
-const words = [
-  { text: "hello", value: 3 },
-  { text: "world", value: 12.5 },
-  { text: "github", value: 1 },
-  { text: "code", value: 1 }
-];
-
-function MyApp() {
-  return (
-    <div style={{ width: 600, height: 400 }}>
-      <ReactWordcloud words={words} />
-    </div>
-  );
-}
-```
+### Local Examples
 
 You can also run the examples locally:
 
 ```bash
-git clone git@github.com:chrisrzhou/react-wordcloud
+git clone git@github.com:chrisrzhou/react-globe
 
-cd react-wordcloud
+cd react-globe
 yarn
 yarn dev
 ```
+
+### Basic Example (no props)
+
+<img src="/public/basic.png" width="500px" />
+
+[![Edit react-globe-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/bgov9)
+
+### Responsive Example
+
+<img src="/public/basic.png" width="500px" />
+
+[![Edit react-globe-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/55sb8)
+
+### Configurable Options Example
+
+<img src="/public/options.png" width="500px" />
+
+[![Edit react-globe-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fnk8w)
 
 ## Development
 
@@ -79,6 +79,13 @@ Features supported:
 - Various NLP methods (stopwords, ngrams)
 - Wordcloud configurations
 - Export/save/share wordclouds
+
+## TODOs
+
+- [ ] Update dependencies and `docz`
+- [ ] Expose types
+- [ ] Update CHANGELOG
+- [ ] Update `react-wordcloud-generator`
 
 ## Donate
 

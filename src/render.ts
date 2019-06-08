@@ -1,4 +1,6 @@
-import * as d3 from 'd3';
+import 'd3-transition';
+
+import { event } from 'd3-selection';
 import tippy, { Instance } from 'tippy.js';
 
 import { Callbacks, Options, Selection, Word } from './types';
@@ -31,56 +33,65 @@ export default function render(
   const vizWords = selection.selectAll('text').data(words);
 
   // enter transition
-  vizWords
-    .enter()
-    .append('text')
-    .on('click', onWordClick)
-    .on('mouseover', word => {
-      if (enableTooltip) {
-        tooltipInstance = tippy(d3.event.target, {
-          animation: 'scale',
-          arrow: true,
-          content: () => {
-            return getWordTooltip(word);
+  vizWords.join(
+    (enter): void =>
+      enter
+        .append('text')
+        .on('click', onWordClick)
+        .on(
+          'mouseover',
+          (word): void => {
+            if (enableTooltip) {
+              tooltipInstance = tippy(event.target, {
+                animation: 'scale',
+                arrow: true,
+                content: (): string => {
+                  return getWordTooltip(word);
+                },
+              }) as Instance;
+            }
+            onWordMouseOver && onWordMouseOver(word);
           },
-        }) as Instance;
-      }
-      onWordMouseOver && onWordMouseOver(word);
-    })
-    .on('mouseout', word => {
-      if (tooltipInstance) {
-        tooltipInstance.destroy();
-      }
-      onWordMouseOut && onWordMouseOut(word);
-    })
-    .attr('cursor', onWordClick ? 'pointer' : 'default')
-    .attr('fill', getFill)
-    .attr('font-family', fontFamily)
-    .attr('font-style', fontStyle)
-    .attr('font-weight', fontWeight)
-    .attr('text-anchor', 'middle')
-    .attr('transform', 'translate(0, 0) rotate(0)')
-    .transition()
-    .duration(transitionDuration)
-    .attr('font-size', getFontSize)
-    .attr('transform', getTransform)
-    .text(getText);
-
-  // update transition
-  vizWords
-    .transition()
-    .duration(transitionDuration)
-    .attr('fill', getFill)
-    .attr('font-family', fontFamily)
-    .attr('font-size', getFontSize)
-    .attr('transform', getTransform)
-    .text(getText);
-
-  // exit transition
-  vizWords
-    .exit()
-    .transition()
-    .duration(transitionDuration)
-    .attr('fill-opacity', 0)
-    .remove();
+        )
+        .on(
+          'mouseout',
+          (word): void => {
+            if (tooltipInstance) {
+              tooltipInstance.destroy();
+            }
+            onWordMouseOut && onWordMouseOut(word);
+          },
+        )
+        .attr('cursor', onWordClick ? 'pointer' : 'default')
+        .attr('fill', getFill)
+        .attr('font-family', fontFamily)
+        .attr('font-style', fontStyle)
+        .attr('font-weight', fontWeight)
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'translate(0, 0) rotate(0)')
+        .call(
+          (enter): void =>
+            enter
+              .transition()
+              .duration(transitionDuration)
+              .attr('font-size', getFontSize)
+              .attr('transform', getTransform)
+              .text(getText),
+        ),
+    (update): void =>
+      update
+        .transition()
+        .duration(transitionDuration)
+        .attr('fill', getFill)
+        .attr('font-family', fontFamily)
+        .attr('font-size', getFontSize)
+        .attr('transform', getTransform)
+        .text(getText),
+    (exit): void =>
+      exit
+        .transition()
+        .duration(transitionDuration)
+        .attr('fill-opacity', 0)
+        .remove(),
+  );
 }

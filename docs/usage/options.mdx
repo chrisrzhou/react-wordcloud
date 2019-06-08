@@ -25,9 +25,9 @@ You can customize many visual and layout properties of `ReactWordcloud` by using
   />
 </Playground>
 
-## Deterministic behaviour
+## Deterministic Behaviour
 
-If enabled will produce the same output given a certain input. In contrast, by default the words are randomly positioned and rotated.
+If enabled, will produce the same output given a certain input. In contrast, the words are randomly positioned and rotated by default. Try resizing the wordcloud up and down in the example below to see the deterministic color and layout being continually applied.
 
 <Playground>
   <ReactWordcloud
@@ -37,7 +37,6 @@ If enabled will produce the same output given a certain input. In contrast, by d
     words={words}
   />
 </Playground>
-
 
 ## Font Styles
 
@@ -100,6 +99,7 @@ Use the code editor to edit and play around with some of these options!
         "#8c564b"
       ],
       enableTooltip: true,
+      deterministic: false,
       fontFamily: "impact",
       fontSizes: [5, 60],
       fontStyle: "normal",

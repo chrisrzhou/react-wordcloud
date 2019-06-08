@@ -11,10 +11,15 @@ export default [
     ],
     input: 'src/index.tsx',
     external: [
-      'd3',
+      'd3-array',
       'd3-cloud',
+      'd3-scale',
+      'd3-scale-chromatic',
+      'd3-selection',
+      'd3-transition',
       'react',
       'resize-observer-polyfill',
+      'seedrandom',
       'tippy.js',
     ],
     output: [

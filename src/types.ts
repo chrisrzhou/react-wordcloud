@@ -1,9 +1,9 @@
-import * as d3 from 'd3';
 import { Word as CloudWord } from 'd3-cloud';
+import { Selection as d3Selection } from 'd3-selection';
 
 export type MinMaxPair = [number, number];
 
-export type Selection = d3.Selection<SVGElement, {}, SVGElement, {}>;
+export type Selection = d3Selection<SVGElement, {}, SVGElement, {}>;
 
 export enum Scale {
   Linear = 'linear',

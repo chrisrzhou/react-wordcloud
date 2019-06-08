@@ -1,6 +1,5 @@
 export default {
   dest: 'dist/docs',
-  hashRouter: true,
   menu: [
     'README',
     {
@@ -12,6 +11,9 @@ export default {
     'CHANGELOG',
     { name: 'Github', href: 'https://github.com/chrisrzhou/react-wordcloud' },
   ],
-  public: 'docs/public',
+  public: 'public',
+  themeConfig: {
+    showPlaygroundEditor: true,
+  },
   typescript: true,
 };

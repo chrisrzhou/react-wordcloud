@@ -1,22 +1,20 @@
-import { descending } from 'd3';
-import * as d3Cloud from 'd3-cloud';
+import { descending } from 'd3-array';
+import cloud from 'd3-cloud';
 import * as React from 'react';
+import seedrandom from 'seedrandom';
 
 import { useResponsiveSVGSelection } from './hooks';
 import render from './render';
 import { Callbacks, MinMaxPair, Options, Scale, Spiral, Word } from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
 
-const pmr = require('pseudo-math-random'); // eslint-disable-line
 const { useEffect } = React;
-
-const d3 = { cloud: d3Cloud };
 
 const MAX_LAYOUT_ATTEMPTS = 10;
 const SHRINK_FACTOR = 0.95;
 
 export const defaultCallbacks: Callbacks = {
-  getWordTooltip: ({ text, value }: Word) => `${text} (${value})`,
+  getWordTooltip: ({ text, value }: Word): string => `${text} (${value})`,
 };
 
 export const defaultOptions: Options = {
@@ -81,7 +79,7 @@ function Wordcloud({
   const selection = selections.g;
 
   // render viz
-  useEffect(() => {
+  useEffect((): void => {
     const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
     const mergedOptions = { ...defaultOptions, ...options };
 
@@ -100,26 +98,27 @@ function Wordcloud({
 
       const sortedWords = words
         .concat()
-        .sort((x, y) => descending(x.value, y.value))
+        .sort((x, y): number => descending(x.value, y.value))
         .slice(0, maxWords);
 
       const random: () => number = options.deterministic
-        ? pmr('deterministic')
-        : pmr();
+        ? seedrandom('deterministic')
+        : seedrandom();
 
-      const layout = d3
-        .cloud()
+      const layout = cloud()
         .size(size)
         .padding(padding)
         .words(sortedWords)
-        .rotate(() => {
-          if (rotations === undefined) {
-            // default rotation algorithm
-            return (~~(random() * 6) - 3) * 30;
-          } else {
-            return rotate(rotations, rotationAngles, random);
-          }
-        })
+        .rotate(
+          (): number => {
+            if (rotations === undefined) {
+              // default rotation algorithm
+              return (~~(random() * 6) - 3) * 30;
+            } else {
+              return rotate(rotations, rotationAngles, random);
+            }
+          },
+        )
         .spiral(spiral)
         .random(random)
         .text(getText)
@@ -129,41 +128,46 @@ function Wordcloud({
 
       const draw = (fontSizes: MinMaxPair, attempts: number = 1): void => {
         layout
-          .fontSize((word: Word) => {
-            const fontScale = getFontScale(sortedWords, fontSizes, scale);
-            return fontScale(word.value);
-          })
-          .on('end', (computedWords: Word[]) => {
-            if (
-              sortedWords.length !== computedWords.length &&
-              attempts <= MAX_LAYOUT_ATTEMPTS
-            ) {
-              // KNOWN ISSUE: Unable to render long words with high frequency.
-              // (https://github.com/jasondavies/d3-cloud/issues/36)
-              // Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
-              // Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
-              if (attempts === MAX_LAYOUT_ATTEMPTS) {
-                console.warn(
-                  `Unable to layout ${sortedWords.length -
-                    computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
+          .fontSize(
+            (word: Word): number => {
+              const fontScale = getFontScale(sortedWords, fontSizes, scale);
+              return fontScale(word.value);
+            },
+          )
+          .on(
+            'end',
+            (computedWords: Word[]): void => {
+              if (
+                sortedWords.length !== computedWords.length &&
+                attempts <= MAX_LAYOUT_ATTEMPTS
+              ) {
+                // KNOWN ISSUE: Unable to render long words with high frequency.
+                // (https://github.com/jasondavies/d3-cloud/issues/36)
+                // Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
+                // Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
+                if (attempts === MAX_LAYOUT_ATTEMPTS) {
+                  console.warn(
+                    `Unable to layout ${sortedWords.length -
+                      computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
+                  );
+                }
+                const minFontSize = Math.max(fontSizes[0] * SHRINK_FACTOR, 1);
+                const maxFontSize = Math.max(
+                  fontSizes[1] * SHRINK_FACTOR,
+                  minFontSize,
+                );
+                draw([minFontSize, maxFontSize], attempts + 1);
+              } else {
+                render(
+                  selection,
+                  computedWords,
+                  mergedOptions,
+                  random,
+                  mergedCallbacks,
                 );
               }
-              const minFontSize = Math.max(fontSizes[0] * SHRINK_FACTOR, 1);
-              const maxFontSize = Math.max(
-                fontSizes[1] * SHRINK_FACTOR,
-                minFontSize,
-              );
-              draw([minFontSize, maxFontSize], attempts + 1);
-            } else {
-              render(
-                selection,
-                computedWords,
-                mergedOptions,
-                random,
-                mergedCallbacks,
-              );
-            }
-          })
+            },
+          )
           .start();
       };
       draw(fontSizes);

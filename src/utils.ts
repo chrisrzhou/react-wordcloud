@@ -1,4 +1,6 @@
-import * as d3 from 'd3';
+import { max, min, range } from 'd3-array';
+import { scaleLinear, scaleLog, scaleOrdinal, scaleSqrt } from 'd3-scale';
+import { schemeCategory10 } from 'd3-scale-chromatic';
 
 import { MinMaxPair, Scale, Word } from './types';
 
@@ -10,10 +12,9 @@ export function choose<T = number | string>(
 }
 
 export function getDefaultColors(): string[] {
-  return d3
-    .range(20)
-    .map(number => number.toString())
-    .map(d3.scaleOrdinal(d3.schemeCategory10));
+  return range(20)
+    .map((number): string => number.toString())
+    .map(scaleOrdinal(schemeCategory10));
 }
 
 export function getFontScale(
@@ -21,14 +22,14 @@ export function getFontScale(
   fontSizes: MinMaxPair,
   scale: Scale,
 ): (n: number) => number {
-  const minSize = d3.min(words, (word: Word) => word.value);
-  const maxSize = d3.max(words, (word: Word) => word.value);
+  const minSize = min(words, (word: Word): number => word.value);
+  const maxSize = max(words, (word: Word): number => word.value);
   const Scales = {
-    [Scale.Linear]: d3.scaleLinear,
-    [Scale.Log]: d3.scaleLog,
-    [Scale.Sqrt]: d3.scaleSqrt,
+    [Scale.Linear]: scaleLinear,
+    [Scale.Log]: scaleLog,
+    [Scale.Sqrt]: scaleSqrt,
   };
-  const fontScale = (Scales[scale] || d3.scaleLinear)()
+  const fontScale = (Scales[scale] || scaleLinear)()
     .domain([minSize, maxSize])
     .range(fontSizes);
   return fontScale;

@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import { select } from 'd3-selection';
 import * as React from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 
@@ -56,7 +56,7 @@ export function useResponsiveSVGSelection<T>(
   });
 
   // set initial svg and size
-  useEffect(() => {
+  useEffect((): void => {
     function updateSize(width: number, height: number): void {
       svg.current.attr('height', height).attr('width', width);
       g.current.attr('transform', `translate(${width / 2}, ${height / 2})`);
@@ -68,8 +68,7 @@ export function useResponsiveSVGSelection<T>(
 
     // set svg selections
     const element = ref.current;
-    svg.current = d3
-      .select(element)
+    svg.current = select(element)
       .append('svg')
       .style('display', 'block'); // inline svg leave white space
     g.current = svg.current.append('g');
@@ -97,21 +96,23 @@ export function useResponsiveSVGSelection<T>(
     updateSize(width, height);
 
     // update resize using a resize observer
-    const resizeObserver = new ResizeObserver(entries => {
-      if (!entries || !entries.length) {
-        return;
-      }
-      if (initialSize === undefined) {
-        let { width, height } = entries[0].contentRect;
-        updateSize(width, height);
-      }
-    });
+    const resizeObserver = new ResizeObserver(
+      (entries): void => {
+        if (!entries || !entries.length) {
+          return;
+        }
+        if (initialSize === undefined) {
+          let { width, height } = entries[0].contentRect;
+          updateSize(width, height);
+        }
+      },
+    );
     resizeObserver.observe(element);
 
     // cleanup
-    return () => {
+    return (): void => {
       resizeObserver.unobserve(element);
-      d3.select(element)
+      select(element)
         .selectAll('*')
         .remove();
     };
