@@ -7,7 +7,7 @@ import render from './render';
 import { Callbacks, MinMaxPair, Options, Scale, Spiral, Word } from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
 
-
+const pmr = require('pseudo-math-random'); // eslint-disable-line
 const { useEffect } = React;
 
 const d3 = { cloud: d3Cloud };
@@ -103,11 +103,9 @@ function Wordcloud({
         .sort((x, y) => descending(x.value, y.value))
         .slice(0, maxWords);
 
-
-      const pmr = require('pseudo-math-random');
-      const randomGenerator: ()=> number = options.deterministic ? pmr('deterministic') : pmr();
-
-
+      const random: () => number = options.deterministic
+        ? pmr('deterministic')
+        : pmr();
 
       const layout = d3
         .cloud()
@@ -117,13 +115,13 @@ function Wordcloud({
         .rotate(() => {
           if (rotations === undefined) {
             // default rotation algorithm
-            return (~~(randomGenerator() * 6) - 3) * 30;
+            return (~~(random() * 6) - 3) * 30;
           } else {
-            return rotate(rotations, rotationAngles, randomGenerator);
+            return rotate(rotations, rotationAngles, random);
           }
         })
         .spiral(spiral)
-        .random(randomGenerator)
+        .random(random)
         .text(getText)
         .font(fontFamily)
         .fontStyle(fontStyle)
@@ -157,7 +155,13 @@ function Wordcloud({
               );
               draw([minFontSize, maxFontSize], attempts + 1);
             } else {
-              render(selection, computedWords, mergedOptions, randomGenerator, mergedCallbacks);
+              render(
+                selection,
+                computedWords,
+                mergedOptions,
+                random,
+                mergedCallbacks,
+              );
             }
           })
           .start();

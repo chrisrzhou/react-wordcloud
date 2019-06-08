@@ -10,7 +10,7 @@ export default function render(
   selection: Selection,
   words: Word[],
   options: Options,
-  randomGenerator: ()=> number,
+  random: () => number,
   callbacks: Callbacks,
 ): void {
   const {
@@ -24,7 +24,7 @@ export default function render(
   const { fontFamily, transitionDuration } = options;
 
   function getFill(word: Word): string {
-    return getWordColor ? getWordColor(word) : choose(colors, randomGenerator);
+    return getWordColor ? getWordColor(word) : choose(colors, random);
   }
 
   // load words
