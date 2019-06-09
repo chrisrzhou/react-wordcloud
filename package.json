@@ -1,10 +1,10 @@
 {
   "name": "react-wordcloud",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Simple React + D3 wordcloud component with powerful features.",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "keywords": [
     "react",
     "d3",
@@ -26,7 +26,7 @@
     "build:docs": "yarn docz build",
     "clean": "rm -rf dist .docz",
     "dev": "yarn docz dev",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix src docs",
+    "lint": "yarn tsc && eslint --ext .js,.jsx,.ts,.tsx --fix src docs",
     "prepare": "yarn clean && yarn build",
     "size": "bundlesize"
   },
@@ -69,7 +69,7 @@
     "react-dom": "^16.8.4",
     "rollup": "^1.6.0",
     "rollup-plugin-babel": "^4.1.0",
-    "rollup-plugin-typescript": "^1.0.0",
+    "rollup-plugin-typescript2": "^0.21.1",
     "tslib": "*",
     "typescript": "^3.3.3333"
   },
