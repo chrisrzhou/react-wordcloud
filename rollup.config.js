@@ -1,28 +1,20 @@
+import { DEFAULT_EXTENSIONS } from '@babel/core';
 import babel from 'rollup-plugin-babel';
-import typescript from 'rollup-plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 
 import pkg from './package.json';
 
 export default [
   {
+    input: 'src/index.tsx',
     plugins: [
+      typescript({
+        clean: true,
+      }),
       babel({
         exclude: 'node_modules/**',
+        extensions: [...DEFAULT_EXTENSIONS, 'ts', 'tsx'],
       }),
-      typescript(),
-    ],
-    input: 'src/index.tsx',
-    external: [
-      'd3-array',
-      'd3-cloud',
-      'd3-scale',
-      'd3-scale-chromatic',
-      'd3-selection',
-      'd3-transition',
-      'react',
-      'resize-observer-polyfill',
-      'seedrandom',
-      'tippy.js',
     ],
     output: [
       {
@@ -34,6 +26,18 @@ export default [
         file: pkg.module,
         format: 'esm',
       },
+    ],
+    external: [
+      'd3-array',
+      'd3-cloud',
+      'd3-scale',
+      'd3-scale-chromatic',
+      'd3-selection',
+      'd3-transition',
+      'react',
+      'resize-observer-polyfill',
+      'seedrandom',
+      'tippy.js',
     ],
   },
 ];

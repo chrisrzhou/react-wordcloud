@@ -13,6 +13,8 @@ const { useEffect } = React;
 const MAX_LAYOUT_ATTEMPTS = 10;
 const SHRINK_FACTOR = 0.95;
 
+export * from './types';
+
 export const defaultCallbacks: Callbacks = {
   getWordTooltip: ({ text, value }: Word): string => `${text} (${value})`,
 };
@@ -67,8 +69,8 @@ export interface Props {
 function Wordcloud({
   callbacks,
   maxWords,
-  options,
   minSize,
+  options,
   size: initialSize,
   words,
 }: Props): React.ReactElement {
@@ -156,8 +158,8 @@ function Wordcloud({
                 selection,
                 computedWords,
                 mergedOptions,
-                random,
                 mergedCallbacks,
+                random,
               );
             }
           })

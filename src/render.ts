@@ -12,8 +12,8 @@ export default function render(
   selection: Selection,
   words: Word[],
   options: Options,
-  random: () => number,
   callbacks: Callbacks,
+  random: () => number,
 ): void {
   const {
     getWordColor,
