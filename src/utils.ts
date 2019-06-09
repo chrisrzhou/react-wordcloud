@@ -25,9 +25,9 @@ export function getFontScale(
   const minSize = min(words, (word: Word): number => word.value);
   const maxSize = max(words, (word: Word): number => word.value);
   const Scales = {
-    [Scale.Linear]: scaleLinear,
-    [Scale.Log]: scaleLog,
-    [Scale.Sqrt]: scaleSqrt,
+    linear: scaleLinear,
+    log: scaleLog,
+    sqrt: scaleSqrt,
   };
   const fontScale = (Scales[scale] || scaleLinear)()
     .domain([minSize, maxSize])

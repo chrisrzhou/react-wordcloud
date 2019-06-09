@@ -5,7 +5,7 @@ import seedrandom from 'seedrandom';
 
 import { useResponsiveSVGSelection } from './hooks';
 import render from './render';
-import { Callbacks, MinMaxPair, Options, Scale, Spiral, Word } from './types';
+import * as types from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
 
 const { useEffect } = React;
@@ -13,13 +13,18 @@ const { useEffect } = React;
 const MAX_LAYOUT_ATTEMPTS = 10;
 const SHRINK_FACTOR = 0.95;
 
-export * from './types';
+export type MinMaxPair = types.MinMaxPair;
+export type Scale = types.Scale;
+export type Spiral = types.Spiral;
+export type Word = types.Word;
+export type CallbacksProps = types.Optional<types.Callbacks>;
+export type OptionsProps = types.Optional<types.Options>;
 
-export const defaultCallbacks: Callbacks = {
+export const defaultCallbacks: types.Callbacks = {
   getWordTooltip: ({ text, value }: Word): string => `${text} (${value})`,
 };
 
-export const defaultOptions: Options = {
+export const defaultOptions: types.Options = {
   colors: getDefaultColors(),
   enableTooltip: true,
   deterministic: false,
@@ -30,8 +35,8 @@ export const defaultOptions: Options = {
   padding: 1,
   rotationAngles: [-90, 90],
   rotations: undefined,
-  scale: Scale.Sqrt,
-  spiral: Spiral.Archimedean,
+  scale: 'sqrt',
+  spiral: 'rectangular',
   transitionDuration: 600,
 };
 
@@ -40,7 +45,7 @@ export interface Props {
    * Callbacks to control various word properties and behaviors (getWordColor,
    * getWordTooltip, onWordClick, onWordMouseOut, onWordMouseOver).
    */
-  callbacks?: Callbacks;
+  callbacks?: CallbacksProps;
   /**
    * Set minimum [width, height] values for the SVG container.
    */
@@ -54,7 +59,7 @@ export interface Props {
    * fontFamily, fontSizes, fontStyle, fontWeight, padding, rotationAngles,
    * rotations, scale, spiral, transitionDuration).
    */
-  options?: Options;
+  options?: OptionsProps;
   /**
    * Set explicit [width, height] values for the SVG container.  This will
    * disable responsive resizing.

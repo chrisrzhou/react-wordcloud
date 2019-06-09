@@ -5,20 +5,13 @@ export type MinMaxPair = [number, number];
 
 export type Selection = d3Selection<SVGElement, {}, SVGElement, {}>;
 
-export enum Scale {
-  Linear = 'linear',
-  Log = 'log',
-  Sqrt = 'sqrt',
-}
+export type Scale = 'linear' | 'log' | 'sqrt';
 
-export enum Spiral {
-  Archimedean = 'archimedean',
-  Rectangular = 'rectangular',
-}
+export type Spiral = 'archimedean' | 'rectangular';
 
 export interface Callbacks {
   getWordColor?: (word: Word) => string;
-  getWordTooltip?: (word: Word) => string;
+  getWordTooltip: (word: Word) => string;
   onWordClick?: (word: Word) => void;
   onWordMouseOut?: (word: Word) => void;
   onWordMouseOver?: (word: Word) => void;
@@ -39,6 +32,10 @@ export interface Options {
   spiral: Spiral;
   transitionDuration: number;
 }
+
+export type Optional<T> = {
+  [P in keyof T]?: T[P];
+};
 
 export interface Word extends CloudWord {
   text: string;
