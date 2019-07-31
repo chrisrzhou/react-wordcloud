@@ -23,7 +23,7 @@ export default function render(
     onWordMouseOut,
   } = callbacks;
   const { colors, enableTooltip, fontStyle, fontWeight } = options;
-  const { fontFamily, transitionDuration } = options;
+  const { fontFamily, enableTransiton, transitionDuration } = options;
 
   function getFill(word: Word): string {
     return getWordColor ? getWordColor(word) : choose(colors, random);
@@ -63,29 +63,41 @@ export default function render(
         .attr('font-weight', fontWeight)
         .attr('text-anchor', 'middle')
         .attr('transform', 'translate(0, 0) rotate(0)')
-        .call(enter =>
+        .call(enter => (enableTransiton) ?
           enter
             .transition()
             .duration(transitionDuration)
             .attr('font-size', getFontSize)
             .attr('transform', getTransform)
-            .text(getText),
+            .text(getText)
+          : enter
+            .attr('font-size', getFontSize)
+            .attr('transform', getTransform)
         ),
     update =>
       // @ts-ignore
-      update
-        .transition()
-        .duration(transitionDuration)
-        .attr('fill', getFill)
-        .attr('font-family', fontFamily)
-        .attr('font-size', getFontSize)
-        .attr('transform', getTransform)
-        .text(getText),
-    exit =>
+      (enableTransiton) ?
+        update
+          .transition()
+          .duration(transitionDuration)
+          .attr('fill', getFill)
+          .attr('font-family', fontFamily)
+          .attr('font-size', getFontSize)
+          .attr('transform', getTransform)
+          .text(getText)
+        : update
+            .attr('fill', getFill)
+            .attr('font-family', fontFamily)
+            .attr('font-size', getFontSize)
+            .attr('transform', getTransform)
+            .text(getText),
+    exit => (enableTransiton) ?
       exit
         .transition()
         .duration(transitionDuration)
         .attr('fill-opacity', 0)
-        .remove(),
+        .remove()
+      : exit
+          .remove()
   );
 }
