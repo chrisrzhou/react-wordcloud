@@ -12,6 +12,25 @@ yarn add react-wordcloud
 
 Note that `react-wordcloud` requires `react^16.8.3` as a peer dependency.
 
+## Options
+
+| Props           | Type          | Example               |
+| --------------- |:-------------:|:---------------------:|
+| colors          | array         | ['#1f77b4', '#ff7f0e] |
+| enableTooltip   | bool          | true                  |
+| deterministic   | bool          | true                  |
+| fontFamily      | string        | 'impact'              |
+| fontSizes       | array         | [5, 60]               |
+| fontStyle       | string        | 'normal               |
+| fontWeight      | string        | 'normal               |
+| padding         | number        | 1                     |
+| rotations       | number        | 3                     |
+| rotationAngles  | array         | [0, 90]               |
+| scale           | string        | 'sqrt'                |
+| spiral          | string        | 'archimedean'         |
+| enableTransiton | bool          | true                  |
+| transitionDuration | number     | 1000                  |
+
 ## Examples
 
 ### Documented Examples
