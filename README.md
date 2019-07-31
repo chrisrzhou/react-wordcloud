@@ -16,7 +16,7 @@ Note that `react-wordcloud` requires `react^16.8.3` as a peer dependency.
 
 | Props           | Type          | Example               |
 | --------------- |:-------------:|:---------------------:|
-| colors          | array         | ['#1f77b4', '#ff7f0e] |
+| colors          | array         | ['#1f77b4', '#ff7f0e']|
 | enableTooltip   | bool          | true                  |
 | deterministic   | bool          | true                  |
 | fontFamily      | string        | 'impact'              |
