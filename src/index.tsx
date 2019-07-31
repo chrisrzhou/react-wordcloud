@@ -37,7 +37,7 @@ export const defaultOptions: types.Options = {
   rotations: undefined,
   scale: 'sqrt',
   spiral: 'rectangular',
-  enableTransiton: true,
+  enableTransition: true,
   transitionDuration: 600,
 };
 

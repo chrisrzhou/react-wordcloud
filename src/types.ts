@@ -30,7 +30,7 @@ export interface Options {
   rotations?: number;
   scale: Scale;
   spiral: Spiral;
-  enableTransiton: boolean;
+  enableTransition: boolean;
   transitionDuration: number;
 }
 

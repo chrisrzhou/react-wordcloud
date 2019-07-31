@@ -23,7 +23,7 @@ export default function render(
     onWordMouseOut,
   } = callbacks;
   const { colors, enableTooltip, fontStyle, fontWeight } = options;
-  const { fontFamily, enableTransiton, transitionDuration } = options;
+  const { fontFamily, enableTransition, transitionDuration } = options;
 
   function getFill(word: Word): string {
     return getWordColor ? getWordColor(word) : choose(colors, random);
@@ -63,7 +63,7 @@ export default function render(
         .attr('font-weight', fontWeight)
         .attr('text-anchor', 'middle')
         .attr('transform', 'translate(0, 0) rotate(0)')
-        .call(enter => (enableTransiton) ?
+        .call(enter => (enableTransition) ?
           enter
             .transition()
             .duration(transitionDuration)
@@ -76,7 +76,7 @@ export default function render(
         ),
     update =>
       // @ts-ignore
-      (enableTransiton) ?
+      (enableTransition) ?
         update
           .transition()
           .duration(transitionDuration)
@@ -91,7 +91,7 @@ export default function render(
             .attr('font-size', getFontSize)
             .attr('transform', getTransform)
             .text(getText),
-    exit => (enableTransiton) ?
+    exit => (enableTransition) ?
       exit
         .transition()
         .duration(transitionDuration)
