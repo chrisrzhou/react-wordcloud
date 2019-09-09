@@ -1,4 +1,3 @@
-import { DEFAULT_EXTENSIONS } from '@babel/core';
 import babel from 'rollup-plugin-babel';
 import typescript from 'rollup-plugin-typescript2';
 
@@ -13,7 +12,6 @@ export default [
       }),
       babel({
         exclude: 'node_modules/**',
-        extensions: [...DEFAULT_EXTENSIONS, 'ts', 'tsx'],
       }),
     ],
     output: [

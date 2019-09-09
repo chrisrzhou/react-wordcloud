@@ -1,6 +1,6 @@
 {
   "name": "react-wordcloud",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Simple React + D3 wordcloud component with powerful features.",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
@@ -11,7 +11,7 @@
     "wordcloud",
     "visualization"
   ],
-  "author": "Chris Zhou <christoper.r.zhou@gmail.com>",
+  "author": "Chris Zhou <chrisrzhou@pm.me>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,7 +28,8 @@
     "dev": "yarn docz dev",
     "lint": "yarn tsc && eslint --ext .js,.jsx,.ts,.tsx --fix src docs",
     "prepare": "yarn clean && yarn build",
-    "size": "bundlesize"
+    "size": "bundlesize",
+    "unused": "yarn no-unused-export src/*.ts* --exclude src/*.d.ts"
   },
   "dependencies": {
     "@types/d3-array": "^2.0.0",
@@ -38,40 +39,41 @@
     "@types/d3-selection": "^1.4.1",
     "@types/d3-transition": "^1.1.4",
     "@types/seedrandom": "^2.4.28",
-    "d3-array": "^2.2.0",
+    "d3-array": "^2.3.1",
     "d3-cloud": "^1.2.5",
-    "d3-scale": "^3.0.0",
-    "d3-scale-chromatic": "^1.3.3",
+    "d3-scale": "^3.1.0",
+    "d3-scale-chromatic": "^1.5.0",
     "d3-selection": "^1.4.0",
     "d3-transition": "^1.2.0",
     "resize-observer-polyfill": "^1.5.1",
-    "seedrandom": "^3.0.1",
-    "tippy.js": "^4.3.4"
+    "seedrandom": "^3.0.3",
+    "tippy.js": "^4.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-0",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.1.0",
-    "@types/react": "^16.8.8",
-    "@typescript-eslint/eslint-plugin": "^1.4.2",
-    "@typescript-eslint/parser": "^1.4.2",
-    "bundlesize": "^0.17.0",
-    "docz": "^1.2.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/react": "^16.9.2",
+    "@typescript-eslint/eslint-plugin": "^2.1.0",
+    "@typescript-eslint/parser": "^2.1.0",
+    "bundlesize": "^0.18.0",
+    "docz": "^1.3.2",
     "docz-theme-default": "^1.2.0",
-    "eslint": "^5.15.2",
-    "eslint-config-prettier": "^4.1.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.2.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.5.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "no-unused-export": "^1.9.0",
     "prettier": "^1.15.3",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "rollup": "^1.6.0",
-    "rollup-plugin-babel": "^4.1.0",
-    "rollup-plugin-typescript2": "^0.21.1",
-    "tslib": "*",
-    "typescript": "^3.3.3333"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "rollup": "^1.21.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-typescript2": "^0.24.0",
+    "tslib": "1.10.0",
+    "typescript": "^3.6.2"
   },
   "bundlesize": [
     {
@@ -81,5 +83,8 @@
   ],
   "peerDependencies": {
     "react": "^16.8.3"
+  },
+  "resolutions": {
+    "d3-selection": "1.4.0"
   }
 }

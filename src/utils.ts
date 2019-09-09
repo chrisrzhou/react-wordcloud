@@ -24,12 +24,20 @@ export function getFontScale(
 ): (n: number) => number {
   const minSize = min(words, (word: Word): number => word.value);
   const maxSize = max(words, (word: Word): number => word.value);
-  const Scales = {
-    linear: scaleLinear,
-    log: scaleLog,
-    sqrt: scaleSqrt,
-  };
-  const fontScale = (Scales[scale] || scaleLinear)()
+  let scaleFunction;
+  switch (scale) {
+    case Scale.Log:
+      scaleFunction = scaleLog;
+      break;
+    case Scale.Sqrt:
+      scaleFunction = scaleSqrt;
+      break;
+    case Scale.Linear:
+    default:
+      scaleFunction = scaleLinear;
+      break;
+  }
+  const fontScale = scaleFunction()
     .domain([minSize, maxSize])
     .range(fontSizes);
   return fontScale;

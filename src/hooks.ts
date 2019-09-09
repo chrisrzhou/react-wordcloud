@@ -1,86 +1,33 @@
 import { select } from 'd3-selection';
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 
 import { MinMaxPair, Selection } from './types';
 
-const { useEffect, useRef, useReducer } = React;
-
-interface State {
-  ref: React.RefObject<HTMLDivElement>;
-  selections: {
-    g: Selection;
-    svg: Selection;
-  };
-  size: MinMaxPair;
-}
-
-interface Action {
-  type: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload: any;
-}
-
-function reducer(state: State, action: Action): State {
-  const { type, payload } = action;
-  switch (type) {
-    case 'SET_SIZE':
-      return {
-        ...state,
-        size: payload,
-      };
-    case 'SET_SELECTIONS':
-      return {
-        ...state,
-        selections: payload,
-      };
-    default:
-      return state;
-  }
-}
-
 export function useResponsiveSVGSelection<T>(
   minSize: MinMaxPair,
   initialSize?: MinMaxPair,
-): State {
-  const ref = useRef<HTMLDivElement>();
-  const svg = useRef<Selection>();
-  const g = useRef<Selection>();
-  const [state, dispatch] = useReducer(reducer, {
-    ref,
-    selections: {
-      g: null,
-      svg: null,
-    },
-    size: initialSize,
-  });
+): [React.MutableRefObject<HTMLDivElement>, Selection, MinMaxPair] {
+  const elementRef = useRef<HTMLDivElement>();
+  const [size, setSize] = useState(initialSize);
+  const [selection, setSelection] = useState(null);
 
-  // set initial svg and size
   useEffect(() => {
+    const element = elementRef.current;
+
+    // set svg selection
+    const svg = select(element)
+      .append('svg')
+      .style('display', 'block'); // native inline svg leaves undesired white space
+    const selection = svg.append('g');
+    setSelection(selection);
+
     function updateSize(width: number, height: number): void {
-      svg.current.attr('height', height).attr('width', width);
-      g.current.attr('transform', `translate(${width / 2}, ${height / 2})`);
-      dispatch({
-        type: 'SET_SIZE',
-        payload: [width, height],
-      });
+      svg.attr('height', height).attr('width', width);
+      selection.attr('transform', `translate(${width / 2}, ${height / 2})`);
+      setSize([width, height]);
     }
 
-    // set svg selections
-    const element = ref.current;
-    svg.current = select(element)
-      .append('svg')
-      .style('display', 'block'); // inline svg leave white space
-    g.current = svg.current.append('g');
-    dispatch({
-      type: 'SET_SELECTIONS',
-      payload: {
-        g: g.current,
-        svg: svg.current,
-      },
-    });
-
-    // update initial size
     let width = 0;
     let height = 0;
     if (initialSize !== undefined) {
@@ -101,14 +48,14 @@ export function useResponsiveSVGSelection<T>(
         return;
       }
       if (initialSize === undefined) {
-        let { width, height } = entries[0].contentRect;
+        const { width, height } = entries[0].contentRect;
         updateSize(width, height);
       }
     });
     resizeObserver.observe(element);
 
     // cleanup
-    return () => {
+    return (): void => {
       resizeObserver.unobserve(element);
       select(element)
         .selectAll('*')
@@ -116,5 +63,5 @@ export function useResponsiveSVGSelection<T>(
     };
   }, [initialSize, minSize]);
 
-  return state;
+  return [elementRef, selection, size];
 }

@@ -1,0 +1,26 @@
+---
+name: Props
+route: /props
+---
+
+import { Props } from 'docz';
+
+import CallbacksProps from './CallbacksProps';
+import OptionsProps from './OptionsProps';
+import ReactWordcloud from '../ReactWordcloud';
+
+# Props
+
+<Props of={ReactWordcloud} />
+
+## Options
+
+You can customize the wordcloud by configuring the `options` props. All fields are optional.
+
+<Props of={OptionsProps} />
+
+## Callbacks
+
+The `callbacks` props provide advanced ways to control the wordcloud behaviors. All fields are optional.
+
+<Props of={CallbacksProps} />

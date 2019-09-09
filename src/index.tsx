@@ -1,33 +1,35 @@
 import { descending } from 'd3-array';
 import cloud from 'd3-cloud';
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import seedrandom from 'seedrandom';
 
 import { useResponsiveSVGSelection } from './hooks';
 import render from './render';
-import * as types from './types';
+import {
+  Callbacks,
+  CallbacksProps,
+  MinMaxPair,
+  Options,
+  OptionsProps,
+  Scale,
+  Spiral,
+  Word,
+} from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
-
-const { useEffect } = React;
 
 const MAX_LAYOUT_ATTEMPTS = 10;
 const SHRINK_FACTOR = 0.95;
 
-export type MinMaxPair = types.MinMaxPair;
-export type Scale = types.Scale;
-export type Spiral = types.Spiral;
-export type Word = types.Word;
-export type CallbacksProps = types.Optional<types.Callbacks>;
-export type OptionsProps = types.Optional<types.Options>;
+export * from './types';
 
-export const defaultCallbacks: types.Callbacks = {
+export const defaultCallbacks: Callbacks = {
   getWordTooltip: ({ text, value }: Word): string => `${text} (${value})`,
 };
 
-export const defaultOptions: types.Options = {
+export const defaultOptions: Options = {
   colors: getDefaultColors(),
-  enableTooltip: true,
   deterministic: false,
+  enableTooltip: true,
   fontFamily: 'times new roman',
   fontSizes: [4, 32],
   fontStyle: 'normal',
@@ -35,63 +37,58 @@ export const defaultOptions: types.Options = {
   padding: 1,
   rotationAngles: [-90, 90],
   rotations: undefined,
-  scale: 'sqrt',
-  spiral: 'rectangular',
+  scale: Scale.Sqrt,
+  spiral: Spiral.Rectangular,
   transitionDuration: 600,
 };
 
 export interface Props {
   /**
-   * Callbacks to control various word properties and behaviors (getWordColor,
-   * getWordTooltip, onWordClick, onWordMouseOut, onWordMouseOver).
+   * Callbacks to control various word properties and behaviors.
    */
   callbacks?: CallbacksProps;
-  /**
-   * Set minimum [width, height] values for the SVG container.
-   */
-  minSize?: MinMaxPair;
   /**
    * Maximum number of words to display.
    */
   maxWords?: number;
   /**
-   * Configure wordcloud with various options (colors, enableTooltip,
-   * fontFamily, fontSizes, fontStyle, fontWeight, padding, rotationAngles,
-   * rotations, scale, spiral, transitionDuration).
+   * Set minimum [width, height] values for the SVG container.
+   */
+  minSize?: MinMaxPair;
+  /**
+   * Configure wordcloud with various options.
    */
   options?: OptionsProps;
   /**
-   * Set explicit [width, height] values for the SVG container.  This will
-   * disable responsive resizing.
+   * Set explicit [width, height] values for the SVG container.  This will disable responsive resizing.
    */
   size?: MinMaxPair;
   /**
-   * An array of word.  A word must contain the 'text' and 'value' keys.
+   * An array of word.  A word is an object that must contain the 'text' and 'value' keys.
    */
   words: Word[];
 }
 
-function Wordcloud({
+export default function Wordcloud({
   callbacks,
-  maxWords,
+  maxWords = 100,
   minSize,
   options,
   size: initialSize,
   words,
 }: Props): React.ReactElement {
-  const { ref, selections, size } = useResponsiveSVGSelection(
+  const [ref, selection, size] = useResponsiveSVGSelection(
     minSize,
     initialSize,
   );
-  const selection = selections.g;
 
-  // render viz
   useEffect((): void => {
     const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
     const mergedOptions = { ...defaultOptions, ...options };
 
     if (selection) {
       const {
+        deterministic,
         fontFamily,
         fontStyle,
         fontSizes,
@@ -108,7 +105,7 @@ function Wordcloud({
         .sort((x, y): number => descending(x.value, y.value))
         .slice(0, maxWords);
 
-      const random: () => number = options.deterministic
+      const random: () => number = deterministic
         ? seedrandom('deterministic')
         : seedrandom();
 
@@ -131,21 +128,21 @@ function Wordcloud({
         .fontStyle(fontStyle)
         .fontWeight(fontWeight);
 
-      const draw = (fontSizes: MinMaxPair, attempts: number = 1): void => {
+      const draw = (fontSizes: MinMaxPair, attempts = 1): void => {
         layout
           .fontSize((word: Word): number => {
             const fontScale = getFontScale(sortedWords, fontSizes, scale);
             return fontScale(word.value);
           })
           .on('end', (computedWords: Word[]): void => {
+            /** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
+             * Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
+             * Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
+             */
             if (
               sortedWords.length !== computedWords.length &&
               attempts <= MAX_LAYOUT_ATTEMPTS
             ) {
-              // KNOWN ISSUE: Unable to render long words with high frequency.
-              // (https://github.com/jasondavies/d3-cloud/issues/36)
-              // Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
-              // Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
               if (attempts === MAX_LAYOUT_ATTEMPTS) {
                 console.warn(
                   `Unable to layout ${sortedWords.length -
@@ -170,6 +167,7 @@ function Wordcloud({
           })
           .start();
       };
+
       draw(fontSizes);
     }
   }, [callbacks, maxWords, options, selection, size, words]);
@@ -183,5 +181,3 @@ Wordcloud.defaultProps = {
   minSize: [300, 300],
   options: defaultOptions,
 };
-
-export default Wordcloud;

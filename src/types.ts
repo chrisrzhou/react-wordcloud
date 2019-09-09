@@ -1,43 +1,107 @@
 import { Word as CloudWord } from 'd3-cloud';
-import { Selection as d3Selection } from 'd3-selection';
+import { EnterElement, Selection as d3Selection } from 'd3-selection';
 
-export type MinMaxPair = [number, number];
-
-export type Selection = d3Selection<SVGElement, {}, SVGElement, {}>;
-
-export type Scale = 'linear' | 'log' | 'sqrt';
-
-export type Spiral = 'archimedean' | 'rectangular';
-
-export interface Callbacks {
-  getWordColor?: (word: Word) => string;
-  getWordTooltip: (word: Word) => string;
-  onWordClick?: (word: Word) => void;
-  onWordMouseOut?: (word: Word) => void;
-  onWordMouseOver?: (word: Word) => void;
-}
-
-export interface Options {
-  colors: string[];
-  deterministic: boolean;
-  enableTooltip: boolean;
-  fontFamily: string;
-  fontSizes: MinMaxPair;
-  fontStyle: string;
-  fontWeight: string;
-  padding: number;
-  rotationAngles: MinMaxPair;
-  rotations?: number;
-  scale: Scale;
-  spiral: Spiral;
-  transitionDuration: number;
-}
-
-export type Optional<T> = {
+type Optional<T> = {
   [P in keyof T]?: T[P];
 };
+
+export type MinMaxPair = [number, number];
 
 export interface Word extends CloudWord {
   text: string;
   value: number;
 }
+
+export type Selection = d3Selection<SVGElement, Word, SVGElement, Word>;
+export type Enter = d3Selection<EnterElement, Word, SVGElement, Word>;
+
+export enum Scale {
+  Linear = 'linear',
+  Log = 'log',
+  Sqrt = 'sqrt',
+}
+
+export enum Spiral {
+  Archimedean = 'archimedean',
+  Rectangular = 'rectangular',
+}
+
+export interface Callbacks {
+  /**
+   * Set the word color using the word datum.
+   */
+  getWordColor?: (word: Word) => string;
+  /**
+   * Set the word tooltip using the word datum.
+   */
+  getWordTooltip: (word: Word) => string;
+  /**
+   * Grab the word on a click event.
+   */
+  onWordClick?: (word: Word) => void;
+  /**
+   * Grab the word on a mouse-out event.
+   */
+  onWordMouseOut?: (word: Word) => void;
+  /**
+   * Grab the word on a mouse-over event.
+   */
+  onWordMouseOver?: (word: Word) => void;
+}
+export type CallbacksProps = Optional<Callbacks>;
+
+export interface Options {
+  /**
+   * Allows the wordcloud to randomnly apply colors in the provided values.
+   */
+  colors: string[];
+  /**
+   * By default, words are randomly positioned and rotated.  If true, the wordcloud will produce the same rendering output for any input.
+   */
+  deterministic: boolean;
+  /**
+   * Enables/disables the tooltip feature.
+   */
+  enableTooltip: boolean;
+  /**
+   * Customize the font family.
+   */
+  fontFamily: string;
+  /**
+   * Specify the minimum and maximum font size as a tuple.  Tweak these numbers to control the best visual appearance for the wordcloud.
+   */
+  fontSizes: MinMaxPair;
+  /**
+   * Accepts CSS values for font-styles (e.g. italic, oblique)
+   */
+  fontStyle: string;
+  /**
+   * Accepts CSS values for font-weights (e.g. bold, 400, 700)
+   */
+  fontWeight: string;
+  /**
+   * Controls the padding between words
+   */
+  padding: number;
+  /**
+   * Provide the minimum and maximum angles that words can be rotated.
+   */
+  rotationAngles: MinMaxPair;
+  /**
+   * By default, the wordcloud will apply random rotations if this is not specified.  When provided, it will use evenly-divided angles from the provided min/max rotation angles.
+   */
+  rotations?: number;
+  /**
+   * Control how words are spaced and laid out.
+   */
+  scale: Scale;
+  /**
+   * Control the spiral pattern on how words are laid out.
+   */
+  spiral: Spiral;
+  /**
+   * Sets the animation transition time in milliseconds.
+   */
+  transitionDuration: number;
+}
+export type OptionsProps = Optional<Options>;

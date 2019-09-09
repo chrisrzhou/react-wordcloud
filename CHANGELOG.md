@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.8...v1.1.0) (2019-09-08)
+
+- Update dev configs + dependencies. Check with `yarn audit`.
+- Add documentation for `Options` and `Callbacks` props.
+- Remove ignored Typescript errors, and fix typings in `render.ts`
+- Simplify code in `hooks.ts`
+- Try to resolve #22 by adding `resolutions` in `package.json` for `d3-selection`.
+
+**Minor Typescript API Changes**
+
+- Exported Typescript types for component props have been changed slightly due to refactoring.
+
 ## [1.0.8](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.7...v1.0.8) (2019-06-08)
 
 Correctly type optional `callbacks` and `options` props. Remove enums in favor of simpler union types.

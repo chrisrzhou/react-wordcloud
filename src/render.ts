@@ -3,7 +3,7 @@ import 'd3-transition';
 import { event } from 'd3-selection';
 import tippy, { Instance } from 'tippy.js';
 
-import { Callbacks, Options, Selection, Word } from './types';
+import { Callbacks, Enter, Options, Selection, Word } from './types';
 import { choose, getFontSize, getText, getTransform } from './utils';
 
 let tooltipInstance: Instance;
@@ -32,10 +32,9 @@ export default function render(
   // load words
   const vizWords = selection.selectAll('text').data(words);
 
-  // enter transition
   vizWords.join(
-    enter =>
-      enter
+    (enter: Enter): Selection => {
+      return enter
         .append('text')
         .on('click', onWordClick)
         .on('mouseover', (word): void => {
@@ -70,22 +69,25 @@ export default function render(
             .attr('font-size', getFontSize)
             .attr('transform', getTransform)
             .text(getText),
-        ),
-    update =>
-      // @ts-ignore
-      update
+        );
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (update: Selection): any => {
+      return update
         .transition()
         .duration(transitionDuration)
         .attr('fill', getFill)
         .attr('font-family', fontFamily)
         .attr('font-size', getFontSize)
         .attr('transform', getTransform)
-        .text(getText),
-    exit =>
+        .text(getText);
+    },
+    (exit: Selection): void => {
       exit
         .transition()
         .duration(transitionDuration)
         .attr('fill-opacity', 0)
-        .remove(),
+        .remove();
+    },
   );
 }
