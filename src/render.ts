@@ -36,7 +36,9 @@ export default function render(
     (enter: Enter): Selection => {
       return enter
         .append('text')
-        .on('click', onWordClick)
+        .on('click', (word): void => {
+          onWordClick(word, event);
+        })
         .on('mouseover', (word): void => {
           if (enableTooltip) {
             tooltipInstance = tippy(event.target, {
@@ -47,13 +49,13 @@ export default function render(
               },
             }) as Instance;
           }
-          onWordMouseOver && onWordMouseOver(word);
+          onWordMouseOver && onWordMouseOver(word, event);
         })
         .on('mouseout', (word): void => {
           if (tooltipInstance) {
             tooltipInstance.destroy();
           }
-          onWordMouseOut && onWordMouseOut(word);
+          onWordMouseOut && onWordMouseOut(word, event);
         })
         .attr('cursor', onWordClick ? 'pointer' : 'default')
         .attr('fill', getFill)

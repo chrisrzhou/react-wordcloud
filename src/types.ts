@@ -38,15 +38,15 @@ export interface Callbacks {
   /**
    * Grab the word on a click event.
    */
-  onWordClick?: (word: Word) => void;
+  onWordClick?: (word: Word, event?: MouseEvent) => void;
   /**
    * Grab the word on a mouse-out event.
    */
-  onWordMouseOut?: (word: Word) => void;
+  onWordMouseOut?: (word: Word, event?: MouseEvent) => void;
   /**
    * Grab the word on a mouse-over event.
    */
-  onWordMouseOver?: (word: Word) => void;
+  onWordMouseOver?: (word: Word, event?: MouseEvent) => void;
 }
 export type CallbacksProps = Optional<Callbacks>;
 

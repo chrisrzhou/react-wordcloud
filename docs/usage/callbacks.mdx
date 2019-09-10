@@ -4,6 +4,8 @@ route: /usage/callbacks
 menu: Usage
 ---
 
+import { select } from 'd3-selection';
+import 'd3-transition';
 import { Playground } from 'docz';
 import { useState } from 'react';
 
@@ -36,15 +38,24 @@ In the example below, we can pass custom `getWordColor` and `getWordTooltip` cal
 
 ## Mouse Events
 
-You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture various mouse events. Check the browser console to track these mouse events.
+You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture the word and mouse events.
 
 <Playground>
   {() => {
+
     function getCallback(callback) {
-      return function(word) {
+      return function(word, event) {
         console.log(
           `Callback: "${callback}". Word: ${JSON.stringify(word, null, 2)}`,
         );
+        if (event) {
+          const element = event.target;
+          const { fontSize } = window.getComputedStyle(element);
+          select(element)
+            .transition()
+            .duration(300)
+            .attr('font-size', callback === 'onWordMouseOut' ? '100%' :'200%')
+        }
       };
     }
     const callbacks = {
@@ -53,5 +64,7 @@ You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMous
       onWordMouseOver: getCallback('onWordMouseOver'),
     };
     return <ReactWordcloud words={words} callbacks={callbacks} />;
-  }}
+
+}}
+
 </Playground>

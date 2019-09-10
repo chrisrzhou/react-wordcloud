@@ -10,6 +10,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - Remove ignored Typescript errors, and fix typings in `render.ts`
 - Simplify code in `hooks.ts`
 - Try to resolve #22 by adding `resolutions` in `package.json` for `d3-selection`.
+- Expose `MouseEvent` object in `onWordClick`, `onWordMouseOut` and `onWordMouseOver` callbacks.
 
 **Minor Typescript API Changes**
 
