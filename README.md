@@ -39,7 +39,7 @@ cd react-wordcloud && yarn && yarn dev
 
 [![Edit react-wordcloud-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fnk8w)
 
-## Callbacks Example
+### Callbacks Example
 
 [![Edit react-wordcloud-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/4lecp)
 
