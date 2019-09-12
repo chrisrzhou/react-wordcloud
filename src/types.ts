@@ -36,19 +36,19 @@ export interface Callbacks {
    */
   getWordTooltip: (word: Word) => string;
   /**
-   * Grab the word on a click event.
+   * Capture the word and mouse event on click.
    */
   onWordClick?: (word: Word, event?: MouseEvent) => void;
   /**
-   * Grab the word on a mouse-out event.
+   * Capture the word and mouse event on mouse-out.
    */
   onWordMouseOut?: (word: Word, event?: MouseEvent) => void;
   /**
-   * Grab the word on a mouse-over event.
+   * Capture the word and mouse event on mouse over.
    */
   onWordMouseOver?: (word: Word, event?: MouseEvent) => void;
 }
-export type CallbacksProps = Optional<Callbacks>;
+export type CallbacksProp = Optional<Callbacks>;
 
 export interface Options {
   /**
@@ -104,4 +104,4 @@ export interface Options {
    */
   transitionDuration: number;
 }
-export type OptionsProps = Optional<Options>;
+export type OptionsProp = Optional<Options>;

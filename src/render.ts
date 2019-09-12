@@ -3,7 +3,7 @@ import 'd3-transition';
 import { event } from 'd3-selection';
 import tippy, { Instance } from 'tippy.js';
 
-import { Callbacks, Enter, Options, Selection, Word } from './types';
+import { Callbacks, Options, Selection, Word } from './types';
 import { choose, getFontSize, getText, getTransform } from './utils';
 
 let tooltipInstance: Instance;
@@ -33,25 +33,25 @@ export default function render(
   const vizWords = selection.selectAll('text').data(words);
 
   vizWords.join(
-    (enter: Enter): Selection => {
+    enter => {
       return enter
         .append('text')
-        .on('click', (word): void => {
-          onWordClick(word, event);
+        .on('click', word => {
+          onWordClick && onWordClick(word, event);
         })
-        .on('mouseover', (word): void => {
+        .on('mouseover', word => {
           if (enableTooltip) {
             tooltipInstance = tippy(event.target, {
               animation: 'scale',
               arrow: true,
-              content: (): string => {
+              content: () => {
                 return getWordTooltip(word);
               },
             }) as Instance;
           }
           onWordMouseOver && onWordMouseOver(word, event);
         })
-        .on('mouseout', (word): void => {
+        .on('mouseout', word => {
           if (tooltipInstance) {
             tooltipInstance.destroy();
           }
@@ -74,7 +74,7 @@ export default function render(
         );
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (update: Selection): any => {
+    (update): any => {
       return update
         .transition()
         .duration(transitionDuration)
@@ -84,7 +84,7 @@ export default function render(
         .attr('transform', getTransform)
         .text(getText);
     },
-    (exit: Selection): void => {
+    exit => {
       exit
         .transition()
         .duration(transitionDuration)

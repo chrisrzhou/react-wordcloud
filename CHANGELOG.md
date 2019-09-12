@@ -7,9 +7,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - Update dev configs + dependencies. Check with `yarn audit`.
 - Add documentation for `Options` and `Callbacks` props.
-- Remove ignored Typescript errors, and fix typings in `render.ts`
-- Simplify code in `hooks.ts`
-- Try to resolve #22 by adding `resolutions` in `package.json` for `d3-selection`.
+- Remove ignored Typescript errors, and fix typings in `render.ts`.
+- Simplify code in `hooks.ts`.
+- Simplify typed code.
 - Expose `MouseEvent` object in `onWordClick`, `onWordMouseOut` and `onWordMouseOver` callbacks.
 
 **Minor Typescript API Changes**

@@ -38,24 +38,27 @@ In the example below, we can pass custom `getWordColor` and `getWordTooltip` cal
 
 ## Mouse Events
 
-You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture the word and mouse events.
+You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture the word and mouse events. The following example shows how we can work with the captured word and mouse events to create an enlarged word that opens an external link.
 
 <Playground>
   {() => {
-
     function getCallback(callback) {
       return function(word, event) {
-        console.log(
-          `Callback: "${callback}". Word: ${JSON.stringify(word, null, 2)}`,
-        );
-        if (event) {
+        const isActive = callback !== 'onWordMouseOut';
           const element = event.target;
-          const { fontSize } = window.getComputedStyle(element);
-          select(element)
+          const style = window.getComputedStyle(element);
+          const text = select(element);
+          text
+            .on('click', () => {
+              if (isActive) {
+                window.open(`https://duckduckgo.com/?q=${word.text}`, '_blank');
+              }
+            })
             .transition()
-            .duration(300)
-            .attr('font-size', callback === 'onWordMouseOut' ? '100%' :'200%')
-        }
+            .attr('background', 'white')
+            .attr('font-size', isActive ? '300%' : '100%')
+            .attr('text-decoration', isActive ? 'underline' : 'none')
+
       };
     }
     const callbacks = {

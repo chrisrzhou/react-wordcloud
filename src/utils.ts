@@ -13,7 +13,7 @@ export function choose<T = number | string>(
 
 export function getDefaultColors(): string[] {
   return range(20)
-    .map((number): string => number.toString())
+    .map(number => number.toString())
     .map(scaleOrdinal(schemeCategory10));
 }
 
@@ -22,8 +22,8 @@ export function getFontScale(
   fontSizes: MinMaxPair,
   scale: Scale,
 ): (n: number) => number {
-  const minSize = min(words, (word: Word): number => word.value);
-  const maxSize = max(words, (word: Word): number => word.value);
+  const minSize = min(words, word => word.value);
+  const maxSize = max(words, word => word.value);
   let scaleFunction;
   switch (scale) {
     case Scale.Log:
@@ -66,7 +66,7 @@ export function rotate(
   if (rotations < 1) {
     return 0;
   }
-  let angles: number[] = [];
+  let angles = [];
   if (rotations === 1) {
     angles = [rotationAngles[0]];
   } else {
