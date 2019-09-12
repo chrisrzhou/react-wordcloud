@@ -46,7 +46,6 @@ You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMous
       return function(word, event) {
         const isActive = callback !== 'onWordMouseOut';
           const element = event.target;
-          const style = window.getComputedStyle(element);
           const text = select(element);
           text
             .on('click', () => {
