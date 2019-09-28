@@ -1,6 +1,6 @@
 {
   "name": "react-wordcloud",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple React + D3 wordcloud component with powerful features.",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
@@ -26,7 +26,8 @@
     "build:docs": "yarn docz build",
     "clean": "rm -rf dist .docz",
     "dev": "yarn docz dev",
-    "lint": "yarn tsc && eslint --ext .js,.jsx,.ts,.tsx --fix src docs",
+    "lint": "yarn tsc && eslint --ext .js,.jsx,.ts,.tsx src docs",
+    "lint:fix": "yarn lint --fix",
     "prepare": "yarn clean && yarn build",
     "size": "bundlesize",
     "unused": "yarn no-unused-export src/*.ts* --exclude src/*.d.ts"
@@ -46,32 +47,32 @@
     "d3-selection": "^1.4.0",
     "d3-transition": "^1.2.0",
     "resize-observer-polyfill": "^1.5.1",
-    "seedrandom": "^3.0.3",
+    "seedrandom": "^3.0.5",
     "tippy.js": "^4.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
-    "@types/react": "^16.9.2",
-    "@typescript-eslint/eslint-plugin": "^2.2.0",
-    "@typescript-eslint/parser": "^2.2.0",
+    "@types/react": "^16.9.3",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
     "bundlesize": "^0.18.0",
     "docz": "^1.3.2",
     "docz-theme-default": "^1.2.0",
-    "eslint": "^6.3.0",
+    "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
-    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^2.0.1",
+    "eslint-plugin-react-hooks": "^2.1.0",
     "no-unused-export": "^1.9.0",
     "prettier": "^1.15.3",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "rollup": "^1.21.2",
+    "react": "^16.10.0",
+    "react-dom": "^16.10.0",
+    "rollup": "^1.21.4",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-typescript2": "^0.24.1",
+    "rollup-plugin-typescript2": "^0.24.3",
     "tslib": "1.10.0",
     "typescript": "^3.6.3"
   },
@@ -82,7 +83,7 @@
     }
   ],
   "peerDependencies": {
-    "react": "^16.8.3"
+    "react": "^16.10.0"
   },
   "resolutions": {
     "d3-selection": "1.4.0"
