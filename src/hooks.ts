@@ -61,7 +61,7 @@ export function useResponsiveSVGSelection<T>(
         .selectAll('*')
         .remove();
     };
-  }, [initialSize, minSize]);
+  }, [initialSize[0], initialSize[1], minSize[0], minSize[1]]);
 
   return [elementRef, selection, size];
 }
