@@ -1,12 +1,13 @@
 import { descending } from 'd3-array';
 import cloud from 'd3-cloud';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import seedrandom from 'seedrandom';
 
 import { useResponsiveSVGSelection } from './hooks';
 import render from './render';
 import * as types from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
+import { debounce } from './debounce';
 
 const MAX_LAYOUT_ATTEMPTS = 10;
 const SHRINK_FACTOR = 0.95;
@@ -57,6 +58,10 @@ export interface Props {
    * An array of word.  A word is an object that must contain the 'text' and 'value' keys.
    */
   words: types.Word[];
+  /**
+   * How long should we wait before a re-render
+   */
+  renderDebounce?: number;
 }
 
 export default function Wordcloud({
@@ -66,6 +71,7 @@ export default function Wordcloud({
   options,
   size: initialSize,
   words,
+  renderDebounce = 100,
 }: Props): JSX.Element {
   const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
   const mergedOptions = { ...defaultOptions, ...options };
@@ -75,88 +81,111 @@ export default function Wordcloud({
     initialSize,
   );
 
-  useEffect(() => {
-    if (selection) {
-      const {
-        deterministic,
-        fontFamily,
-        fontStyle,
-        fontSizes,
-        fontWeight,
-        padding,
-        rotations,
-        rotationAngles,
-        spiral,
-        scale,
-      } = mergedOptions;
+  const reRender = useRef(
+    debounce(
+      (selection, mergedOptions, mergedCallbacks, size, words, maxWords) => {
+        const {
+          deterministic,
+          fontFamily,
+          fontStyle,
+          fontSizes,
+          fontWeight,
+          padding,
+          rotations,
+          rotationAngles,
+          spiral,
+          scale,
+        } = mergedOptions;
 
-      const sortedWords = words
-        .concat()
-        .sort((x, y) => descending(x.value, y.value))
-        .slice(0, maxWords);
+        const sortedWords = words
+          .concat()
+          .sort((x, y) => descending(x.value, y.value))
+          .slice(0, maxWords);
 
-      const random = deterministic ? seedrandom('deterministic') : seedrandom();
+        const random = deterministic
+          ? seedrandom('deterministic')
+          : seedrandom();
 
-      const layout = cloud()
-        .size(size)
-        .padding(padding)
-        .words(sortedWords)
-        .rotate(() => {
-          if (rotations === undefined) {
-            // default rotation algorithm
-            return (~~(random() * 6) - 3) * 30;
-          } else {
-            return rotate(rotations, rotationAngles, random);
-          }
-        })
-        .spiral(spiral)
-        .random(random)
-        .text(getText)
-        .font(fontFamily)
-        .fontStyle(fontStyle)
-        .fontWeight(fontWeight);
-
-      const draw = (fontSizes: types.MinMaxPair, attempts = 1): void => {
-        layout
-          .fontSize((word: types.Word) => {
-            const fontScale = getFontScale(sortedWords, fontSizes, scale);
-            return fontScale(word.value);
-          })
-          .on('end', (computedWords: types.Word[]) => {
-            /** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
-             * Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
-             * Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
-             */
-            if (
-              sortedWords.length !== computedWords.length &&
-              attempts <= MAX_LAYOUT_ATTEMPTS
-            ) {
-              if (attempts === MAX_LAYOUT_ATTEMPTS) {
-                console.warn(
-                  `Unable to layout ${sortedWords.length -
-                    computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
-                );
-              }
-              const minFontSize = Math.max(fontSizes[0] * SHRINK_FACTOR, 1);
-              const maxFontSize = Math.max(
-                fontSizes[1] * SHRINK_FACTOR,
-                minFontSize,
-              );
-              draw([minFontSize, maxFontSize], attempts + 1);
+        const layout = cloud()
+          .size(size)
+          .padding(padding)
+          .words(sortedWords)
+          .rotate(() => {
+            if (rotations === undefined) {
+              // default rotation algorithm
+              return (~~(random() * 6) - 3) * 30;
             } else {
-              render(
-                selection,
-                computedWords,
-                mergedOptions,
-                mergedCallbacks,
-                random,
-              );
+              return rotate(rotations, rotationAngles, random);
             }
           })
-          .start();
-      };
+          .spiral(spiral)
+          .random(random)
+          .text(getText)
+          .font(fontFamily)
+          .fontStyle(fontStyle)
+          .fontWeight(fontWeight);
 
-      draw(fontSizes);
+        const draw = (fontSizes: types.MinMaxPair, attempts = 1): void => {
+          layout
+            .revive()
+            .fontSize((word: types.Word) => {
+              const fontScale = getFontScale(sortedWords, fontSizes, scale);
+              return fontScale(word.value);
+            })
+            .on('end', (computedWords: types.Word[]) => {
+              /** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
+               * Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
+               * Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
+               */
+              if (
+                sortedWords.length !== computedWords.length &&
+                attempts <= MAX_LAYOUT_ATTEMPTS
+              ) {
+                if (attempts === MAX_LAYOUT_ATTEMPTS) {
+                  console.warn(
+                    `Unable to layout ${sortedWords.length -
+                      computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
+                  );
+                }
+                const minFontSize = Math.max(fontSizes[0] * SHRINK_FACTOR, 1);
+                const maxFontSize = Math.max(
+                  fontSizes[1] * SHRINK_FACTOR,
+                  minFontSize,
+                );
+                layout.stop();
+                draw([minFontSize, maxFontSize], attempts + 1);
+              } else {
+                render(
+                  selection,
+                  computedWords,
+                  mergedOptions,
+                  mergedCallbacks,
+                  random,
+                );
+              }
+            })
+            .start();
+        };
+
+        draw(fontSizes);
+        return () => {
+          layout.stop();
+        };
+      },
+      renderDebounce,
+    ),
+  );
+
+  useEffect(() => {
+    if (selection) {
+      return reRender.current(
+        selection,
+        mergedOptions,
+        mergedCallbacks,
+        size,
+        words,
+        maxWords,
+      );
     }
   }, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
 

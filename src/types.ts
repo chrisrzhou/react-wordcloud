@@ -1,6 +1,18 @@
 import { Word as CloudWord } from 'd3-cloud';
 import { EnterElement, Selection as d3Selection } from 'd3-selection';
 
+export interface CloudWord {
+  text?: string;
+  font?: string;
+  style?: string;
+  weight?: string | number;
+  rotate?: number;
+  size?: number;
+  padding?: number;
+  x?: number;
+  y?: number;
+}
+
 type Optional<T> = {
   [P in keyof T]?: T[P];
 };
