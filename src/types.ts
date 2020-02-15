@@ -1,23 +1,40 @@
-import { Word as CloudWord } from 'd3-cloud';
 import { EnterElement, Selection as d3Selection } from 'd3-selection';
-
-export interface CloudWord {
-  text?: string;
-  font?: string;
-  style?: string;
-  weight?: string | number;
-  rotate?: number;
-  size?: number;
-  padding?: number;
-  x?: number;
-  y?: number;
-}
 
 type Optional<T> = {
   [P in keyof T]?: T[P];
 };
 
-export type MinMaxPair = [number, number];
+export type Dictionary<T, K extends string | number = string> = {
+  [key in K]: T
+};
+export type Pair<T> = [T, T];
+export type MinMaxPair = Pair<number>;
+
+export interface Point {
+  x: number;
+  y: number;
+}
+
+export type CloudWord = Optional<
+  Point & {
+    font: string;
+    style: string;
+    weight: string | number;
+    rotate: number;
+    size: number;
+    padding: number;
+    width: number;
+    height: number;
+    xoff: number;
+    yoff: number;
+    x1: number;
+    y1: number;
+    x0: number;
+    y0: number;
+    hasText: boolean;
+    sprite: number[];
+  }
+>;
 
 export interface Word extends CloudWord {
   text: string;
@@ -36,6 +53,11 @@ export enum Scale {
 export enum Spiral {
   Archimedean = 'archimedean',
   Rectangular = 'rectangular',
+}
+
+export interface ContextAndRatio {
+  ratio: number;
+  context: CanvasRenderingContext2D;
 }
 
 export interface Callbacks {

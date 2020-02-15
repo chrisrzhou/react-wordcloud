@@ -1,6 +1,6 @@
-const cloudRadians = Math.PI / 180;
-const cw = (1 << 11) >> 5;
-const ch = 1 << 11;
+export const cloudRadians = Math.PI / 180;
+export const cw = (1 << 11) >> 5;
+export const ch = 1 << 11;
 
 export function getContext(
   canvas: HTMLCanvasElement,
@@ -16,12 +16,6 @@ export function getContext(
   ctx.textAlign = 'center';
 
   return { context: ctx, ratio };
-}
-
-type Fn<T> = (...args: any[]) => T;
-
-export function functor<T>(d: Function | T): Function {
-  return typeof d === 'function' ? d : () => d;
 }
 
 // As mentioned by

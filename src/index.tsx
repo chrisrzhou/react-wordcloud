@@ -8,6 +8,7 @@ import render from './render';
 import * as types from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
 import { debounce } from './debounce';
+import { createCloud, CloudHandlers } from './cloud';
 
 const MAX_LAYOUT_ATTEMPTS = 10;
 const SHRINK_FACTOR = 0.95;
@@ -59,7 +60,7 @@ export interface Props {
    */
   words: types.Word[];
   /**
-   * How long should we wait before a re-render
+   * Group window for re-render attempts
    */
   renderDebounce?: number;
 }
@@ -83,7 +84,14 @@ export default function Wordcloud({
 
   const reRender = useRef(
     debounce(
-      (selection, mergedOptions, mergedCallbacks, size, words, maxWords) => {
+      (
+        selection,
+        mergedOptions: types.Options,
+        mergedCallbacks,
+        size: types.Pair<number>,
+        words: types.Word[],
+        maxWords,
+      ) => {
         const {
           deterministic,
           fontFamily,
@@ -97,42 +105,48 @@ export default function Wordcloud({
           scale,
         } = mergedOptions;
 
+        const random = deterministic
+          ? seedrandom('deterministic')
+          : seedrandom();
+
+        const rotateWord = rotations
+          ? () => rotate(rotations, rotationAngles, random)
+          : // Default rotation fn
+            () => (~~(random() * 6) - 3) * 30;
+
         const sortedWords = words
           .concat()
           .sort((x, y) => descending(x.value, y.value))
           .slice(0, maxWords);
 
-        const random = deterministic
-          ? seedrandom('deterministic')
-          : seedrandom();
+        const formatWords = (
+          words: types.Word[],
+          fontSizes: types.Pair<number>,
+        ): types.Word[] => {
+          const fontScale = getFontScale(words, fontSizes, scale);
 
-        const layout = cloud()
-          .size(size)
-          .padding(padding)
-          .words(sortedWords)
-          .rotate(() => {
-            if (rotations === undefined) {
-              // default rotation algorithm
-              return (~~(random() * 6) - 3) * 30;
-            } else {
-              return rotate(rotations, rotationAngles, random);
-            }
-          })
-          .spiral(spiral)
-          .random(random)
-          .text(getText)
-          .font(fontFamily)
-          .fontStyle(fontStyle)
-          .fontWeight(fontWeight);
+          return words.map(d => {
+            return {
+              ...d,
+              padding,
+              rotate: rotateWord(),
+              size: fontScale(d.value),
+              font: fontFamily,
+              style: fontStyle,
+              weight: fontWeight,
+            };
+          });
+        };
+
+        let layout: CloudHandlers | undefined;
 
         const draw = (fontSizes: types.MinMaxPair, attempts = 1): void => {
-          layout
-            .revive()
-            .fontSize((word: types.Word) => {
-              const fontScale = getFontScale(sortedWords, fontSizes, scale);
-              return fontScale(word.value);
-            })
-            .on('end', (computedWords: types.Word[]) => {
+          layout = createCloud({
+            random,
+            spiral,
+            size,
+            words: formatWords(sortedWords, fontSizes),
+            onDone(computedWords) {
               /** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
                * Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
                * Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
@@ -163,13 +177,17 @@ export default function Wordcloud({
                   random,
                 );
               }
-            })
-            .start();
+            },
+          });
+          layout.start();
         };
 
         draw(fontSizes);
+
         return () => {
-          layout.stop();
+          if (layout) {
+            layout.stop();
+          }
         };
       },
       renderDebounce,
