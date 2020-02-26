@@ -5,15 +5,46 @@ import {
   Point,
   Dictionary,
   Spiral,
-} from '../types';
-import { cw, ch, cloudRadians } from './helpers';
+  CloudWord,
+  Options
+} from './types';
+
+const cloudRadians = Math.PI / 180;
+const cw = (1 << 11) >> 5;
+const ch = 1 << 11;
+
+function getContext(
+  canvas: HTMLCanvasElement,
+): { context: CanvasRenderingContext2D; ratio: number } {
+  canvas.width = canvas.height = 1;
+  const ctx = canvas.getContext('2d');
+  const ratio = Math.sqrt(ctx.getImageData(0, 0, 1, 1).data.length >> 2);
+  canvas.width = (cw << 5) / ratio;
+  canvas.height = ch / ratio;
+
+  // TODO: validate that these are needed
+  ctx.fillStyle = ctx.strokeStyle = 'red';
+  ctx.textAlign = 'center';
+
+  return { context: ctx, ratio };
+}
+
+// As mentioned by
+// https://github.com/jasondavies/d3-cloud/issues/158
+function zeroArray(n: number) {
+  return new Uint32Array(n);
+}
+
+function emptyCanvas(): HTMLCanvasElement {
+  return document.createElement('canvas');
+}
 
 // Word cloud layout by Jason Davies, https://www.jasondavies.com/wordcloud/
 // Algorithm due to Jonathan Feinberg, http://static.mrfeinberg.com/bv_ch03.pdf
 
-export type SpiralFn = (size: Pair<number>) => (n: number) => Pair<number>;
+type SpiralFn = (size: Pair<number>) => (n: number) => Pair<number>;
 
-export function archimedeanSpiral(size: Pair<number>) {
+function archimedeanSpiral(size: Pair<number>) {
   const e = size[0] / size[1];
   return (t: number): Pair<number> => [
     e * (t *= 0.1) * Math.cos(t),
@@ -21,7 +52,7 @@ export function archimedeanSpiral(size: Pair<number>) {
   ];
 }
 
-export function rectangularSpiral(size: Pair<number>) {
+function rectangularSpiral(size: Pair<number>) {
   var dy = 4,
     dx = (dy * size[0]) / size[1],
     x = 0,
@@ -47,14 +78,14 @@ export function rectangularSpiral(size: Pair<number>) {
   };
 }
 
-export const spirals: Dictionary<SpiralFn, Spiral> = {
+const spirals: Dictionary<SpiralFn, Spiral> = {
   archimedean: archimedeanSpiral,
   rectangular: rectangularSpiral,
 };
 
 // Fetches a monochrome sprite bitmap for the specified text.
 // Load in batches for speed.
-export function cloudSprite(
+function cloudSprite(
   contextAndRatio: ContextAndRatio,
   d: Word,
   data: Word[],
@@ -160,7 +191,7 @@ export function cloudSprite(
   }
 }
 
-export function cloudBounds(bounds: Pair<Point>, d: Word) {
+function cloudBounds(bounds: Pair<Point>, d: Word) {
   const [b0, b1] = bounds;
   if (d.x + d.x0 < b0.x) b0.x = d.x + d.x0;
   if (d.y + d.y0 < b0.y) b0.y = d.y + d.y0;
@@ -168,7 +199,7 @@ export function cloudBounds(bounds: Pair<Point>, d: Word) {
   if (d.y + d.y1 > b1.y) b1.y = d.y + d.y1;
 }
 
-export function collideRects(a: Word, b: Pair<Point>) {
+function collideRects(a: Word, b: Pair<Point>) {
   return (
     a.x + a.x1 > b[0].x &&
     a.x + a.x0 < b[1].x &&
@@ -178,7 +209,7 @@ export function collideRects(a: Word, b: Pair<Point>) {
 }
 
 // Use mask-based collision detection.
-export function cloudCollide(tag: Word, board: Uint32Array, sw: number) {
+function cloudCollide(tag: Word, board: Uint32Array, sw: number) {
   sw >>= 5;
   var sprite = tag.sprite,
     w = tag.width >> 5,
@@ -202,7 +233,7 @@ export function cloudCollide(tag: Word, board: Uint32Array, sw: number) {
   return false;
 }
 
-export function place(
+function place(
   board: Uint32Array,
   tag: Word,
   bounds: Pair<Point>,
@@ -263,4 +294,82 @@ export function place(
     }
   }
   return false;
+}
+
+export interface CloudSpec {
+  random: () => number;
+  spiral: Spiral;
+  size: Pair<number>;
+  words: Word[];
+  onDone: (word: Word[]) => void;
+  // How many words should we calculate on each iteration
+  step?: number;
+}
+
+export interface CloudHandlers {
+  start: () => void;
+  stop: () => void;
+}
+
+export function createCloud({
+  random,
+  spiral: spiralId,
+  size,
+  words,
+  onDone,
+  step = 200,
+}: CloudSpec): CloudHandlers {
+  const spiral = spirals[spiralId];
+  let killed = false;
+
+  function stop() {
+    killed = true;
+  }
+
+  function start() {
+    const contextAndRatio = getContext(emptyCanvas());
+    const board = zeroArray((size[0] >> 5) * size[1]);
+    let bounds = null;
+    const tags = [];
+
+    function multiStep(from: number, to: number) {
+      for (let i = from; i < to; i += 1) {
+        var d = words[i];
+        d.x = (size[0] * (random() + 0.5)) >> 1;
+        d.y = (size[1] * (random() + 0.5)) >> 1;
+        cloudSprite(contextAndRatio, d, words, i);
+        if (d.hasText && place(board, d, bounds, size, spiral, random)) {
+          tags.push(d);
+          if (bounds) cloudBounds(bounds, d);
+          else
+            bounds = [
+              { x: d.x + d.x0, y: d.y + d.y0 },
+              { x: d.x + d.x1, y: d.y + d.y1 },
+            ];
+          // Temporary hack
+          d.x -= size[0] >> 1;
+          d.y -= size[1] >> 1;
+        }
+      }
+    }
+
+    function loop(i: number) {
+      const from = i * step;
+      const to = Math.min((i + 1) * step, words.length);
+      multiStep(from, to);
+      if (to < words.length && !killed) {
+        setTimeout(() => loop(i + 1), 0);
+      // Want to avoid warnings 
+      } else if (!killed) {
+        stop();
+        onDone(tags);
+      }
+    }
+    setTimeout(() => loop(0), 0);
+  }
+
+  return {
+    start,
+    stop,
+  };
 }
