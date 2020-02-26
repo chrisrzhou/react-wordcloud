@@ -4,9 +4,7 @@ import {
   Pair,
   Point,
   Dictionary,
-  Spiral,
-  CloudWord,
-  Options
+  Spiral
 } from './types';
 
 const cloudRadians = Math.PI / 180;
@@ -303,7 +301,7 @@ export interface CloudSpec {
   words: Word[];
   onDone: (word: Word[]) => void;
   // How many words should we calculate on each iteration
-  step?: number;
+  batchSize: number;
 }
 
 export interface CloudHandlers {
@@ -317,7 +315,7 @@ export function createCloud({
   size,
   words,
   onDone,
-  step = 200,
+  batchSize,
 }: CloudSpec): CloudHandlers {
   const spiral = spirals[spiralId];
   let killed = false;
@@ -354,13 +352,17 @@ export function createCloud({
     }
 
     function loop(i: number) {
-      const from = i * step;
-      const to = Math.min((i + 1) * step, words.length);
+      const from = i * batchSize;
+      const to = Math.min(from + batchSize, words.length);
       multiStep(from, to);
-      if (to < words.length && !killed) {
+      // Avoid any further calculations when killed
+      // Also helps to avoid warnings of incomplete words array
+      if (killed) {
+        return;
+      }
+      if (to < words.length) {
         setTimeout(() => loop(i + 1), 0);
-      // Want to avoid warnings 
-      } else if (!killed) {
+      } else {
         stop();
         onDone(tags);
       }
