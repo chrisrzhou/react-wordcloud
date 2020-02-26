@@ -2,12 +2,12 @@ import { descending } from 'd3-array';
 import cloud from 'd3-cloud';
 import React, { useEffect, useRef } from 'react';
 import seedrandom from 'seedrandom';
+import debounce from 'lodash.debounce';
 
 import { useResponsiveSVGSelection } from './hooks';
 import render from './render';
 import * as types from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
-import { debounce } from './debounce';
 import { createCloud, CloudHandlers } from './cloud';
 
 const MAX_LAYOUT_ATTEMPTS = 10;
@@ -60,9 +60,16 @@ export interface Props {
    */
   words: types.Word[];
   /**
-   * Group window for re-render attempts
+   * Group window for re-render attempts.
+   * Helps to delay renders when container is resized.
    */
   renderDebounce?: number;
+  /**
+   * How many word placements should be calculated each iteration.
+   * Prevents the calculations from blocking the thread for too long.
+   * Each batch is processed is delayed using setTimeout
+   */
+  batchSize?: number;
 }
 
 export default function Wordcloud({
@@ -73,6 +80,7 @@ export default function Wordcloud({
   size: initialSize,
   words,
   renderDebounce = 100,
+  batchSize = 200,
 }: Props): JSX.Element {
   const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
   const mergedOptions = { ...defaultOptions, ...options };
@@ -85,13 +93,14 @@ export default function Wordcloud({
   const reRender = useRef(
     debounce(
       (
-        selection,
+        selection: types.Selection,
         mergedOptions: types.Options,
-        mergedCallbacks,
+        mergedCallbacks: types.Callbacks,
         size: types.Pair<number>,
         words: types.Word[],
-        maxWords,
-      ) => {
+        maxWords: number,
+        batchSize: number,
+      ): (() => void) => {
         const {
           deterministic,
           fontFamily,
@@ -145,6 +154,7 @@ export default function Wordcloud({
             random,
             spiral,
             size,
+            batchSize,
             words: formatWords(sortedWords, fontSizes),
             onDone(computedWords) {
               /** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
@@ -203,9 +213,18 @@ export default function Wordcloud({
         size,
         words,
         maxWords,
+        batchSize,
       );
     }
-  }, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
+  }, [
+    maxWords,
+    mergedCallbacks,
+    mergedOptions,
+    selection,
+    size,
+    words,
+    batchSize,
+  ]);
 
   return <div ref={ref} />;
 }
