@@ -138,7 +138,7 @@ export interface Options {
    */
   transitionDuration: number;
   /**
-   * Group window for re-render attempts.
+   * Time window (ms) for grouping re-render attempts.
    * Helps to delay renders when container is resized.
    */
   renderDebounce?: number;
