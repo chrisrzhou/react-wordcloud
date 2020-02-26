@@ -5,7 +5,7 @@ type Optional<T> = {
 };
 
 export type Dictionary<T, K extends string | number = string> = {
-  [key in K]: T
+  [key in K]: T;
 };
 export type Pair<T> = [T, T];
 export type MinMaxPair = Pair<number>;
@@ -137,5 +137,16 @@ export interface Options {
    * Sets the animation transition time in milliseconds.
    */
   transitionDuration: number;
+  /**
+   * Group window for re-render attempts.
+   * Helps to delay renders when container is resized.
+   */
+  renderDebounce?: number;
+  /**
+   * How many word placements should be calculated each iteration.
+   * Prevents the calculations from blocking the thread for too long.
+   * Each batch is processed is delayed using setTimeout
+   */
+  batchSize?: number;
 }
 export type OptionsProp = Optional<Options>;

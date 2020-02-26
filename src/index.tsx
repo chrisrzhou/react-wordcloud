@@ -32,6 +32,8 @@ export const defaultOptions: types.Options = {
   scale: types.Scale.Sqrt,
   spiral: types.Spiral.Rectangular,
   transitionDuration: 600,
+  renderDebounce: 100,
+  batchSize: 200,
 };
 
 export interface Props {
@@ -59,17 +61,6 @@ export interface Props {
    * An array of word.  A word is an object that must contain the 'text' and 'value' keys.
    */
   words: types.Word[];
-  /**
-   * Group window for re-render attempts.
-   * Helps to delay renders when container is resized.
-   */
-  renderDebounce?: number;
-  /**
-   * How many word placements should be calculated each iteration.
-   * Prevents the calculations from blocking the thread for too long.
-   * Each batch is processed is delayed using setTimeout
-   */
-  batchSize?: number;
 }
 
 export default function Wordcloud({
@@ -79,8 +70,6 @@ export default function Wordcloud({
   options,
   size: initialSize,
   words,
-  renderDebounce = 100,
-  batchSize = 200,
 }: Props): JSX.Element {
   const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
   const mergedOptions = { ...defaultOptions, ...options };
@@ -99,7 +88,6 @@ export default function Wordcloud({
         size: types.Pair<number>,
         words: types.Word[],
         maxWords: number,
-        batchSize: number,
       ): (() => void) => {
         const {
           deterministic,
@@ -112,6 +100,7 @@ export default function Wordcloud({
           rotationAngles,
           spiral,
           scale,
+          batchSize,
         } = mergedOptions;
 
         const random = deterministic
@@ -200,7 +189,7 @@ export default function Wordcloud({
           }
         };
       },
-      renderDebounce,
+      mergedOptions.renderDebounce,
     ),
   );
 
@@ -213,18 +202,9 @@ export default function Wordcloud({
         size,
         words,
         maxWords,
-        batchSize,
       );
     }
-  }, [
-    maxWords,
-    mergedCallbacks,
-    mergedOptions,
-    selection,
-    size,
-    words,
-    batchSize,
-  ]);
+  }, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
 
   return <div ref={ref} />;
 }
