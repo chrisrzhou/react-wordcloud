@@ -1,5 +1,4 @@
 import { descending } from 'd3-array';
-import cloud from 'd3-cloud';
 import React, { useEffect, useRef } from 'react';
 import seedrandom from 'seedrandom';
 import debounce from 'lodash.debounce';
@@ -8,7 +7,7 @@ import { useResponsiveSVGSelection } from './hooks';
 import render from './render';
 import * as types from './types';
 import { getDefaultColors, getFontScale, getText, rotate } from './utils';
-import { createCloud, CloudHandlers } from './cloud';
+import cloud from './cloud';
 
 const MAX_LAYOUT_ATTEMPTS = 10;
 const SHRINK_FACTOR = 0.95;
@@ -33,7 +32,6 @@ export const defaultOptions: types.Options = {
   spiral: types.Spiral.Rectangular,
   transitionDuration: 600,
   renderDebounce: 100,
-  batchSize: 200,
 };
 
 export interface Props {
@@ -85,10 +83,10 @@ export default function Wordcloud({
         selection: types.Selection,
         mergedOptions: types.Options,
         mergedCallbacks: types.Callbacks,
-        size: types.Pair<number>,
+        size: types.MinMaxPair,
         words: types.Word[],
         maxWords: number,
-      ): (() => void) => {
+      ) => {
         const {
           deterministic,
           fontFamily,
@@ -100,52 +98,44 @@ export default function Wordcloud({
           rotationAngles,
           spiral,
           scale,
-          batchSize,
         } = mergedOptions;
-
-        const random = deterministic
-          ? seedrandom('deterministic')
-          : seedrandom();
-
-        const rotateWord = rotations
-          ? () => rotate(rotations, rotationAngles, random)
-          : // Default rotation fn
-            () => (~~(random() * 6) - 3) * 30;
 
         const sortedWords = words
           .concat()
           .sort((x, y) => descending(x.value, y.value))
           .slice(0, maxWords);
 
-        const formatWords = (
-          words: types.Word[],
-          fontSizes: types.Pair<number>,
-        ): types.Word[] => {
-          const fontScale = getFontScale(words, fontSizes, scale);
+        const random = deterministic
+          ? seedrandom('deterministic')
+          : seedrandom();
 
-          return words.map(d => {
-            return {
-              ...d,
-              padding,
-              rotate: rotateWord(),
-              size: fontScale(d.value),
-              font: fontFamily,
-              style: fontStyle,
-              weight: fontWeight,
-            };
-          });
-        };
-
-        let layout: CloudHandlers | undefined;
+        const layout = cloud()
+          .size(size)
+          .padding(padding)
+          .words(sortedWords)
+          .rotate(() => {
+            if (rotations === undefined) {
+              // default rotation algorithm
+              return (~~(random() * 6) - 3) * 30;
+            } else {
+              return rotate(rotations, rotationAngles, random);
+            }
+          })
+          .spiral(spiral)
+          .random(random)
+          .text(getText)
+          .font(fontFamily)
+          .fontStyle(fontStyle)
+          .fontWeight(fontWeight);
 
         const draw = (fontSizes: types.MinMaxPair, attempts = 1): void => {
-          layout = createCloud({
-            random,
-            spiral,
-            size,
-            batchSize,
-            words: formatWords(sortedWords, fontSizes),
-            onDone(computedWords) {
+          layout
+            .revive()
+            .fontSize((word: types.Word) => {
+              const fontScale = getFontScale(sortedWords, fontSizes, scale);
+              return fontScale(word.value);
+            })
+            .on('end', (computedWords: types.Word[]) => {
               /** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
                * Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
                * Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
@@ -176,17 +166,13 @@ export default function Wordcloud({
                   random,
                 );
               }
-            },
-          });
-          layout.start();
+            })
+            .start();
         };
 
         draw(fontSizes);
-
         return () => {
-          if (layout) {
-            layout.stop();
-          }
+          layout.stop();
         };
       },
       mergedOptions.renderDebounce,
