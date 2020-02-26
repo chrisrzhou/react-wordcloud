@@ -36,6 +36,7 @@ export default [
       'resize-observer-polyfill',
       'seedrandom',
       'tippy.js',
+      'lodash.debounce',
     ],
   },
 ];
