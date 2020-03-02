@@ -1,0 +1,43 @@
+---
+name: Performance
+route: /usage/performance
+menu: Usage
+---
+
+import ReactWordcloud from '../ReactWordcloud';
+import words from './words';
+
+Testing performance of rendering multiple wordclouds.
+
+Notice various wordclouds have stuttered layouts. Might need to look into a better fix.
+
+<div style={{ height: 300, width: 300 }}>
+  <ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
+<div style={{ height: 300, width: 300 }}>
+  <ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
+<div style={{height: 300, width: 300}}>
+<ReactWordcloud words={words} />
+</div>
