@@ -32,6 +32,7 @@ export default [
       'd3-scale-chromatic',
       'd3-selection',
       'd3-transition',
+      'lodash.debounce',
       'react',
       'resize-observer-polyfill',
       'seedrandom',
