@@ -60,6 +60,10 @@ export interface Options {
    */
   deterministic: boolean;
   /**
+   * (BETA) Note that this feature may not be formally supported in future versions.  For more details, refer to the docs.  Enable optimizations for rendering larger wordclouds.  Note that this uses a custom cloud layout (not d3-cloud) that batches the data into smaller subsets.
+   */
+  enableOptimizations: boolean;
+  /**
    * Enables/disables the tooltip feature.
    */
   enableTooltip: boolean;
