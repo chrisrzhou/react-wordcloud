@@ -32,12 +32,11 @@ export default [
       'd3-scale-chromatic',
       'd3-selection',
       'd3-transition',
-      'd3-dispatch',
+      'lodash.debounce',
       'react',
       'resize-observer-polyfill',
       'seedrandom',
       'tippy.js',
-      'lodash.debounce',
     ],
   },
 ];
