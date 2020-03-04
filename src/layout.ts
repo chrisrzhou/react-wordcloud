@@ -5,6 +5,7 @@ import d3Cloud from 'd3-cloud';
 import { event } from 'd3-selection';
 import seedrandom from 'seedrandom';
 import tippy, { Instance } from 'tippy.js';
+import clonedeep from 'lodash.clonedeep';
 
 import optimizedD3Cloud from './optimized-d3-cloud';
 import * as types from './types';
@@ -144,7 +145,7 @@ export function layout({
   cloud
     .size(size)
     .padding(padding)
-    .words(sortedWords)
+    .words(clonedeep(sortedWords))
     .rotate(() => {
       if (rotations === undefined) {
         // default rotation algorithm
