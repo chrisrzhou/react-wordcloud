@@ -88,12 +88,18 @@
   "peerDependencies": {
     "react": "^16.13.0"
   },
+  "prettier": {
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all"
+  },
   "resolutions": {
     "d3-selection": "1.4.1"
   },
   "xo": {
-    "prettier": {
-      "trailingComma": "always"
-    }
+    "prettier": true,
+    "extends": [
+      "xo-react"
+    ]
   }
 }
