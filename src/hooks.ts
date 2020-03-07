@@ -11,6 +11,10 @@ export function useResponsiveSVGSelection<T>(
   const elementRef = useRef<HTMLDivElement>();
   const [size, setSize] = useState(initialSize);
   const [selection, setSelection] = useState(null);
+  const [minWidth, minHeight] = minSize;
+  const [initialWidth, initialHeight] = initialSize
+    ? initialSize
+    : [null, null];
 
   useEffect(() => {
     const element = elementRef.current;
@@ -30,16 +34,18 @@ export function useResponsiveSVGSelection<T>(
 
     let width = 0;
     let height = 0;
-    if (initialSize !== undefined) {
-      // Use initialSize if it is provided
-      [width, height] = initialSize;
+    const isInitialSizeUndefined =
+      initialWidth == null || initialHeight == null;
+    if (isInitialSizeUndefined) {
+      width = initialWidth;
+      height = initialHeight;
     } else {
       // Use parentNode size if resized has not updated
       width = element.parentElement.offsetWidth;
       height = element.parentElement.offsetHeight;
     }
-    width = Math.max(width, minSize[0]);
-    height = Math.max(height, minSize[1]);
+    width = Math.max(width, minWidth);
+    height = Math.max(height, minHeight);
     updateSize(width, height);
 
     // update resize using a resize observer
@@ -47,7 +53,7 @@ export function useResponsiveSVGSelection<T>(
       if (!entries || !entries.length) {
         return;
       }
-      if (initialSize === undefined) {
+      if (isInitialSizeUndefined) {
         const { width, height } = entries[0].contentRect;
         updateSize(width, height);
       }
@@ -61,7 +67,7 @@ export function useResponsiveSVGSelection<T>(
         .selectAll('*')
         .remove();
     };
-  }, [initialSize, minSize]);
+  }, [initialHeight, initialWidth, minHeight, minWidth]);
 
   return [elementRef, selection, size];
 }
