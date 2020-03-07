@@ -1,5 +1,0 @@
-# Third party
-**/node_modules
-
-# Build
-dist/
