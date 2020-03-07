@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/chrisrzhou/react-wordcloud/compare/v1.1.1...v1.2.0) (2020-03-07)
+
+- Improve rendering performance for larger clouds and multiple cloud instances with the `options.enableOptimizations` flag.
+- Fixed re-render bugs by addressing React effect hooks dependency.
+- Update underlying dependencies.
+- Update and improve documentation (`docz@2.2.0`).
+- De-typescript project (convert back to JS file but emit types) to allow non-Typescript devs to contribute in the future.
+
 ## [1.1.1](https://github.com/chrisrzhou/react-wordcloud/compare/v1.1.0...v1.1.1) (2019-09-27)
 
 - Update dependencies and fix `eval` error in `seedrandom` package ([link](https://github.com/davidbau/seedrandom/issues/64)).
@@ -16,7 +24,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - Simplify typed code.
 - Expose `MouseEvent` object in `onWordClick`, `onWordMouseOut` and `onWordMouseOver` callbacks.
 
-**Minor Typescript API Changes**
+### Minor Typescript API Changes
 
 - Exported Typescript types for component props have been changed slightly due to refactoring.
 
@@ -38,13 +46,13 @@ Fix emitted types.
 
 ## [1.0.5](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.4...v1.0.5) (2019-03-16)
 
-### New:
+### New
 
 - Added `FAQ` page explaining common 'bugs', and updated `Options` page with more examples
 - Handled recursive attempts to layout 'bad' clouds. Provide a console warning when max attempts have been made to layout 'bad' clouds.
 - Changed default `minSize` and `options.fontSizes` value to make things less buggy.
 
-### Bug fixes:
+### Bug fixes
 
 - Fixed a bug where `rotationAngles` was mutated.
 
@@ -52,14 +60,14 @@ Fix emitted types.
 
 Improve and simplify React hooks code after detailed understanding of: https://overreacted.io/a-complete-guide-to-useeffect/
 
-### Bug fixes:
+### Bug fixes
 
 - Handle words that don't fit in the boundary of the SVG by applying a font-size scale factor
 - Handle large number of words
 
 ## [1.0.3](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.2...v1.0.3) (2019-03-14)
 
-### Bug fixes:
+### Bug fixes
 
 - https://github.com/chrisrzhou/react-wordcloud/issues/5
 - https://github.com/chrisrzhou/react-wordcloud/issues/11

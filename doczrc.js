@@ -1,20 +1,30 @@
 export default {
   dest: 'dist/docs',
   menu: [
-    'README',
+    'Readme',
     'Props',
     {
       name: 'Usage',
-      menu: ['Basic', 'Size', 'Callbacks', 'Transitions', 'Options'],
+      menu: [
+        'Basic',
+        'Size',
+        'Callbacks',
+        'Transitions',
+        'Options',
+        'Optimizations',
+      ],
     },
-    'Wordcloud Generator',
-    'FAQ',
-    'CHANGELOG',
-    { name: 'Github', href: 'https://github.com/chrisrzhou/react-wordcloud' },
+    'Common Issues',
+    'Changelog',
   ],
   public: 'public',
   themeConfig: {
-    showPlaygroundEditor: true,
+    styles: {
+      root: {
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+      },
+    },
   },
   typescript: true,
 };

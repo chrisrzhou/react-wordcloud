@@ -3,20 +3,13 @@ import 'd3-transition';
 import { descending } from 'd3-array';
 import d3Cloud from 'd3-cloud';
 import { event } from 'd3-selection';
+import clonedeep from 'lodash.clonedeep';
 import seedrandom from 'seedrandom';
 import tippy, { Instance } from 'tippy.js';
-import clonedeep from 'lodash.clonedeep';
 
 import optimizedD3Cloud from './optimized-d3-cloud';
 import * as types from './types';
-import {
-  choose,
-  getFontScale,
-  getFontSize,
-  getText,
-  getTransform,
-  rotate,
-} from './utils';
+import { choose, getFontScale, getFontSize, getText, getTransform, rotate } from './utils';
 
 function render(
   selection: types.Selection,

@@ -1,13 +1,13 @@
 ---
-name: FAQ
-route: /faq
+name: Common Issues
+route: /common-issues
 ---
 
 import { Playground } from 'docz';
 
 import ReactWordcloud from './ReactWordcloud';
 
-# FAQ
+# Common Issues
 
 ## Why are some words dropped?
 
@@ -15,9 +15,9 @@ import ReactWordcloud from './ReactWordcloud';
 
 ## Why is the most frequent word is not showing up?
 
-This issue happens when the most frequent word is also the **longest** word. For a given wordcloud size, if the longest and most frequent word does not fit in the wordcloud SVG container, the `d3-cloud` algorithm drops them out. This is a known issue discussed in: https://github.com/jasondavies/d3-cloud/issues/36
+This issue happens when the most _frequent_ word is also the _longest_ word. For a given wordcloud size, if the longest and most frequent word does not fit in the wordcloud SVG container, the `d3-cloud` algorithm drops them out. This is a known issue discussed in: [#36](https://github.com/jasondavies/d3-cloud/issues/36).
 
-`react-wordcloud` tries to solve this issue by recursively rendering the wordcloud if it detects that words have been dropped out. Each recursion would decrease the applied font-size by a scale factor. The recursion will bail out after some maximum attempts is reached, and a console warning will be thrown to the user informating that the words cannot be rendered in the wordcloud. The following example below demonstrates this scenario:
+`react-wordcloud` tries to solve this issue by recursively rendering the wordcloud if it detects that words have been dropped out. Each recursion would decrease the applied font-size by a scale factor. The recursion will bail out after some maximum attempts is reached, and a console warning will be thrown to the user informing that the words cannot be rendered in the wordcloud. The following example below demonstrates this scenario:
 
 <Playground>
   <ReactWordcloud
@@ -30,7 +30,7 @@ This issue happens when the most frequent word is also the **longest** word. For
   />
 </Playground>
 
-If you see this console warning, it is recommended that you address it in the following few common ways:
+If you see this console warning, it is recommended that you address it in the following ways:
 
 - Increase the wordcloud size (either using the `size` prop or the parent container).
 - Reduce the `options.fontSizes` values.

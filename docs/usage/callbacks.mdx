@@ -5,16 +5,14 @@ menu: Usage
 ---
 
 import { select } from 'd3-selection';
-import 'd3-transition';
 import { Playground } from 'docz';
-import { useState } from 'react';
 
 import ReactWordcloud from '../ReactWordcloud';
-import words from './words';
+import words from '../words';
 
 # Callbacks
 
-`ReactWordcloud` provides a `callbacks` prop to configure detailed word colors, tooltips and events.
+`ReactWordcloud` provides a [`callbacks`](../props#callbacks) prop to configure detailed word colors, tooltips and events.
 
 ## Colors and Tooltips
 
@@ -42,31 +40,32 @@ You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMous
 
 <Playground>
   {() => {
-    function getCallback(callback) {
+    function getCallback(callbackName) {
       return function(word, event) {
-        const isActive = callback !== 'onWordMouseOut';
-          const element = event.target;
-          const text = select(element);
-          text
-            .on('click', () => {
-              if (isActive) {
-                window.open(`https://duckduckgo.com/?q=${word.text}`, '_blank');
-              }
-            })
-            .transition()
-            .attr('background', 'white')
-            .attr('font-size', isActive ? '300%' : '100%')
-            .attr('text-decoration', isActive ? 'underline' : 'none')
-
+        const isActive = callbackName !== 'onWordMouseOut';
+        const element = event.target;
+        const text = select(element);
+        text
+          .on('click', () => {
+            if (isActive) {
+              window.open(`https://duckduckgo.com/?q=${word.text}`, '_blank');
+            }
+          })
+          .transition()
+          .attr('background', 'white')
+          .attr('font-size', isActive ? '300%' : '100%')
+          .attr('text-decoration', isActive ? 'underline' : 'none');
       };
     }
-    const callbacks = {
-      onWordClick: getCallback('onWordClick'),
-      onWordMouseOut: getCallback('onWordMouseOut'),
-      onWordMouseOver: getCallback('onWordMouseOver'),
-    };
-    return <ReactWordcloud words={words} callbacks={callbacks} />;
-
-}}
-
+    return (
+      <ReactWordcloud
+        callbacks={{
+          onWordClick: getCallback('onWordClick'),
+          onWordMouseOut: getCallback('onWordMouseOut'),
+          onWordMouseOver: getCallback('onWordMouseOver'),
+        }}
+        words={words}
+      />
+    );
+  }}
 </Playground>
