@@ -11,7 +11,7 @@ import words from '../words';
 
 # Size
 
-By default, `react-wordcloud` will inherit its parent container's size unless an explicit `size` prop is specified.
+By default, `react-wordcloud` will inherit the parent's size unless an explicit `size` prop is specified.
 
 ## Responsive parent size
 
@@ -33,7 +33,7 @@ Provide explicit values with the `size` prop. The wordcloud will no longer respo
 
 ## Minimum size
 
-You can customize the minimum size by adjusting the `minSize` prop. If the provided `size` or resized values are smaller than the `minSize`, it will use the `minSize` value, as demonstrated in the following example (`minSize = [400, 400]`, `size = [100, 100]`):
+You can customize the minimum size by adjusting the `minSize` prop. If the provided `size` or resized values are smaller than `minSize`, it will use the `minSize` value, as demonstrated in the following example (`minSize = [400, 400]`, `size = [100, 100]`).
 
 <Playground>
   <ReactWordcloud words={words} minSize={[400, 400]} size={[100, 100]} />

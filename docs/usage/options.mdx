@@ -28,7 +28,7 @@ You can customize many visual and layout properties of `react-wordcloud` by usin
 
 ## Deterministic Behaviour
 
-If enabled, will produce the same output given a certain input. In contrast, the words are randomly positioned and rotated by default. Try resizing the wordcloud up and down in the example below to see the deterministic color and layout being continually applied.
+`react-wordcloud` randomly positions and rotates words by default. If `options.deterministic` is `true`, `react-wordcloud` will produce the same positioning/rotation/color for a provided input. Try resizing the wordcloud up and down in the example below to see the deterministic behavior.
 
 <Playground>
   <ReactWordcloud
@@ -41,7 +41,7 @@ If enabled, will produce the same output given a certain input. In contrast, the
 
 ## Font Styles
 
-Configure wordfont styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fontWeight` options.
+Configure word font styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fontWeight` options.
 
 <Playground>
   <ReactWordcloud
@@ -85,7 +85,7 @@ Configure the wordcloud layout by using the `scale`, `spiral` options.
 
 ## Interactive
 
-Use the code editor to edit and play around with some of these options!
+Use the Playground to edit and play around with some of these options!
 
 <Playground>
   <ReactWordcloud

@@ -24,12 +24,9 @@ In the example below, we can pass custom `getWordColor` and `getWordTooltip` cal
   <ReactWordcloud
     words={words}
     callbacks={{
-      getWordColor: ({ value }) => {
-        return value > 50 ? "blue" : "red";
-      },
-      getWordTooltip: ({ text, value }) => {
-        return value > 50 ? `${text.toUpperCase()} (> 50)` : `${text} (<= 50)`;
-      },
+      getWordColor: ({ value }) => (value > 50 ? "blue" : "red"),
+      getWordTooltip: ({ text, value }) =>
+        `${text} (${value}) [${value > 50 ? "good" : "bad"}]`,
     }}
   />
 </Playground>
@@ -40,23 +37,21 @@ You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMous
 
 <Playground>
   {() => {
-    function getCallback(callbackName) {
-      return function(word, event) {
-        const isActive = callbackName !== "onWordMouseOut";
-        const element = event.target;
-        const text = select(element);
-        text
-          .on("click", () => {
-            if (isActive) {
-              window.open(`https://duckduckgo.com/?q=${word.text}`, "_blank");
-            }
-          })
-          .transition()
-          .attr("background", "white")
-          .attr("font-size", isActive ? "300%" : "100%")
-          .attr("text-decoration", isActive ? "underline" : "none");
-      };
-    }
+    const getCallback = callbackName => (word, event) => {
+      const isActive = callbackName !== "onWordMouseOut";
+      const element = event.target;
+      const text = select(element);
+      text
+        .on("click", () => {
+          if (isActive) {
+            window.open(`https://duckduckgo.com/?q=${word.text}`, "_blank");
+          }
+        })
+        .transition()
+        .attr("background", "white")
+        .attr("font-size", isActive ? "300%" : "100%")
+        .attr("text-decoration", isActive ? "underline" : "none");
+    };
     return (
       <ReactWordcloud
         callbacks={{

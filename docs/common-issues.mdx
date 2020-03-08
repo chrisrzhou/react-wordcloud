@@ -13,7 +13,8 @@ import words from "./words";
 
 ## Re-rendering issues
 
-The React component will re-render (i.e. growing from the center) if the `size`, `callbacks`, `options` props are updated unintentionally.  Note that `react-wordcloud` is un-opinionated about this rendering behavior since this is the default React behavior (i.e. prop changes re-render the component).
+It is a common scenario that 
+`react-wordcloud` will unintentionally re-render (i.e. grow from the center) when the `size`, `callbacks`, `options` props are updated.  Note that `react-wordcloud` is **unopinionated** about this rendering behavior since this is the default React behavior, namely that changes in props will re-render the component.
 
 You should instead try to define these props statically (e.g. outside of the component) or memoize them accordingly. The comparison example below shows how to avoid this issue with `useMemo`.
 
@@ -21,7 +22,7 @@ You should instead try to define these props statically (e.g. outside of the com
   {() => {
     const [iteration, setIteration] = useState(0);
     const size = [600, 300];  // this creates a new array when state updates
-    const memoizedSize = useMemo(() => [600, 300], []);  // memoized. You can also just define the size variable itself outside of the componenet
+    const memoizedSize = useMemo(() => [600, 300], []);  // memoized. You can also simply just define the size variable itself outside of the componenet
     return (
       <div>
         <button onClick={() => setIteration(iteration + 1)}>
@@ -41,9 +42,9 @@ You should instead try to define these props statically (e.g. outside of the com
 Performance issues in the underlying `d3-cloud` layout can be encountered in these common situations:
 
 - Multiple instances of `react-wordcloud`.
-- Large `words` data is provided.
-- High `maxWords` prop is applied.
-- Small `size` prop or parent container size vs large `fontSizes`.
+- Large `words` data.
+- High `maxWords` prop.
+- Large `fontSizes` with small `size` prop (or parent container size).
 
 The `options.enableOptimizations` flag can be uesd to solve the first two performance problems. For the other problems, you will have to experiment and pick ideal options to configure your wordclouds.
 
@@ -51,14 +52,14 @@ The `options.enableOptimizations` flag can be uesd to solve the first two perfor
 
 This issue happens when the most _frequent_ word is also the _longest_ word. For a given wordcloud size, if the longest and most frequent word does not fit in the wordcloud SVG container, the `d3-cloud` algorithm drops them out. This is a known issue discussed in: [#36](https://github.com/jasondavies/d3-cloud/issues/36).
 
-`react-wordcloud` tries to solve this issue by recursively rendering the wordcloud if it detects that words have been dropped out. Each recursion would decrease the applied font-size by a scale factor. The recursion will bail out after some maximum attempts is reached, and a console warning will be thrown to the user informing that the words cannot be rendered in the wordcloud. The following example below demonstrates this scenario:
+`react-wordcloud` tries to solve this issue by recursively rendering the wordcloud if it detects that words have been dropped out. Each recursion would decrease the applied font-size by a scale factor. The recursion will bail out after some maximum attempts is reached, and a console warning will be thrown to the user informing that the words cannot be rendered in the wordcloud. The following example below demonstrates this scenario.
 
 <Playground>
   <ReactWordcloud
     size={[200, 200]}
     words={[
-      { text: "this_is_a_long_word_and_also_the_most_frequent", value: 45 },
-      { text: "some_word", value: 35 },
+      { text: "this_is_a_long_word_and_also_the_most_frequent", value: 60 },
+      { text: "some_word", value: 30 },
       { text: "another_word", value: 20 },
     ]}
   />

@@ -1,6 +1,6 @@
-import { MinMaxPair, Selection } from './types';
+import {MinMaxPair, Selection} from './types';
 
 export function useResponsiveSvgSelection<T>(
-  minSize: MinMaxPair,
-  initialSize?: MinMaxPair,
+	minSize: MinMaxPair,
+	initialSize?: MinMaxPair,
 ): [React.MutableRefObject<HTMLDivElement>, Selection, MinMaxPair];

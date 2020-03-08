@@ -8,6 +8,10 @@ This release is largely internal refactoring and updating dependencies, as well 
 
 - Improve rendering performance for larger clouds and multiple cloud instances with the `options.enableOptimizations` flag.
 
+### Small Typescript breaking changes:
+
+- `Spiral` and `Scale` enums are removed in favor of whitelisted string values. As part of moving to ambient declarations, these enums will not materialize in the compiled code.
+
 ### Internal code changes:
 
 - Update underlying dependencies via `yarn upgrade --latest`. Remove a ton of unneeded dependencies and correctly move `@types/*` deps to `devDependencies`.
