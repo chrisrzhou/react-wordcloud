@@ -1,7 +1,10 @@
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
+
 import debounce from 'lodash.debounce';
 import React, { useEffect, useRef } from 'react';
 
-import { useResponsiveSVGSelection } from './hooks';
+import { useResponsiveSvgSelection } from './hooks';
 import { layout } from './layout';
 import { getDefaultColors } from './utils';
 
@@ -36,7 +39,7 @@ const ReactWordCloud = ({
 	const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
 	const mergedOptions = { ...defaultOptions, ...options };
 
-	const [ref, selection, size] = useResponsiveSVGSelection(
+	const [ref, selection, size] = useResponsiveSvgSelection(
 		minSize,
 		initialSize,
 	);

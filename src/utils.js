@@ -13,8 +13,8 @@ export function getDefaultColors() {
 }
 
 export function getFontScale(words, fontSizes, scale) {
-	const minSize = min(words, word => word.value);
-	const maxSize = max(words, word => word.value);
+	const minSize = min(words, word => Number(word.value));
+	const maxSize = max(words, word => Number(word.value));
 	let scaleFunction;
 	switch (scale) {
 		case 'log':
@@ -35,12 +35,12 @@ export function getFontScale(words, fontSizes, scale) {
 	return fontScale;
 }
 
-export function getText(word) {
-	return word.text;
-}
-
 export function getFontSize(word) {
 	return `${word.size}px`;
+}
+
+export function getText(word) {
+	return word.text;
 }
 
 export function getTransform(word) {
@@ -70,5 +70,3 @@ export function rotate(rotations, rotationAngles, random) {
 
 	return choose(angles, random);
 }
-
-export const emptyFunction = () => {};

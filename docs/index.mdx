@@ -1,0 +1,24 @@
+---
+name: Home
+route: /
+---
+
+import ReactWordcloud from "../src";
+
+import words from "./words";
+
+<div
+  style={{
+    boxSizing: 'border-box',
+    display: 'flex',
+    height: '80%',
+    justifyContent: 'center',
+    padding: 24,
+    width: '100%'
+  }}>
+  <ReactWordcloud
+    options={{fontSizes: [12, 40]}}
+    maxWords={200}
+    words={words}
+  />
+</div>

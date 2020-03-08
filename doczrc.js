@@ -1,6 +1,7 @@
 export default {
 	dest: 'dist/docs',
 	menu: [
+		'Home',
 		'Readme',
 		'Props',
 		{
@@ -26,4 +27,5 @@ export default {
 			},
 		},
 	},
+	typescript: true,
 };

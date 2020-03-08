@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import 'd3-transition';
 
 import { descending } from 'd3-array';
@@ -11,7 +10,6 @@ import tippy from 'tippy.js';
 import optimizedD3Cloud from './optimized-d3-cloud';
 import {
 	choose,
-	emptyFunction,
 	getFontScale,
 	getFontSize,
 	getText,
@@ -23,9 +21,9 @@ function render(selection, words, options, callbacks, random) {
 	const {
 		getWordColor,
 		getWordTooltip,
-		onWordClick = emptyFunction,
-		onWordMouseOver = emptyFunction,
-		onWordMouseOut = emptyFunction,
+		onWordClick,
+		onWordMouseOver,
+		onWordMouseOut,
 	} = callbacks;
 	const { colors, enableTooltip, fontStyle, fontWeight } = options;
 	const { fontFamily, transitionDuration } = options;
@@ -43,7 +41,9 @@ function render(selection, words, options, callbacks, random) {
 			return enter
 				.append('text')
 				.on('click', word => {
-					onWordClick(word, event);
+					if (onWordClick) {
+						onWordClick(word, event);
+					}
 				})
 				.on('mouseover', word => {
 					if (enableTooltip) {
@@ -56,14 +56,18 @@ function render(selection, words, options, callbacks, random) {
 						});
 					}
 
-					onWordMouseOver(word, event);
+					if (onWordMouseOver) {
+						onWordMouseOver(word, event);
+					}
 				})
 				.on('mouseout', word => {
 					if (tooltipInstance) {
 						tooltipInstance.destroy();
 					}
 
-					onWordMouseOut(word, event);
+					if (onWordMouseOut) {
+						onWordMouseOut(word, event);
+					}
 				})
 				.attr('cursor', onWordClick ? 'pointer' : 'default')
 				.attr('fill', getFill)

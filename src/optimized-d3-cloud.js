@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Author: Augustinas (https://github.com/WhoAteDaCake)
  * Source: https://github.com/chrisrzhou/react-wordcloud/blob/166d0b0400a87647fe4e7855a26fe581ce38a502/src/cloud.ts
