@@ -6,5 +6,5 @@
     "jsx": "react",
     "noEmit": true
   },
-  "exclude": ["node_modules", "docs"]
+  "include": ["src"]
 }

@@ -1,15 +1,20 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [1.2.0](https://github.com/chrisrzhou/react-wordcloud/compare/v1.1.1...v1.2.0) (2020-03-07)
 
+This release is largely internal refactoring and updating dependencies, as well as 'de-typescripting' the codebase
+
+### API additions:
+
 - Improve rendering performance for larger clouds and multiple cloud instances with the `options.enableOptimizations` flag.
-- Fixed re-render bugs by addressing React effect hooks dependency.
-- Update underlying dependencies.
-- Update and improve documentation (`docz@2.2.0`).
-- De-typescript project (convert back to JS file but emit types) to allow non-Typescript devs to contribute in the future.
+
+### Internal code changes:
+
+- Update underlying dependencies via `yarn upgrade --latest`. Remove a ton of unneeded dependencies and correctly move `@types/*` deps to `devDependencies`.
+- Remove custom `eslint`, `prettier` config and use `xo` for a simpler linting setup.
+- Add `husky` pre-push hook.
+- Update and improve documentation with `docz@2.2.0`. Improved various doc pages (`Common Issues`) and added the `Optimizations` and `Home` page
+- Take the approach in various projects (e.g. [three](https://github.com/mrdoob/three.js/)) to "de-typescript" the codebase and use `*.d.ts` files for typing in development. Continue to expose Typescript types to consumers.
 
 ## [1.1.1](https://github.com/chrisrzhou/react-wordcloud/compare/v1.1.0...v1.1.1) (2019-09-27)
 

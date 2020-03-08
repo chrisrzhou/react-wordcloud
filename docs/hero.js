@@ -4,7 +4,7 @@ import ReactWordcloud from '../src';
 import { choose } from '../src/utils';
 import words from './words';
 
-const fontFamilies = ['Arial', 'Times New Roman', 'Verdana', 'Impact'];
+const fontFamilies = ['Arial', 'Times New Roman', 'Impact'];
 const scales = ['linear', 'log', 'sqrt'];
 const spirals = ['rectangular', 'archimedean'];
 const rotationAngles = [

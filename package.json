@@ -7,9 +7,9 @@
   "types": "src/index.d.ts",
   "keywords": [
     "react",
-    "d3",
     "wordcloud",
-    "visualization"
+    "visualization",
+    "d3"
   ],
   "author": "Chris Zhou <chrisrzhou@pm.me>",
   "license": "MIT",
@@ -22,13 +22,13 @@
   },
   "homepage": "https://react-wordcloud.netlify.com/",
   "scripts": {
-    "build": "rollup -c",
+    "build": "yarn clean; rollup -c",
     "build:docs": "yarn clean:docs; yarn docz build",
-    "clean": "rm -rf dist .docz",
+    "clean": "rm -rf .docz dist",
     "clean:docs": "rm -rf .docz",
     "dev": "yarn clean:docs; yarn docz dev",
     "lint": "yarn xo --fix; yarn tsc",
-    "prepare": "yarn clean; yarn build"
+    "prepare": "yarn build"
   },
   "dependencies": {
     "d3-array": "^2.4.0",
@@ -45,6 +45,8 @@
     "tippy.js": "^6.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
     "@types/d3-array": "^2.0.0",
     "@types/d3-cloud": "^1.2.2",
     "@types/d3-scale": "^2.2.0",
@@ -59,6 +61,9 @@
     "husky": "^4.2.3",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "rollup": "^2.0.2",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-babel": "^4.4.0",
     "typescript": "^3.8.3",
     "xo": "^0.27.2"
   },
@@ -67,6 +72,11 @@
   },
   "resolutions": {
     "d3-selection": "1.4.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/react"
+    ]
   },
   "husky": {
     "hooks": {
