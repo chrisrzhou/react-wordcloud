@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ReactWordcloud from '../src';
-import {choose} from '../src/utils';
+import { choose } from '../src/utils';
 import words from './words';
 
 const fontFamilies = ['Arial', 'Times New Roman', 'Impact'];

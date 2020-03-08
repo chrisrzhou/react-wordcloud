@@ -84,6 +84,7 @@
 		}
 	},
 	"prettier": {
+		"bracketSpacing": true,
 		"jsxBracketSameLine": true,
 		"trailingComma": "all"
 	},

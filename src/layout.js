@@ -1,8 +1,8 @@
 import 'd3-transition';
 
-import {descending} from 'd3-array';
+import { descending } from 'd3-array';
 import d3Cloud from 'd3-cloud';
-import {event} from 'd3-selection';
+import { event } from 'd3-selection';
 import clonedeep from 'lodash.clonedeep';
 import seedrandom from 'seedrandom';
 import tippy from 'tippy.js';
@@ -17,7 +17,7 @@ import {
 	rotate,
 } from './utils';
 
-function render({callbacks, options, random, selection, words}) {
+function render({ callbacks, options, random, selection, words }) {
 	const {
 		getWordColor,
 		getWordTooltip,
@@ -25,8 +25,8 @@ function render({callbacks, options, random, selection, words}) {
 		onWordMouseOver,
 		onWordMouseOut,
 	} = callbacks;
-	const {colors, enableTooltip, fontStyle, fontWeight} = options;
-	const {fontFamily, transitionDuration} = options;
+	const { colors, enableTooltip, fontStyle, fontWeight } = options;
+	const { fontFamily, transitionDuration } = options;
 
 	function getFill(word) {
 		return getWordColor ? getWordColor(word) : choose(colors, random);
@@ -99,7 +99,14 @@ function render({callbacks, options, random, selection, words}) {
 	);
 }
 
-export function layout({callbacks, maxWords, options, selection, size, words}) {
+export function layout({
+	callbacks,
+	maxWords,
+	options,
+	selection,
+	size,
+	words,
+}) {
 	const MAX_LAYOUT_ATTEMPTS = 10;
 	const SHRINK_FACTOR = 0.95;
 	const {

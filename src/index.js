@@ -2,14 +2,14 @@ import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 
 import debounce from 'lodash.debounce';
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import {useResponsiveSvgSelection} from './hooks';
-import {layout} from './layout';
-import {getDefaultColors} from './utils';
+import { useResponsiveSvgSelection } from './hooks';
+import { layout } from './layout';
+import { getDefaultColors } from './utils';
 
 export const defaultCallbacks = {
-	getWordTooltip: ({text, value}) => `${text} (${value})`,
+	getWordTooltip: ({ text, value }) => `${text} (${value})`,
 };
 
 export const defaultOptions = {
@@ -36,8 +36,8 @@ const ReactWordCloud = ({
 	size: initialSize,
 	words,
 }) => {
-	const mergedCallbacks = {...defaultCallbacks, ...callbacks};
-	const mergedOptions = {...defaultOptions, ...options};
+	const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
+	const mergedOptions = { ...defaultOptions, ...options };
 
 	const [ref, selection, size] = useResponsiveSvgSelection(
 		minSize,
@@ -59,7 +59,7 @@ const ReactWordCloud = ({
 		}
 	}, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
 
-	return <div ref={ref} style={{height: '100%', width: '100%'}} />;
+	return <div ref={ref} style={{ height: '100%', width: '100%' }} />;
 };
 
 ReactWordCloud.defaultProps = {

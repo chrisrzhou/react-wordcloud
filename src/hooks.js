@@ -1,5 +1,5 @@
-import {select} from 'd3-selection';
-import {useEffect, useRef, useState} from 'react';
+import { select } from 'd3-selection';
+import { useEffect, useRef, useState } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 
 export function useResponsiveSvgSelection(minSize, initialSize) {
@@ -45,7 +45,7 @@ export function useResponsiveSvgSelection(minSize, initialSize) {
 			}
 
 			if (initialSize === undefined) {
-				const {width, height} = entries[0].contentRect;
+				const { width, height } = entries[0].contentRect;
 				updateSize(width, height);
 			}
 		});

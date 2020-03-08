@@ -1,4 +1,4 @@
-import {MinMaxPair, Scale, Word} from './types';
+import { MinMaxPair, Scale, Word } from './types';
 
 export function choose<T>(array: T[], randomFunction?: () => void): T;
 

@@ -1,4 +1,4 @@
-import {Callbacks, MinMaxPair, Options, Selection, Word} from './types';
+import { Callbacks, MinMaxPair, Options, Selection, Word } from './types';
 
 export function layout({
 	callbacks,

@@ -1,4 +1,4 @@
-import {EnterElement, Selection as d3Selection} from 'd3-selection';
+import { EnterElement, Selection as d3Selection } from 'd3-selection';
 
 export interface Callbacks {
 	/**
