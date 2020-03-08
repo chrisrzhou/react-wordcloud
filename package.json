@@ -86,7 +86,9 @@
   "prettier": {
     "bracketSpacing": true,
     "jsxBracketSameLine": true,
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "useTabs": false
   },
   "xo": {
     "prettier": true,

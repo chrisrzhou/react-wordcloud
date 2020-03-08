@@ -8,40 +8,40 @@ const fontFamilies = ['Arial', 'Times New Roman', 'Impact'];
 const scales = ['linear', 'log', 'sqrt'];
 const spirals = ['rectangular', 'archimedean'];
 const rotationAngles = [
-	[-90, 90],
-	[-45, 45],
-	[-180, 180],
+  [-90, 90],
+  [-45, 45],
+  [-180, 180],
 ];
 
 const Hero = () => {
-	const [iteration, setIteration] = useState(0);
+  const [iteration, setIteration] = useState(0);
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setIteration(iteration + 1);
-		}, 2500);
-		return () => clearInterval(interval);
-	}, [iteration]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIteration(iteration + 1);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [iteration]);
 
-	const options = {
-		fontFamily: choose(fontFamilies),
-		fontSizes: [14, 40],
-		scales: choose(scales),
-		spiral: choose(spirals),
-		rotationAngle: choose(rotationAngles),
-	};
+  const options = {
+    fontFamily: choose(fontFamilies),
+    fontSizes: [14, 40],
+    scales: choose(scales),
+    spiral: choose(spirals),
+    rotationAngle: choose(rotationAngles),
+  };
 
-	return (
-		<div
-			style={{
-				boxSizing: 'border-box',
-				height: '60%',
-				padding: 24,
-				width: '80%',
-			}}>
-			<ReactWordcloud maxWords={200} options={options} words={words} />
-		</div>
-	);
+  return (
+    <div
+      style={{
+        boxSizing: 'border-box',
+        height: '60%',
+        padding: 24,
+        width: '80%',
+      }}>
+      <ReactWordcloud maxWords={200} options={options} words={words} />
+    </div>
+  );
 };
 
 export default Hero;
