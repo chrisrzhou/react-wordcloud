@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
+
+[build.environment]
+  NODE_VERSION = "13.6.0"
+  YARN_VERSION = "1.21.1"
+  NPM_VERSION = "6.13.4"
