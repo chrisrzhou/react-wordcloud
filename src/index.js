@@ -59,7 +59,7 @@ const ReactWordCloud = ({
 		}
 	}, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
 
-	return <div ref={ref} />;
+	return <div ref={ref} style={{ height: '100%', width: '100%' }} />;
 };
 
 ReactWordCloud.defaultProps = {

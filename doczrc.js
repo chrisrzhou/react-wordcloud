@@ -27,5 +27,6 @@ export default {
 			},
 		},
 	},
+	title: '☁️ React Wordcloud',
 	typescript: true,
 };

@@ -5,29 +5,32 @@ route: /props
 
 import { Props } from "docz";
 
-import Callbacks from "./callbacks";
-import Options from "./options";
-import Word from "./word";
+import CallbacksInterface from "./callbacks-interface";
+import ComponentProps from "./component-props";
+import OptionsInterface from "./options-interface";
+import WordInterface from "./word-interface";
 import ReactWordcloud from "../../src";
 
 # Props
 
-<Props of={ReactWordcloud} />
+`react-wordcloud` provides a simple set of props to build and configure wordclouds:
+
+<Props of={ComponentProps} />
 
 ## `Word`
 
-The generated `word` object takes the following shape
+The generated `word` object takes the following shape:
 
-<Props of={Word} />
+<Props of={WordInterface} />
 
 ## `options`
 
 You can customize the wordcloud by configuring the `options` prop. All fields are optional.
 
-<Props of={Options} />
+<Props of={OptionsInterface} />
 
 ## `callbacks`
 
 The `callbacks` prop provides advanced ways to control the wordcloud behaviors. All fields are optional.
 
-<Props of={Callbacks} />
+<Props of={CallbacksInterface} />

@@ -24,8 +24,6 @@ export interface Callbacks {
 	onWordMouseOver?: (word: Word, event?: MouseEvent) => void;
 }
 
-export type CallbacksProp = Optional<Callbacks>;
-
 export type MinMaxPair = [number, number];
 
 export interface Options {
@@ -91,12 +89,6 @@ export interface Options {
 	 */
 	renderDebounce?: number;
 }
-
-export type OptionsProp = Optional<Options>;
-
-type Optional<T> = {
-	[P in keyof T]?: T[P];
-};
 
 export type RandomFunction = () => number;
 

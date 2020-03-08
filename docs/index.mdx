@@ -3,22 +3,10 @@ name: Home
 route: /
 ---
 
-import ReactWordcloud from "../src";
+import Hero from "./hero";
 
-import words from "./words";
+# `react-wordcloud`
 
-<div
-  style={{
-    boxSizing: 'border-box',
-    display: 'flex',
-    height: '80%',
-    justifyContent: 'center',
-    padding: 24,
-    width: '100%'
-  }}>
-  <ReactWordcloud
-    options={{fontSizes: [12, 40]}}
-    maxWords={200}
-    words={words}
-  />
-</div>
+Simple React + D3 wordcloud component with powerful features. Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
+
+<Hero />

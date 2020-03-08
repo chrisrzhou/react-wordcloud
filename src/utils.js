@@ -2,7 +2,7 @@ import { max, min, range } from 'd3-array';
 import { scaleLinear, scaleLog, scaleOrdinal, scaleSqrt } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 
-export function choose(array, random) {
+export function choose(array, random = Math.random) {
 	return array[Math.floor(random() * array.length)];
 }
 

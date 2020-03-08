@@ -1,6 +1,6 @@
 import { MinMaxPair, RandomFunction, Scale, Word } from './types';
 
-export function choose<T>(array: T[], randomFunction: RandomFunction): T;
+export function choose<T>(array: T[], randomFunction?: RandomFunction): T;
 
 export function emptyFunction(): void;
 

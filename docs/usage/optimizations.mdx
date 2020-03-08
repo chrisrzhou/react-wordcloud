@@ -11,7 +11,7 @@ import words from '../words';
 
 > [BETA] Note that this feature is not formally supported, but is made available for improving performance in edge cases.
 
-By default, `ReactWordcloud` uses the [`d3.cloud`](https://github.com/jasondavies/d3-cloud) layout algorithm. The algorithm as of [v1.2.5](https://github.com/jasondavies/d3-cloud/releases/tag/v1.2.5) is not optimized to handle rendering larger `words`.
+By default, `react-wordcloud` uses the [`d3.cloud`](https://github.com/jasondavies/d3-cloud) layout algorithm. The algorithm as of [v1.2.5](https://github.com/jasondavies/d3-cloud/releases/tag/v1.2.5) is not optimized to handle rendering larger `words`.
 
 An optimized solution was explored by [WhoAteDaCake](https://github.com/WhoAteDaCake) in [#33](https://github.com/chrisrzhou/react-wordcloud/pull/33), and can be accessed by setting `options.enableOptimizations` to `true`. This feature is marked as `beta` and will be more formally supported if the underlying `d3-cloud` algorithm supports it.
 
