@@ -1,18 +1,18 @@
 ---
 name: Transitions
-route: /usage/transitions
 menu: Usage
+route: /usage/transitions
 ---
 
 import { Playground } from 'docz';
 import { useState } from 'react';
 
-import ReactWordcloud from '../ReactWordcloud';
-import words from './words';
+import ReactWordcloud from '../../src';
+import words from '../words';
 
 # Transitions
 
-`ReactWordcloud` handles updating D3 transitions when `words`, `size` and `options` prop change. The following example demonstrates this behavior when their respective buttons are clicked.
+`react-wordcloud` handles updating D3 transitions when `words`, `size` and `options` prop change. The following example demonstrates this behavior.
 
 <Playground>
   {() => {

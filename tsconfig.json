@@ -1,13 +1,10 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "jsx": "react",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "sourceMap": true,
-    "target": "es5"
-  },
-  "include": ["src"]
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"checkJs": true,
+		"jsx": "react",
+		"noEmit": true
+	},
+	"include": ["src"]
 }

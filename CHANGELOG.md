@@ -1,7 +1,24 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## [1.2.0](https://github.com/chrisrzhou/react-wordcloud/compare/v1.1.1...v1.2.0) (2020-03-07)
+
+This release is largely internal refactoring and updating dependencies, as well as 'de-typescripting' the codebase
+
+### API additions:
+
+- Improve rendering performance for larger clouds and multiple cloud instances with the `options.enableOptimizations` flag.
+
+### Small Typescript breaking changes:
+
+- `Spiral` and `Scale` enums are removed in favor of whitelisted string values. As part of moving to ambient declarations, these enums will not materialize in the compiled code.
+
+### Internal code changes:
+
+- Update underlying dependencies via `yarn upgrade --latest`. Remove a ton of unneeded dependencies and correctly move `@types/*` deps to `devDependencies`.
+- Remove custom `eslint`, `prettier` config and use `xo` for a simpler linting setup.
+- Add `husky` pre-push hook.
+- Update and improve documentation with `docz@2.2.0`. Improved various doc pages (`Common Issues`) and added the `Optimizations` and `Home` page
+- Take the approach in various projects (e.g. [three](https://github.com/mrdoob/three.js/)) to "de-typescript" the codebase and use `*.d.ts` files for typing in development. Continue to expose Typescript types to consumers.
 
 ## [1.1.1](https://github.com/chrisrzhou/react-wordcloud/compare/v1.1.0...v1.1.1) (2019-09-27)
 
@@ -16,7 +33,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - Simplify typed code.
 - Expose `MouseEvent` object in `onWordClick`, `onWordMouseOut` and `onWordMouseOver` callbacks.
 
-**Minor Typescript API Changes**
+### Minor Typescript API Changes
 
 - Exported Typescript types for component props have been changed slightly due to refactoring.
 
@@ -38,13 +55,13 @@ Fix emitted types.
 
 ## [1.0.5](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.4...v1.0.5) (2019-03-16)
 
-### New:
+### New
 
 - Added `FAQ` page explaining common 'bugs', and updated `Options` page with more examples
 - Handled recursive attempts to layout 'bad' clouds. Provide a console warning when max attempts have been made to layout 'bad' clouds.
 - Changed default `minSize` and `options.fontSizes` value to make things less buggy.
 
-### Bug fixes:
+### Bug fixes
 
 - Fixed a bug where `rotationAngles` was mutated.
 
@@ -52,14 +69,14 @@ Fix emitted types.
 
 Improve and simplify React hooks code after detailed understanding of: https://overreacted.io/a-complete-guide-to-useeffect/
 
-### Bug fixes:
+### Bug fixes
 
 - Handle words that don't fit in the boundary of the SVG by applying a font-size scale factor
 - Handle large number of words
 
 ## [1.0.3](https://github.com/chrisrzhou/react-wordcloud/compare/v1.0.2...v1.0.3) (2019-03-14)
 
-### Bug fixes:
+### Bug fixes
 
 - https://github.com/chrisrzhou/react-wordcloud/issues/5
 - https://github.com/chrisrzhou/react-wordcloud/issues/11

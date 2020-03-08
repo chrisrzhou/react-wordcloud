@@ -1,10 +1,8 @@
-/* eslint-disable */
 // @ts-nocheck
 /**
  * Author: Augustinas (https://github.com/WhoAteDaCake)
  * Source: https://github.com/chrisrzhou/react-wordcloud/blob/166d0b0400a87647fe4e7855a26fe581ce38a502/src/cloud.ts
  * TEMPORARY workaround
- * Should re-write this in typescript in the future
  *
  * Implements the wordcloud algorithm based on: https://github.com/jasondavies/d3-cloud/tree/v1.2.5
  * Improvements:
@@ -14,15 +12,14 @@
 
 // Word cloud layout by Jason Davies, https://www.jasondavies.com/wordcloud/
 // Algorithm due to Jonathan Feinberg, http://static.mrfeinberg.com/bv_ch03.pdf
-import { Cloud } from './types';
 
-const dispatch = require('d3-dispatch').dispatch;
+import { dispatch } from 'd3-dispatch';
 
 const cloudRadians = Math.PI / 180,
   cw = (1 << 11) >> 5,
   ch = 1 << 11;
 
-export default function<T>(): Cloud<T> {
+export default function Cloud() {
   let size = [256, 256],
     text = cloudText,
     font = cloudFont,
@@ -70,7 +67,7 @@ export default function<T>(): Cloud<T> {
 
     // Added by react-wordcloud
     // Allows to calculate a subset of data instead of all of the words at once
-    function multiStep(from: number, to: number) {
+    function multiStep(from, to) {
       for (let i = from; i < to; i += 1) {
         const d = data[i];
         d.x = (size[0] * (random() + 0.5)) >> 1;
@@ -94,7 +91,7 @@ export default function<T>(): Cloud<T> {
 
     // Added by react-wordcloud
     // Iterates dataset using setTimeout in order to prevent blocking of the main thread
-    function loop(i: number) {
+    function loop(i) {
       const step = 50;
       const from = i * step;
       const to = Math.min((i + 1) * step, words.length);
