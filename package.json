@@ -13,22 +13,17 @@
 	],
 	"author": "Chris Zhou <chrisrzhou@pm.me>",
 	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/chrisrzhou/react-wordcloud.git"
-	},
-	"bugs": {
-		"url": "https://github.com/chrisrzhou/react-wordcloud/issues"
-	},
+	"repository": "https://github.com/chrisrzhou/react-wordcloud.git",
+	"bugs": "https://github.com/chrisrzhou/react-wordcloud/issues",
 	"homepage": "https://react-wordcloud.netlify.com/",
 	"scripts": {
 		"build": "yarn clean; rollup -c",
-		"build:docs": "yarn clean:docs; yarn docz build",
+		"build:docs": "yarn clean:docs; docz build",
 		"clean": "rm -rf .docz dist",
 		"clean:docs": "rm -rf .docz",
-		"dev": "yarn clean:docs; yarn docz dev",
-		"lint": "yarn xo --fix; yarn tsc",
-		"prepare": "yarn build"
+		"docs": "yarn clean:docs; docz dev",
+		"lint": "xo --fix; tsc",
+		"prepare": "build"
 	},
 	"dependencies": {
 		"d3-array": "^2.4.0",
@@ -95,6 +90,7 @@
 		],
 		"rules": {
 			"import/no-unassigned-import": "off",
+			"react/function-component-definition": "off",
 			"react/prop-types": "off"
 		}
 	}

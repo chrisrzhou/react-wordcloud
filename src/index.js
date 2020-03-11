@@ -28,14 +28,14 @@ export const defaultOptions = {
 	transitionDuration: 600,
 };
 
-const ReactWordCloud = ({
+function ReactWordCloud({
 	callbacks,
 	maxWords = 100,
 	minSize,
 	options,
 	size: initialSize,
 	words,
-}) => {
+}) {
 	const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
 	const mergedOptions = { ...defaultOptions, ...options };
 
@@ -60,7 +60,7 @@ const ReactWordCloud = ({
 	}, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
 
 	return <div ref={ref} style={{ height: '100%', width: '100%' }} />;
-};
+}
 
 ReactWordCloud.defaultProps = {
 	callbacks: defaultCallbacks,

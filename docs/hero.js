@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import ReactWordcloud from '../src';
+import ReactWordcloud from '..';
 import { choose } from '../src/utils';
 import words from './words';
 

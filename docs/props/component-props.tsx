@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Props } from '../../src';
+import { Props } from '../..';
 
 const ComponentProps = (_props: Props): JSX.Element => <div />;
 

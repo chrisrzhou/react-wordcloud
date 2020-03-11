@@ -20,7 +20,7 @@ You can also run the examples locally:
 
 ```bash
 git clone git@github.com:chrisrzhou/react-wordcloud
-cd react-wordcloud && yarn && yarn dev
+cd react-wordcloud && yarn && yarn docs
 ```
 
 ### Codesandbox examples

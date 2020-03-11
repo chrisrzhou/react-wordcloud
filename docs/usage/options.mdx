@@ -6,7 +6,7 @@ route: /usage/options
 
 import { Playground } from "docz";
 
-import ReactWordcloud from "../../src";
+import ReactWordcloud from "../..";
 import words from "../words";
 
 # Options
@@ -18,12 +18,12 @@ You can customize many visual and layout properties of `react-wordcloud` by usin
 `react-wordcloud` will randomnly apply colors from an array of color hex codes.
 
 <Playground>
-  <ReactWordcloud
-    options={{
-      colors: ["#1f77b4", "#9467bd", "#8c564b"],
-    }}
-    words={words}
-  />
+	<ReactWordcloud
+		options={{
+			colors: ["#1f77b4", "#9467bd", "#8c564b"],
+		}}
+		words={words}
+	/>
 </Playground>
 
 ## Deterministic Behaviour
@@ -31,12 +31,12 @@ You can customize many visual and layout properties of `react-wordcloud` by usin
 `react-wordcloud` randomly positions and rotates words by default. If `options.deterministic` is `true`, `react-wordcloud` will produce the same positioning/rotation/color for a provided input. Try resizing the wordcloud up and down in the example below to see the deterministic behavior.
 
 <Playground>
-  <ReactWordcloud
-    options={{
-      deterministic: true,
-    }}
-    words={words}
-  />
+	<ReactWordcloud
+		options={{
+			deterministic: true,
+		}}
+		words={words}
+	/>
 </Playground>
 
 ## Font Styles
@@ -44,15 +44,15 @@ You can customize many visual and layout properties of `react-wordcloud` by usin
 Configure word font styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fontWeight` options.
 
 <Playground>
-  <ReactWordcloud
-    options={{
-      fontFamily: "courier new",
-      fontSizes: [10, 20],
-      fontStyle: "italic",
-      fontWeight: "bold",
-    }}
-    words={words}
-  />
+	<ReactWordcloud
+		options={{
+			fontFamily: "courier new",
+			fontSizes: [10, 20],
+			fontStyle: "italic",
+			fontWeight: "bold",
+		}}
+		words={words}
+	/>
 </Playground>
 
 ## Rotations
@@ -60,13 +60,13 @@ Configure word font styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fo
 By default `react-wordcloud` will apply random rotations if the `rotations` option is not specified. If `rotations` option is specified, it will use evenly-divided angles from the `rotationAngles` option based on the `rotations` value. The following example demonstrates using rotation angles of `0`, `45` and `90` degrees (i.e. `rotations = 3` and `rotationAngles=[0, 90]`).
 
 <Playground>
-  <ReactWordcloud
-    options={{
-      rotations: 3,
-      rotationAngles: [0, 90],
-    }}
-    words={words}
-  />
+	<ReactWordcloud
+		options={{
+			rotations: 3,
+			rotationAngles: [0, 90],
+		}}
+		words={words}
+	/>
 </Playground>
 
 ## Layout
@@ -74,13 +74,13 @@ By default `react-wordcloud` will apply random rotations if the `rotations` opti
 Configure the wordcloud layout by using the `scale`, `spiral` options.
 
 <Playground>
-  <ReactWordcloud
-    options={{
-      scale: "log",
-      spiral: "rectangular",
-    }}
-    words={words}
-  />
+	<ReactWordcloud
+		options={{
+			scale: "log",
+			spiral: "rectangular",
+		}}
+		words={words}
+	/>
 </Playground>
 
 ## Interactive
@@ -88,29 +88,29 @@ Configure the wordcloud layout by using the `scale`, `spiral` options.
 Use the Playground to edit and play around with some of these options!
 
 <Playground>
-  <ReactWordcloud
-    words={words}
-    options={{
-      colors: [
-        "#1f77b4",
-        "#ff7f0e",
-        "#2ca02c",
-        "#d62728",
-        "#9467bd",
-        "#8c564b",
-      ],
-      enableTooltip: true,
-      deterministic: false,
-      fontFamily: "impact",
-      fontSizes: [5, 60],
-      fontStyle: "normal",
-      fontWeight: "normal",
-      padding: 1,
-      rotations: 3,
-      rotationAngles: [0, 90],
-      scale: "sqrt",
-      spiral: "archimedean",
-      transitionDuration: 1000,
-    }}
-  />
+	<ReactWordcloud
+		words={words}
+		options={{
+			colors: [
+				"#1f77b4",
+				"#ff7f0e",
+				"#2ca02c",
+				"#d62728",
+				"#9467bd",
+				"#8c564b",
+			],
+			enableTooltip: true,
+			deterministic: false,
+			fontFamily: "impact",
+			fontSizes: [5, 60],
+			fontStyle: "normal",
+			fontWeight: "normal",
+			padding: 1,
+			rotations: 3,
+			rotationAngles: [0, 90],
+			scale: "sqrt",
+			spiral: "archimedean",
+			transitionDuration: 1000,
+		}}
+	/>
 </Playground>

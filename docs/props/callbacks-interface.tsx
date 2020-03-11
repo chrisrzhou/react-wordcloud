@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CallbacksProp } from '../../src';
+import { CallbacksProp } from '../..';
 
 const CallbacksInterface = (_props: CallbacksProp): JSX.Element => <div />;
 
