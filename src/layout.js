@@ -17,7 +17,7 @@ import {
 	rotate,
 } from './utils';
 
-function render({ callbacks, options, random, selection, words }) {
+export function render({ callbacks, options, random, selection, words }) {
 	const {
 		getWordColor,
 		getWordTooltip,

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.0...v1.2.1) (2020-03-13)
+
+Cleanup and fix `index.d.ts`.
+
 ## [1.2.0](https://github.com/chrisrzhou/react-wordcloud/compare/v1.1.1...v1.2.0) (2020-03-07)
 
 This release is largely internal refactoring and updating dependencies, as well as 'de-typescripting' the codebase

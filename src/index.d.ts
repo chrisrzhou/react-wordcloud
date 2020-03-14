@@ -37,11 +37,8 @@ export interface Props {
 	words: Word[];
 }
 
-declare module 'react-wordcloud' {
-	const defaultCallbacks: CallbacksProp;
-	const defaultOptions: OptionsProp;
+export const defaultCallbacks: CallbacksProp;
 
-	export { defaultCallbacks, defaultOptions };
+export const defaultOptions: OptionsProp;
 
-	export default function ReactWordcloud(props: Props): JSX.Element;
-}
+export default function ReactWordcloud(props: Props): JSX.Element;
