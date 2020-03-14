@@ -1,7 +1,7 @@
-import React from 'react';
-
 import { Props } from '../..';
 
-const ComponentProps = (_props: Props): JSX.Element => <div />;
+function ComponentProps(_props: Props): JSX.Element {
+	return null;
+}
 
 export default ComponentProps;

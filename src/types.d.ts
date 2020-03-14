@@ -84,7 +84,7 @@ export interface Options {
 	transitionDuration: number;
 }
 
-export type Scale = 'linearl' | 'log' | 'sqrt';
+export type Scale = 'linear' | 'log' | 'sqrt';
 
 export type Selection = d3Selection<SVGElement, Word, SVGElement, Word>;
 

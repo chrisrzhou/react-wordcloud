@@ -1,4 +1,6 @@
-export default [
+import { Word } from '..';
+
+const words: Word[] = [
 	{
 		text: 'told',
 		value: 64,
@@ -500,3 +502,5 @@ export default [
 		value: 10,
 	},
 ];
+
+export default words;

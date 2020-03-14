@@ -6,5 +6,8 @@
 		"jsx": "react",
 		"noEmit": true
 	},
-	"include": ["src"]
+	"include": [
+		"docs",
+		"src"
+	]
 }

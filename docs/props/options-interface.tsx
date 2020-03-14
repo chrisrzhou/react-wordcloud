@@ -1,7 +1,7 @@
-import React from 'react';
-
 import { OptionsProp } from '../..';
 
-const OptionsInterface = (_props: OptionsProp): JSX.Element => <div />;
+function OptionsInterface(_props: OptionsProp): JSX.Element {
+	return null;
+}
 
 export default OptionsInterface;

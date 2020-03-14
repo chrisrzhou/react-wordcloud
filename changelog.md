@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.2...v1.2.1) (2020-03-14)
+
+### Typescript fix
+
+Fix incorrect `'linearl'` literal type value for `Scale`.
+
 ## [1.2.1](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.0...v1.2.1) (2020-03-13)
 
 Cleanup and fix `index.d.ts`.
