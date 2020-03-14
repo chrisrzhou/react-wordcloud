@@ -23,7 +23,7 @@
 		"clean:docs": "rm -rf .docz",
 		"docs": "yarn clean:docs; docz dev",
 		"lint": "xo --fix; tsc",
-		"prepare": "build"
+		"prepare": "yarn build"
 	},
 	"dependencies": {
 		"d3-array": "^2.4.0",
