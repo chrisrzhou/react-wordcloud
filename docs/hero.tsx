@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import ReactWordcloud from '..';
+import ReactWordcloud, { MinMaxPair, Scale, Spiral } from '..';
 import { choose } from '../src/utils';
 import words from './words';
 
 const fontFamilies = ['Arial', 'Times New Roman', 'Impact'];
+const fontSizes: MinMaxPair = [14, 40];
 const rotationAngles = [
 	[-90, 90],
 	[-45, 45],
 	[-180, 180],
 ];
-const scales = ['linear', 'log', 'sqrt'];
-const spirals = ['rectangular', 'archimedean'];
+const scales: Scale[] = ['linear', 'log', 'sqrt'];
+const spirals: Spiral[] = ['rectangular', 'archimedean'];
 
-const Hero = () => {
+function Hero(): JSX.Element {
 	const [iteration, setIteration] = useState(0);
 
 	useEffect(() => {
@@ -25,8 +26,8 @@ const Hero = () => {
 
 	const options = {
 		fontFamily: choose(fontFamilies),
-		fontSizes: [14, 40],
-		scales: choose(scales),
+		fontSizes,
+		scale: choose(scales),
 		spiral: choose(spirals),
 		rotationAngle: choose(rotationAngles),
 	};
@@ -36,6 +37,6 @@ const Hero = () => {
 			<ReactWordcloud maxWords={100} options={options} words={words} />
 		</div>
 	);
-};
+}
 
 export default Hero;

@@ -1,7 +1,7 @@
-import React from 'react';
-
 import { CallbacksProp } from '../..';
 
-const CallbacksInterface = (_props: CallbacksProp): JSX.Element => <div />;
+function CallbacksInterface(_props: CallbacksProp): JSX.Element {
+	return null;
+}
 
 export default CallbacksInterface;
