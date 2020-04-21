@@ -11,9 +11,7 @@ export function useResponsiveSvgSelection(minSize, initialSize) {
 		const element = elementRef.current;
 
 		// Set svg selection
-		const svg = select(element)
-			.append('svg')
-			.style('display', 'block'); // Native inline svg leaves undesired white space
+		const svg = select(element).append('svg').style('display', 'block'); // Native inline svg leaves undesired white space
 		const selection = svg.append('g');
 		setSelection(selection);
 
@@ -39,7 +37,7 @@ export function useResponsiveSvgSelection(minSize, initialSize) {
 		updateSize(width, height);
 
 		// Update resize using a resize observer
-		const resizeObserver = new ResizeObserver(entries => {
+		const resizeObserver = new ResizeObserver((entries) => {
 			if (!entries || entries.length === 0) {
 				return;
 			}
@@ -54,9 +52,7 @@ export function useResponsiveSvgSelection(minSize, initialSize) {
 		// Cleanup
 		return () => {
 			resizeObserver.unobserve(element);
-			select(element)
-				.selectAll('*')
-				.remove();
+			select(element).selectAll('*').remove();
 		};
 	}, [initialSize, minSize]);
 

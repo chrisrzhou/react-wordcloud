@@ -8,13 +8,13 @@ export function choose(array, random = Math.random) {
 
 export function getDefaultColors() {
 	return range(20)
-		.map(number => number.toString())
+		.map((number) => number.toString())
 		.map(scaleOrdinal(schemeCategory10));
 }
 
 export function getFontScale(words, fontSizes, scale) {
-	const minSize = min(words, word => Number(word.value));
-	const maxSize = max(words, word => Number(word.value));
+	const minSize = min(words, (word) => Number(word.value));
+	const maxSize = max(words, (word) => Number(word.value));
 	let scaleFunction;
 	switch (scale) {
 		case 'log':
@@ -29,9 +29,7 @@ export function getFontScale(words, fontSizes, scale) {
 			break;
 	}
 
-	const fontScale = scaleFunction()
-		.domain([minSize, maxSize])
-		.range(fontSizes);
+	const fontScale = scaleFunction().domain([minSize, maxSize]).range(fontSizes);
 	return fontScale;
 }
 

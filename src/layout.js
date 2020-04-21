@@ -36,15 +36,15 @@ function render({ callbacks, options, random, selection, words }) {
 	let tooltipInstance;
 	const vizWords = selection.selectAll('text').data(words);
 	vizWords.join(
-		enter =>
+		(enter) =>
 			enter
 				.append('text')
-				.on('click', word => {
+				.on('click', (word) => {
 					if (onWordClick) {
 						onWordClick(word, event);
 					}
 				})
-				.on('mouseover', word => {
+				.on('mouseover', (word) => {
 					if (enableTooltip) {
 						tooltipInstance = tippy(event.target, {
 							animation: 'scale',
@@ -57,7 +57,7 @@ function render({ callbacks, options, random, selection, words }) {
 						onWordMouseOver(word, event);
 					}
 				})
-				.on('mouseout', word => {
+				.on('mouseout', (word) => {
 					if (tooltipInstance) {
 						tooltipInstance.destroy();
 					}
@@ -73,7 +73,7 @@ function render({ callbacks, options, random, selection, words }) {
 				.attr('font-weight', fontWeight)
 				.attr('text-anchor', 'middle')
 				.attr('transform', 'translate(0, 0) rotate(0)')
-				.call(enter =>
+				.call((enter) =>
 					enter
 						.transition()
 						.duration(transitionDuration)
@@ -81,7 +81,7 @@ function render({ callbacks, options, random, selection, words }) {
 						.attr('transform', getTransform)
 						.text(getText),
 				),
-		update =>
+		(update) =>
 			update
 				.transition()
 				.duration(transitionDuration)
@@ -90,7 +90,7 @@ function render({ callbacks, options, random, selection, words }) {
 				.attr('font-size', getFontSize)
 				.attr('transform', getTransform)
 				.text(getText),
-		exit =>
+		(exit) =>
 			exit
 				.transition()
 				.duration(transitionDuration)
@@ -161,11 +161,11 @@ export function layout({
 		}
 
 		cloud
-			.fontSize(word => {
+			.fontSize((word) => {
 				const fontScale = getFontScale(sortedWords, fontSizes, scale);
 				return fontScale(word.value);
 			})
-			.on('end', computedWords => {
+			.on('end', (computedWords) => {
 				/** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
 				 * Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
 				 * Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
@@ -176,8 +176,9 @@ export function layout({
 				) {
 					if (attempts === MAX_LAYOUT_ATTEMPTS) {
 						console.warn(
-							`Unable to layout ${sortedWords.length -
-								computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
+							`Unable to layout ${
+								sortedWords.length - computedWords.length
+							} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
 						);
 					}
 

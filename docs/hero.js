@@ -19,7 +19,7 @@ const Hero = () => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setIteration(iteration + 1);
-		}, 2500);
+		}, 3000);
 		return () => clearInterval(interval);
 	}, [iteration]);
 
@@ -32,13 +32,8 @@ const Hero = () => {
 	};
 
 	return (
-		<div
-			style={{
-				boxSizing: 'border-box',
-				height: '60%',
-				width: '100%',
-			}}>
-			<ReactWordcloud maxWords={200} options={options} words={words} />
+		<div style={{ height: 400, margin: '0 auto', minWidth: 600, width: '80%' }}>
+			<ReactWordcloud maxWords={100} options={options} words={words} />
 		</div>
 	);
 };

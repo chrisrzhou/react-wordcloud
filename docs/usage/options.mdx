@@ -57,14 +57,39 @@ Configure word font styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fo
 
 ## Rotations
 
-By default `react-wordcloud` will apply random rotations if the `rotations` option is not specified. If `rotations` option is specified, it will use evenly-divided angles from the `rotationAngles` option based on the `rotations` value. The following example demonstrates using rotation angles of `0`, `45` and `90` degrees (i.e. `rotations = 3` and `rotationAngles=[0, 90]`).
+By default `react-wordcloud` will apply random rotations if the `rotations` option is not specified. If `rotations` option is specified, it will use evenly-divided angles from the `rotationAngles` option based on the `rotations` value. The following example demonstrates common rotation angles of wordcloud layouts
 
 <Playground>
+  <h3>Auto</h3>
+	<ReactWordcloud
+    size={[600, 400]}
+		words={words}
+	/>
+  <h3>0º</h3>
+	<ReactWordcloud
+		options={{
+			rotations: 1,
+			rotationAngles: [0, 0],
+		}}
+    size={[600, 400]}
+		words={words}
+	/>
+  <h3>0º, 90º (negative angles work too)</h3>
+	<ReactWordcloud
+		options={{
+			rotations: 2,
+			rotationAngles: [-90, 0],
+		}}
+    size={[600, 400]}
+		words={words}
+	/>
+  <h3>0º, 45º, 90º</h3>
 	<ReactWordcloud
 		options={{
 			rotations: 3,
 			rotationAngles: [0, 90],
 		}}
+    size={[600, 400]}
 		words={words}
 	/>
 </Playground>

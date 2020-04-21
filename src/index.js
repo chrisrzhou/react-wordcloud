@@ -1,12 +1,12 @@
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
-
 import debounce from 'lodash.debounce';
 import React, { useEffect, useRef } from 'react';
 
 import { useResponsiveSvgSelection } from './hooks';
 import { layout } from './layout';
 import { getDefaultColors } from './utils';
+
+import 'tippy.js/dist/tippy.css'; // eslint-disable-line import/extensions
+import 'tippy.js/animations/scale.css'; // eslint-disable-line import/extensions
 
 export const defaultCallbacks = {
 	getWordTooltip: ({ text, value }) => `${text} (${value})`,
