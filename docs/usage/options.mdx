@@ -28,12 +28,13 @@ You can customize many visual and layout properties of `react-wordcloud` by usin
 
 ## Deterministic Behaviour
 
-`react-wordcloud` randomly positions and rotates words by default. If `options.deterministic` is `true`, `react-wordcloud` will produce the same positioning/rotation/color for a provided input. Try resizing the wordcloud up and down in the example below to see the deterministic behavior.
+`react-wordcloud` randomly positions and rotates words by default. If `options.deterministic` is `true`, `react-wordcloud` will produce the same positioning/rotation/color for a provided input. You can also provide a `randomSeed` string value to control the random seed behavior.  Try resizing the wordcloud up and down in the example below to see the deterministic behavior.
 
 <Playground>
 	<ReactWordcloud
 		options={{
 			deterministic: true,
+			randomSeed: 'seed1',
 		}}
 		words={words}
 	/>
@@ -131,6 +132,7 @@ Use the Playground to edit and play around with some of these options!
 			fontStyle: "normal",
 			fontWeight: "normal",
 			padding: 1,
+			randomSeed: null,
 			rotations: 3,
 			rotationAngles: [0, 90],
 			scale: "sqrt",

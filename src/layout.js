@@ -117,6 +117,7 @@ export function layout({
 		fontSizes,
 		fontWeight,
 		padding,
+		randomSeed,
 		rotations,
 		rotationAngles,
 		spiral,
@@ -127,7 +128,10 @@ export function layout({
 		.concat()
 		.sort((x, y) => descending(x.value, y.value))
 		.slice(0, maxWords);
-	const random = deterministic ? seedrandom('deterministic') : seedrandom();
+
+	const random = seedrandom(
+		deterministic ? randomSeed || 'deterministic' : null,
+	);
 
 	let cloud;
 	if (enableOptimizations) {

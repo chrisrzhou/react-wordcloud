@@ -63,6 +63,10 @@ export interface Options {
 	 */
 	padding: number;
 	/**
+	 * Set an optional random seed when `deterministic` option is set to `true`.
+	 */
+	randomSeed?: string;
+	/**
 	 * Provide the minimum and maximum angles that words can be rotated.
 	 */
 	rotationAngles: MinMaxPair;

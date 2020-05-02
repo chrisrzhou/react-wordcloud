@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.3](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.3...v1.2.2) (2020-05-02)
+
+Add `randomSeed` option to provide and control a seed for the random function when `deterministic` option is set to `true`.
+
 ## [1.2.2](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.2...v1.2.1) (2020-03-14)
 
 ### Typescript fix

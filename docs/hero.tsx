@@ -4,6 +4,8 @@ import ReactWordcloud, { MinMaxPair, Scale, Spiral } from '..';
 import { choose } from '../src/utils';
 import words from './words';
 
+const { random } = Math;
+
 const fontFamilies = ['Arial', 'Times New Roman', 'Impact'];
 const fontSizes: MinMaxPair = [14, 40];
 const rotationAngles = [
@@ -25,11 +27,11 @@ function Hero(): JSX.Element {
 	}, [iteration]);
 
 	const options = {
-		fontFamily: choose(fontFamilies),
+		fontFamily: choose(fontFamilies, random),
 		fontSizes,
-		scale: choose(scales),
-		spiral: choose(spirals),
-		rotationAngle: choose(rotationAngles),
+		scale: choose(scales, random),
+		spiral: choose(spirals, random),
+		rotationAngle: choose(rotationAngles, random),
 	};
 
 	return (

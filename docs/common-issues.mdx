@@ -13,7 +13,7 @@ import words from "./words";
 
 ## Re-rendering issues
 
-It is a common scenario that 
+It is a common scenario that
 `react-wordcloud` will unintentionally re-render (i.e. grow from the center) when the `size`, `callbacks`, `options` props are updated.  Note that `react-wordcloud` is **unopinionated** about this rendering behavior since this is the default React behavior, namely that changes in props will re-render the component.
 
 You should instead try to define these props statically (e.g. outside of the component) or memoize them accordingly. The comparison example below shows how to avoid this issue with `useMemo`.
@@ -36,6 +36,9 @@ You should instead try to define these props statically (e.g. outside of the com
     );
   }}
 </Playground>
+
+## Deterministic layouts
+Please refer to the [Deterministic Behavior](../usage/options#deterministic-behaviour) section for more details on controlling deterministic layouts of wordclouds.
 
 ## Performance issues
 
