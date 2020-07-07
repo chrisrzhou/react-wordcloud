@@ -31,6 +31,7 @@ export function render({ callbacks, options, random, selection, words }) {
     fontStyle,
     fontWeight,
     textAttributes,
+    tooltipOptions,
   } = options;
   const { fontFamily, transitionDuration } = options;
 
@@ -56,6 +57,7 @@ export function render({ callbacks, options, random, selection, words }) {
               animation: 'scale',
               arrow: true,
               content: () => getWordTooltip(word),
+              ...tooltipOptions,
             });
           }
 
