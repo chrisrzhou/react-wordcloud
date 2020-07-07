@@ -25,7 +25,13 @@ export function render({ callbacks, options, random, selection, words }) {
 		onWordMouseOver,
 		onWordMouseOut,
 	} = callbacks;
-	const { colors, enableTooltip, fontStyle, fontWeight } = options;
+	const {
+		colors,
+		enableTooltip,
+		tooltipOptions,
+		fontStyle,
+		fontWeight,
+	} = options;
 	const { fontFamily, transitionDuration } = options;
 
 	function getFill(word) {
@@ -50,6 +56,7 @@ export function render({ callbacks, options, random, selection, words }) {
 							animation: 'scale',
 							arrow: true,
 							content: () => getWordTooltip(word),
+							...tooltipOptions,
 						});
 					}
 
