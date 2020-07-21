@@ -1,7 +1,7 @@
-import { Props } from '../..';
+import { Props } from '~/src';
 
 function ComponentProps(_props: Props): JSX.Element {
-	return null;
+  return null;
 }
 
 export default ComponentProps;

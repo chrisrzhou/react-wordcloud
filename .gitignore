@@ -13,3 +13,4 @@ node_modules
 # project
 .docz
 dist
+package-lock.json

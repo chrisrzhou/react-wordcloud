@@ -1,7 +1,7 @@
-import { CallbacksProp } from '../..';
+import { CallbacksProp } from '~/src';
 
 function CallbacksInterface(_props: CallbacksProp): JSX.Element {
-	return null;
+  return null;
 }
 
 export default CallbacksInterface;
