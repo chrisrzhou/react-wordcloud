@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.4](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.4...v1.2.3) (2020-07-21)
+
+- Added `...rest` props (@davidjb)
+- Added `tooltipOptions` to `options` (@davidjb) to configure `tippy` tooltips.
+- Added `svgAttributes` and `textAttributes` to `options` to configure attributes on `svg` and `text` nodes.
+- Development: updated dependencies, XO lint rules, use absolute imports with `~`, spaces over tabs, `microbundle` over `rollup`, `npm` over `yarn`.
+- Updated docs
+
 ## [1.2.3](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.3...v1.2.2) (2020-05-02)
 
 Add `randomSeed` option to provide and control a seed for the random function when `deterministic` option is set to `true`.

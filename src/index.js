@@ -30,13 +30,13 @@ export const defaultOptions = {
 };
 
 function ReactWordCloud({
-	callbacks,
-	maxWords = 100,
-	minSize,
-	options,
-	size: initialSize,
-	words,
-	...rest
+  callbacks,
+  maxWords = 100,
+  minSize,
+  options,
+  size: initialSize,
+  words,
+  ...rest
 }) {
   const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
   const mergedOptions = { ...defaultOptions, ...options };
@@ -62,13 +62,7 @@ function ReactWordCloud({
     }
   }, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
 
-	return (
-		<div
-			ref={ref}
-			style={{ height: '100%', width: '100%' }}
-			{...rest}
-		/>
-	);
+  return <div ref={ref} style={{ height: '100%', width: '100%' }} {...rest} />;
 }
 
 ReactWordCloud.defaultProps = {
