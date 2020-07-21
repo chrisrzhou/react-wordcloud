@@ -1,100 +1,96 @@
 {
-	"name": "react-wordcloud",
-	"version": "1.2.3",
-	"description": "Simple React + D3 wordcloud component with powerful features.",
-	"license": "MIT",
-	"homepage": "https://react-wordcloud.netlify.com/",
-	"repository": "chrisrzhou/react-wordcloud",
-	"bugs": "https://github.com/chrisrzhou/react-wordcloud/issues",
-	"author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
-	"keywords": [
-		"react",
-		"wordcloud",
-		"visualization",
-		"d3"
-	],
-	"scripts": {
-		"build": "microbundle",
-		"build:docs": "docz build",
-		"clean": "rm -rf dist",
-		"clean:docs": "rm -rf .docz",
-		"docs": "docz dev",
-		"lint": "xo --fix; tsc",
-		"prepare": "npm run clean; npm run build"
-	},
-	"main": "dist/index.js",
-	"module": "dist/index.module.js",
-	"source": "index.js",
-	"typings": "types/index.d.ts",
-	"dependencies": {
-		"d3-array": "^2.4.0",
-		"d3-cloud": "^1.2.5",
-		"d3-dispatch": "^1.0.6",
-		"d3-scale": "^3.2.1",
-		"d3-scale-chromatic": "^1.5.0",
-		"d3-selection": "1.4.1",
-		"d3-transition": "^1.3.2",
-		"lodash.clonedeep": "^4.5.0",
-		"lodash.debounce": "^4.0.8",
-		"resize-observer-polyfill": "^1.5.1",
-		"seedrandom": "^3.0.5",
-		"tippy.js": "^6.2.0"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.9.0",
-		"@babel/preset-react": "^7.9.4",
-		"@types/d3-array": "^2.0.0",
-		"@types/d3-cloud": "^1.2.3",
-		"@types/d3-scale": "^2.2.0",
-		"@types/d3-scale-chromatic": "^1.5.0",
-		"@types/d3-selection": "^1.4.1",
-		"@types/lodash.clonedeep": "^4.5.6",
-		"@types/lodash.debounce": "^4.0.6",
-		"@types/seedrandom": "^2.4.28",
-		"docz": "^2.3.1",
-		"eslint-config-xo-react": "^0.23.0",
-		"eslint-config-xo-typescript": "^0.27.0",
-		"husky": "^4.2.5",
-		"microbundle": "^0.12.3",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"typescript": "^3.8.3",
-		"xo": "^0.32.1"
-	},
-	"peerDependencies": {
-		"react": "^16.13.0"
-	},
-	"resolutions": {
-		"d3-selection": "1.4.1"
-	},
-	"babel": {
-		"presets": [
-			"@babel/react"
-		]
-	},
-	"husky": {
-		"hooks": {
-			"pre-push": "npm run prepare && npm run lint"
-		}
-	},
-	"prettier": {
-		"bracketSpacing": true,
-		"jsxBracketSameLine": true,
-		"trailingComma": "all",
-		"useTabs": false
-	},
-	"xo": {
-		"prettier": true,
-		"extends": [
-			"xo-react"
-		],
-		"rules": {
-			"@typescript-eslint/prefer-readonly-parameter-types": "off",
-			"import/no-anonymous-default-export": "off",
-			"import/no-unassigned-import": "off",
-			"react/function-component-definition": "off",
-			"react/prop-types": "off",
-			"unicorn/no-fn-reference-in-iterator": "off"
-		}
-	}
+  "name": "react-wordcloud",
+  "version": "1.2.3",
+  "description": "Simple React + D3 wordcloud component with powerful features.",
+  "license": "MIT",
+  "homepage": "https://react-wordcloud.netlify.com/",
+  "repository": "chrisrzhou/react-wordcloud",
+  "bugs": "https://github.com/chrisrzhou/react-wordcloud/issues",
+  "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
+  "keywords": [
+    "react",
+    "wordcloud",
+    "visualization",
+    "d3"
+  ],
+  "scripts": {
+    "build": "microbundle --jsx React.createElement",
+    "build:docs": "docz build",
+    "clean": "rm -rf dist",
+    "clean:docs": "rm -rf .docz",
+    "docs": "docz dev",
+    "lint": "xo --fix; tsc",
+    "prepare": "npm run clean; npm run build"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "index.js",
+  "typings": "types/index.d.ts",
+  "dependencies": {
+    "d3-array": "^2.4.0",
+    "d3-cloud": "^1.2.5",
+    "d3-dispatch": "^1.0.6",
+    "d3-scale": "^3.2.1",
+    "d3-scale-chromatic": "^1.5.0",
+    "d3-selection": "1.4.1",
+    "d3-transition": "^1.3.2",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.debounce": "^4.0.8",
+    "resize-observer-polyfill": "^1.5.1",
+    "seedrandom": "^3.0.5",
+    "tippy.js": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@types/d3-array": "^2.0.0",
+    "@types/d3-cloud": "^1.2.3",
+    "@types/d3-scale": "^2.2.0",
+    "@types/d3-scale-chromatic": "^1.5.0",
+    "@types/d3-selection": "^1.4.1",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/seedrandom": "^2.4.28",
+    "docz": "^2.3.1",
+    "eslint-config-xo-react": "^0.23.0",
+    "eslint-config-xo-typescript": "^0.27.0",
+    "husky": "^4.2.5",
+    "microbundle": "^0.12.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.8.3",
+    "xo": "^0.32.1"
+  },
+  "peerDependencies": {
+    "react": "^16.13.0"
+  },
+  "resolutions": {
+    "d3-selection": "1.4.1"
+  },
+  "babel": {
+    "presets": ["@babel/react"]
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run prepare && npm run lint"
+    }
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all",
+    "useTabs": false
+  },
+  "xo": {
+    "prettier": true,
+    "extends": ["xo-react"],
+    "rules": {
+      "@typescript-eslint/prefer-readonly-parameter-types": "off",
+      "import/no-anonymous-default-export": "off",
+      "import/no-unassigned-import": "off",
+      "react/function-component-definition": "off",
+      "react/prop-types": "off",
+      "unicorn/no-fn-reference-in-iterator": "off"
+    }
+  }
 }

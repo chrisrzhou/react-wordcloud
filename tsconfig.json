@@ -8,8 +8,8 @@
     "jsx": "react",
     "noEmit": true,
     "paths": {
-      "~/*": ["./*"],
-    },
+      "~/*": ["./*"]
+    }
   },
   "exclude": ["**/dist", "**/node_modules"]
 }
