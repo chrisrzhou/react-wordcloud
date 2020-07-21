@@ -6,7 +6,7 @@ Simple React + D3 wordcloud component with powerful features. Uses the [`d3-clou
 
 ## Install
 
-```bash
+```sh
 yarn add react-wordcloud
 ```
 
@@ -20,7 +20,7 @@ You can also run the examples locally:
 
 ```bash
 git clone git@github.com:chrisrzhou/react-wordcloud
-cd react-wordcloud && yarn && yarn docs
+cd react-wordcloud && npm install && npm run docs
 ```
 
 ### Codesandbox examples

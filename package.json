@@ -2,29 +2,30 @@
 	"name": "react-wordcloud",
 	"version": "1.2.3",
 	"description": "Simple React + D3 wordcloud component with powerful features.",
-	"main": "dist/index.js",
-	"module": "dist/index.module.js",
-	"types": "src/index.d.ts",
+	"license": "MIT",
+	"homepage": "https://react-wordcloud.netlify.com/",
+	"repository": "chrisrzhou/react-wordcloud",
+	"bugs": "https://github.com/chrisrzhou/react-wordcloud/issues",
+	"author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
 	"keywords": [
 		"react",
 		"wordcloud",
 		"visualization",
 		"d3"
 	],
-	"author": "Chris Zhou <chrisrzhou@pm.me>",
-	"license": "MIT",
-	"repository": "https://github.com/chrisrzhou/react-wordcloud.git",
-	"bugs": "https://github.com/chrisrzhou/react-wordcloud/issues",
-	"homepage": "https://react-wordcloud.netlify.com/",
 	"scripts": {
-		"build": "yarn clean; rollup -c",
-		"build:docs": "yarn clean:docs; docz build",
-		"clean": "rm -rf .docz dist",
+		"build": "microbundle",
+		"build:docs": "docz build",
+		"clean": "rm -rf dist",
 		"clean:docs": "rm -rf .docz",
-		"docs": "yarn clean:docs; docz dev",
+		"docs": "docz dev",
 		"lint": "xo --fix; tsc",
-		"prepare": "yarn build"
+		"prepare": "npm run clean; npm run build"
 	},
+	"main": "dist/index.js",
+	"module": "dist/index.module.js",
+	"source": "index.js",
+	"typings": "types/index.d.ts",
 	"dependencies": {
 		"d3-array": "^2.4.0",
 		"d3-cloud": "^1.2.5",
@@ -54,13 +55,11 @@
 		"eslint-config-xo-react": "^0.23.0",
 		"eslint-config-xo-typescript": "^0.27.0",
 		"husky": "^4.2.5",
+		"microbundle": "^0.12.3",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"rollup": "^2.6.1",
-		"rollup-plugin-auto-external": "^2.0.0",
-		"rollup-plugin-babel": "^4.4.0",
 		"typescript": "^3.8.3",
-		"xo": "^0.29.1"
+		"xo": "^0.32.1"
 	},
 	"peerDependencies": {
 		"react": "^16.13.0"
@@ -75,13 +74,14 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-push": "yarn lint && yarn build"
+			"pre-push": "npm run prepare && npm run lint"
 		}
 	},
 	"prettier": {
 		"bracketSpacing": true,
 		"jsxBracketSameLine": true,
-		"trailingComma": "all"
+		"trailingComma": "all",
+		"useTabs": false
 	},
 	"xo": {
 		"prettier": true,
@@ -89,10 +89,12 @@
 			"xo-react"
 		],
 		"rules": {
-      "@typescript-eslint/prefer-readonly-parameter-types": "off",
+			"@typescript-eslint/prefer-readonly-parameter-types": "off",
+			"import/no-anonymous-default-export": "off",
 			"import/no-unassigned-import": "off",
 			"react/function-component-definition": "off",
-			"react/prop-types": "off"
+			"react/prop-types": "off",
+			"unicorn/no-fn-reference-in-iterator": "off"
 		}
 	}
 }

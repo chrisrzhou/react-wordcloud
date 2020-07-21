@@ -1,7 +1,7 @@
-import { OptionsProp } from '../..';
+import { OptionsProp } from '~/src';
 
 function OptionsInterface(_props: OptionsProp): JSX.Element {
-	return null;
+  return null;
 }
 
 export default OptionsInterface;
