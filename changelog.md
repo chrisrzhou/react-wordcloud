@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.5](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.5...v1.2.4) (2020-07-21)
+`v1.2.4` is a working build, but it accidentally shipped `.docz` cache to the NPM registry...  Fix this by explicitly setting `files` in `package.json`.
+
+
 ## [1.2.4](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.4...v1.2.3) (2020-07-21)
 
 - Added `...rest` props (@davidjb)
