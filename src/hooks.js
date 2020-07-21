@@ -2,7 +2,7 @@ import { select } from 'd3-selection';
 import { useEffect, useRef, useState } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 
-export function useResponsiveSvgSelection(minSize, initialSize) {
+export function useResponsiveSvgSelection(minSize, initialSize, svgAttributes) {
   const elementRef = useRef();
   const [size, setSize] = useState(initialSize);
   const [selection, setSelection] = useState(null);
@@ -11,9 +11,16 @@ export function useResponsiveSvgSelection(minSize, initialSize) {
     const element = elementRef.current;
 
     // Set svg selection
-    const svg = select(element)
+    let svg = select(element)
       .append('svg')
       .style('display', 'block'); // Native inline svg leaves undesired white space
+
+    if (typeof svgAttributes === 'object') {
+      Object.keys(svgAttributes).forEach(key => {
+        svg = svg.attr(key, svgAttributes[key]);
+      });
+    }
+
     const selection = svg.append('g');
     setSelection(selection);
 
@@ -58,7 +65,7 @@ export function useResponsiveSvgSelection(minSize, initialSize) {
         .selectAll('*')
         .remove();
     };
-  }, [initialSize, minSize]);
+  }, [initialSize, minSize, svgAttributes]);
 
   return [elementRef, selection, size];
 }

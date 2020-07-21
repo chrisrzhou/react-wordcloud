@@ -42,6 +42,7 @@ function ReactWordCloud({
   const [ref, selection, size] = useResponsiveSvgSelection(
     minSize,
     initialSize,
+    options.svgAttributes,
   );
 
   const render = useRef(debounce(layout, 100));

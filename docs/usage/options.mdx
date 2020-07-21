@@ -110,6 +110,26 @@ Configure the wordcloud layout by using the `scale`, `spiral` options.
 	/>
 </Playground>
 
+## Attributes
+
+You can set custom attributes on the `svg` or `text` nodes by using the `svgAttributes` or `textAttributes`.  You can either use a string or a function returning a string from a `Word` as values for attributes.  You may also override the existing attributes that are set by the wordcloud algorithm.  These features are demonstrated in the example below.
+
+<Playground>
+	<ReactWordcloud
+		options={{
+			svgAttributes: {
+        role: 'list',
+      },
+			textAttributes: {
+        'aria-label': word => `Word: "${word.text}", Count: "${word.value}"`,
+        fill: 'red',
+        role: 'img',
+      },
+		}}
+		words={words}
+	/>
+</Playground>
+
 ## Interactive
 
 Use the Playground to edit and play around with some of these options!
@@ -138,6 +158,13 @@ Use the Playground to edit and play around with some of these options!
 			rotationAngles: [0, 90],
 			scale: "sqrt",
 			spiral: "archimedean",
+      svgAttributes: {
+        role: 'list',
+      },
+			textAttributes: {
+        'aria-label': word => `Word: "${word.text}", Count: "${word.value}"`,
+        role: 'img',
+      },
 			transitionDuration: 1000,
 		}}
 	/>

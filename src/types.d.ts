@@ -1,26 +1,28 @@
 import { EnterElement, Selection as d3Selection } from 'd3-selection';
 
+export type AttributeValue = string | WordToStringCallback;
+
 export interface Callbacks {
   /**
    * Set the word color using the word object.
    */
-  getWordColor?: (word: Word) => string;
+  getWordColor?: WordToStringCallback;
   /**
    * Set the word tooltip using the word object.
    */
-  getWordTooltip: (word: Word) => string;
+  getWordTooltip: WordToStringCallback;
   /**
    * Capture the word and mouse event on click.
    */
-  onWordClick?: (word: Word, event?: MouseEvent) => void;
+  onWordClick?: WordEventCallback;
   /**
    * Capture the word and mouse event on mouse-out.
    */
-  onWordMouseOut?: (word: Word, event?: MouseEvent) => void;
+  onWordMouseOut?: WordEventCallback;
   /**
    * Capture the word and mouse event on mouse over.
    */
-  onWordMouseOver?: (word: Word, event?: MouseEvent) => void;
+  onWordMouseOver?: WordEventCallback;
 }
 
 export type MinMaxPair = [number, number];
@@ -83,6 +85,14 @@ export interface Options {
    */
   spiral: Spiral;
   /**
+   * Customizable attributes to set on the rendererd svg node
+   */
+  svgAttributes: Record<string, AttributeValue>;
+  /**
+   * Customizable attributes to set on the rendererd text nodes
+   */
+  textAttributes: Record<string, AttributeValue>;
+  /**
    * Sets the animation transition time in milliseconds.
    */
   transitionDuration: number;
@@ -101,3 +111,7 @@ export interface Word {
   text: string;
   value: number;
 }
+
+export type WordToStringCallback = (word: Word) => void;
+
+export type WordEventCallback = (word: Word, event?: MouseEvent) => void;

@@ -25,7 +25,13 @@ export function render({ callbacks, options, random, selection, words }) {
     onWordMouseOver,
     onWordMouseOut,
   } = callbacks;
-  const { colors, enableTooltip, fontStyle, fontWeight } = options;
+  const {
+    colors,
+    enableTooltip,
+    fontStyle,
+    fontWeight,
+    textAttributes,
+  } = options;
   const { fontFamily, transitionDuration } = options;
 
   function getFill(word) {
@@ -36,8 +42,8 @@ export function render({ callbacks, options, random, selection, words }) {
   let tooltipInstance;
   const vizWords = selection.selectAll('text').data(words);
   vizWords.join(
-    enter =>
-      enter
+    enter => {
+      let text = enter
         .append('text')
         .on('click', word => {
           if (onWordClick) {
@@ -72,16 +78,24 @@ export function render({ callbacks, options, random, selection, words }) {
         .attr('font-style', fontStyle)
         .attr('font-weight', fontWeight)
         .attr('text-anchor', 'middle')
-        .attr('transform', 'translate(0, 0) rotate(0)')
-        .call(enter =>
-          enter
-            .transition()
-            .duration(transitionDuration)
-            .attr('font-size', getFontSize)
-            .attr('transform', getTransform)
-            .text(getText),
-        ),
-    update =>
+        .attr('transform', 'translate(0, 0) rotate(0)');
+
+      if (typeof textAttributes === 'object') {
+        Object.keys(textAttributes).forEach(key => {
+          text = text.attr(key, textAttributes[key]);
+        });
+      }
+
+      text = text.call(enter =>
+        enter
+          .transition()
+          .duration(transitionDuration)
+          .attr('font-size', getFontSize)
+          .attr('transform', getTransform)
+          .text(getText),
+      );
+    },
+    update => {
       update
         .transition()
         .duration(transitionDuration)
@@ -89,13 +103,15 @@ export function render({ callbacks, options, random, selection, words }) {
         .attr('font-family', fontFamily)
         .attr('font-size', getFontSize)
         .attr('transform', getTransform)
-        .text(getText),
-    exit =>
+        .text(getText);
+    },
+    exit => {
       exit
         .transition()
         .duration(transitionDuration)
         .attr('fill-opacity', 0)
-        .remove(),
+        .remove();
+    },
   );
 }
 
