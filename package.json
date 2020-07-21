@@ -1,6 +1,6 @@
 {
   "name": "react-wordcloud",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Simple React + D3 wordcloud component with powerful features.",
   "license": "MIT",
   "homepage": "https://react-wordcloud.netlify.com/",
@@ -26,6 +26,7 @@
   "module": "dist/index.module.js",
   "source": "index.js",
   "typings": "types/index.d.ts",
+  "files": ["dist"],
   "dependencies": {
     "d3-array": "^2.4.0",
     "d3-cloud": "^1.2.5",
