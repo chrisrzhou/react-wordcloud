@@ -1,4 +1,5 @@
 import { EnterElement, Selection as d3Selection } from 'd3-selection';
+import { Props as TippyProps } from 'tippy.js';
 
 export type AttributeValue = string | WordToStringCallback;
 
@@ -92,6 +93,12 @@ export interface Options {
    * Customizable attributes to set on the rendererd text nodes
    */
   textAttributes: Record<string, AttributeValue>;
+  /**
+   * Additional props object to pass to the tooltip library. For more details,
+   * refer to the documentation for
+   * [Tippy.js Props](https://atomiks.github.io/tippyjs/v6/all-props/).
+   */
+  tooltipOptions: TippyProps;
   /**
    * Sets the animation transition time in milliseconds.
    */

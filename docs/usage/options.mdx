@@ -146,8 +146,8 @@ Use the Playground to edit and play around with some of these options!
 				"#9467bd",
 				"#8c564b",
 			],
-			enableTooltip: true,
 			deterministic: false,
+			enableTooltip: true,
 			fontFamily: "impact",
 			fontSizes: [5, 60],
 			fontStyle: "normal",
@@ -165,6 +165,11 @@ Use the Playground to edit and play around with some of these options!
         'aria-label': word => `Word: "${word.text}", Count: "${word.value}"`,
         role: 'img',
       },
+			tooltipOptions: {
+				allowHTML: true,
+				arrow: false,
+				placement: "bottom",
+			},
 			transitionDuration: 1000,
 		}}
 	/>

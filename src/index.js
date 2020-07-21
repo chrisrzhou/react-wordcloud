@@ -25,6 +25,7 @@ export const defaultOptions = {
   rotationAngles: [-90, 90],
   scale: 'sqrt',
   spiral: 'rectangular',
+  tooltipOptions: {},
   transitionDuration: 600,
 };
 
