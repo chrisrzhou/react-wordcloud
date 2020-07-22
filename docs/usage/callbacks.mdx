@@ -22,14 +22,14 @@ By default, `react-wordcloud` randomnly applies colors to words using colors fro
 In the example below, we can pass custom `getWordColor` and `getWordTooltip` callbacks to update word colors and tooltips based on the `word` data.
 
 <Playground>
-	<ReactWordcloud
-		words={words}
-		callbacks={{
-			getWordColor: ({ value }) => (value > 50 ? "blue" : "red"),
-			getWordTooltip: ({ text, value }) =>
-				`${text} (${value}) [${value > 50 ? "good" : "bad"}]`,
-		}}
-	/>
+  <ReactWordcloud
+    words={words}
+    callbacks={{
+      getWordColor: ({ value }) => (value > 50 ? "blue" : "red"),
+      getWordTooltip: ({ text, value }) =>
+        `${text} (${value}) [${value > 50 ? "good" : "bad"}]`,
+    }}
+  />
 </Playground>
 
 ## Mouse Events
@@ -37,31 +37,31 @@ In the example below, we can pass custom `getWordColor` and `getWordTooltip` cal
 You can pass callbacks such as `onWordClick`, `onWordMouseEnter` and `onWordMouseLeave` to capture the word and mouse events. The following example shows how we can work with the captured word and mouse events to create an enlarged word that opens an external link.
 
 <Playground>
-	{() => {
-		const getCallback = callbackName => (word, event) => {
-			const isActive = callbackName !== "onWordMouseOut";
-			const element = event.target;
-			const text = select(element);
-			text
-				.on("click", () => {
-					if (isActive) {
-						window.open(`https://duckduckgo.com/?q=${word.text}`, "_blank");
-					}
-				})
-				.transition()
-				.attr("background", "white")
-				.attr("font-size", isActive ? "300%" : "100%")
-				.attr("text-decoration", isActive ? "underline" : "none");
-		};
-		return (
-			<ReactWordcloud
-				callbacks={{
-					onWordClick: getCallback("onWordClick"),
-					onWordMouseOut: getCallback("onWordMouseOut"),
-					onWordMouseOver: getCallback("onWordMouseOver"),
-				}}
-				words={words}
-			/>
-		);
-	}}
+  {() => {
+    const getCallback = callbackName => (word, event) => {
+      const isActive = callbackName !== "onWordMouseOut";
+      const element = event.target;
+      const text = select(element);
+      text
+        .on("click", () => {
+          if (isActive) {
+            window.open(`https://duckduckgo.com/?q=${word.text}`, "_blank");
+          }
+        })
+        .transition()
+        .attr("background", "white")
+        .attr("font-size", isActive ? "300%" : "100%")
+        .attr("text-decoration", isActive ? "underline" : "none");
+    };
+    return (
+      <ReactWordcloud
+        callbacks={{
+          onWordClick: getCallback("onWordClick"),
+          onWordMouseOut: getCallback("onWordMouseOut"),
+          onWordMouseOver: getCallback("onWordMouseOver"),
+        }}
+        words={words}
+      />
+    );
+  }}
 </Playground>
