@@ -25,7 +25,7 @@
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "source": "index.js",
-  "typings": "index.d.ts",
+  "typings": "src/index.d.ts",
   "files": ["dist", "src"],
   "dependencies": {
     "d3-array": "^2.4.0",
