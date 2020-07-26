@@ -4,6 +4,5 @@
   status = 200
 
 [build.environment]
-  NODE_VERSION = "13.6.0"
-  YARN_VERSION = "1.21.1"
-  NPM_VERSION = "6.13.4"
+  NODE_VERSION = "14.5.0"
+  NPM_VERSION = "6.14.6"
