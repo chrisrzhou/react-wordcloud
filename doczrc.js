@@ -1,5 +1,6 @@
 export default {
   dest: 'dist/docs',
+  editBranch: 'main',
   menu: [
     'Home',
     'Readme',
