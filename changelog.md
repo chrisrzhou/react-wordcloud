@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.6](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.6...v1.2.5) (2020-07-21)
+- Correctly expose typings that were missing in `v1.2.5`.
+- Fix docs deploy by adding `.node-version`.
+
 ## [1.2.5](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.5...v1.2.4) (2020-07-21)
 `v1.2.4` is a working build, but it accidentally shipped `.docz` cache to the NPM registry...  Fix this by explicitly setting `files` in `package.json`.
 
