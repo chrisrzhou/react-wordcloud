@@ -69,11 +69,6 @@
   "resolutions": {
     "d3-selection": "1.4.1"
   },
-  "babel": {
-    "presets": [
-      "@babel/react"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-push": "npm run prepare && npm run lint"
