@@ -122,7 +122,7 @@ export interface Options {
    * refer to the documentation for
    * [Tippy.js Props](https://atomiks.github.io/tippyjs/v6/all-props/).
    */
-  tooltipOptions: TippyProps;
+  tooltipOptions: Optional<TippyProps>;
   /**
    * Sets the animation transition time in milliseconds.
    */
