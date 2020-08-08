@@ -160,6 +160,7 @@ export function layout({
 
   cloud
     .size(size)
+    // @ts-ignore
     .padding(padding)
     .words(clonedeep(sortedWords))
     .rotate(() => {

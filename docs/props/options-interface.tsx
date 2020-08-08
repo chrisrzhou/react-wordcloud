@@ -1,7 +1,5 @@
-import { OptionsProp } from '~/src';
+import { OptionsProp } from '../react-wordcloud';
 
-function OptionsInterface(_props: OptionsProp): JSX.Element {
+export default function OptionsInterface(_props: OptionsProp): JSX.Element {
   return null;
 }
-
-export default OptionsInterface;

@@ -1,7 +1,5 @@
-import { Word } from '~/src';
+import { Word } from '../react-wordcloud';
 
-function WordInterface(_props: Word): JSX.Element {
+export default function WordInterface(_props: Word): JSX.Element {
   return null;
 }
-
-export default WordInterface;

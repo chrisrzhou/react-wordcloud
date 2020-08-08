@@ -3,21 +3,76 @@ name: Common Issues
 route: /common-issues
 ---
 
-import { Playground } from "docz";
-import { useMemo, useState } from "react";
+import { Playground } from 'docz';
+import { useMemo, useState } from 'react';
 
-import ReactWordcloud from "~/src";
-
-import words from "./words";
+import ReactWordcloud from './react-wordcloud';
+import words from './words';
 
 # Common Issues
 
 ## Re-rendering issues
 
-It is a common scenario that
-`react-wordcloud` will unintentionally re-render (i.e. grow from the center) when the `size`, `callbacks`, `options` props are updated.  Note that `react-wordcloud` is **unopinionated** about this rendering behavior since this is the default React behavior, namely that changes in props will re-render the component.
+Various props for `react-wordcloud` such as `size`, `callbacks`, `options` are array/object-based.  A common mistake in React components is to declare these conveniently as literal prop values:
 
-You should instead try to define these props statically (e.g. outside of the component) or memoize them accordingly. The comparison example below shows how to avoid this issue with `useMemo`.
+```js
+function MyWordcloud() {
+  return (
+    <ReactWordcloud
+      options={{
+        fontFamily: 'courier new',
+        fontSizes: [10, 20],
+      }}
+      size={[400, 300]}
+    />
+  )
+}
+```
+
+When your component re-renders, the array/object literal props are always initialized as new instances, and this causes the underlying `react-wordcloud` component to re-render as props have changed (React behavior).  To avoid this situation, either declare these prop values outside of your component, or memoize them:
+
+```js
+const size = [400, 300];
+const options = {
+  fontFamily: 'courier new',
+  fontSizes: [10, 20],
+};
+
+function MyStaticWordcloud() {
+  return (
+    <ReactWordcloud
+      options={options}
+      size={size}
+    />
+  )
+}
+```
+
+```js
+import { useMemo } from 'react';
+
+function MyMemoizedWordcloud() {
+  const size = useMemo(() => {
+    return [400, 300];
+  }, []); // add dependencies to useMemo where appropriate
+
+  const options = useMemo(() => {
+    return {
+      fontFamily: 'courier new',
+      fontSizes: [10, 20],
+    }
+  }, []); // add dependencies to useMemo where appropriate
+
+  return (
+    <ReactWordcloud
+      options={options}
+      size={size}
+    />
+  );
+}
+```
+
+Here is a playground that illustrates the difference between memoizing th;e `size` prop.
 
 <Playground>
   {() => {
@@ -29,9 +84,9 @@ You should instead try to define these props statically (e.g. outside of the com
         <button onClick={() => setIteration(iteration + 1)}>
           Click to re-render
         </button>
-        <h3>Will re-render because the "size" prop is always recreated</h3>
+        <h3>Will re-render because the 'size' prop is always recreated</h3>
         <ReactWordcloud size={size} words={words} />
-        <h3>Will not re-render because the "size" prop is memoized</h3>
+        <h3>Will not re-render because the 'size' prop is memoized</h3>
         <ReactWordcloud size={memoizedSize} words={words} />
       </div>
     );
@@ -62,9 +117,9 @@ This issue happens when the most _frequent_ word is also the _longest_ word. For
   <ReactWordcloud
     size={[200, 200]}
     words={[
-      { text: "this_is_a_long_word_and_also_the_most_frequent", value: 60 },
-      { text: "some_word", value: 30 },
-      { text: "another_word", value: 20 },
+      { text: 'this_is_a_long_word_and_also_the_most_frequent', value: 60 },
+      { text: 'some_word', value: 30 },
+      { text: 'another_word', value: 20 },
     ]}
   />
 </Playground>
@@ -74,3 +129,14 @@ If you see this console warning, it is recommended that you address it in the fo
 - Increase the wordcloud size (either using the `size` prop or the parent container).
 - Reduce the `options.fontSizes` values.
 - Avoid rendering long words at vertical angles (i.e. 90 degrees). Browser heights are more limited than widths, and the long words may not fit within the wordcloud height. You can control rotation angles using `rotationAngles` and `rotations` in the `options` props.
+
+## Typescript errors
+Common typescript issues are frequently experienced when working with `Scale`, `Spiral`, `MinMaxPair` types where providing literal number arrays or strings will cause the TS compiler to complain.  Most of these are type aliases (e.g. `[number, number]` and `'linear' | 'log' | 'sqrt'`) and you can resolve these issues by type-asserting them e.g.
+
+```ts
+const fonSizes: MinMaxPair = [10, 20];
+const fontSizes = [10, 20] as MinMaxPair;
+
+const scale = 'linear' as const;
+const scale = <const> 'linear';
+```

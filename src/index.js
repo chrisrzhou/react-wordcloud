@@ -5,9 +5,6 @@ import { useResponsiveSvgSelection } from './hooks';
 import { layout } from './layout';
 import { getDefaultColors } from './utils';
 
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
-
 export const defaultCallbacks = {
   getWordTooltip: ({ text, value }) => `${text} (${value})`,
 };

@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.7](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.7...v1.2.6) (2020-08-07)
+- Internal code cleanup (detypscriptify source code)
+- Update docs, readme and other configs.
+
+### 'Breaking' Changes: Tooltip CSS and Typings
+Decoupled the `tippy` CSS from the package.  This will improve future versioning of the project, and is also the recommendation set by the `tippy` project.  Tooltips with this new versions might look off without CSS styles, but not considering this a breaking change because you can easily add the following imports to address the issue:
+
+```js
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css'
+```
+
+Some rarely used typings are no longer exported (e.g. `Enter`, `Spiral`, `WordToStringCallback`, `WordEventCallback`, `MinMaxPair`, `AttributeValue`).  While this is a breaking change, taking the liberty to assume this as non-breaking in an effort to constrain the exposed typings for improved future versioning of the project.
+
 ## [1.2.6](https://github.com/chrisrzhou/react-wordcloud/compare/v1.2.6...v1.2.5) (2020-07-21)
 - Correctly expose typings that were missing in `v1.2.5`.
 - Fix docs deploy by adding `.node-version`.

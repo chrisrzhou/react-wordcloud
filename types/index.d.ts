@@ -1,8 +1,32 @@
 import { EnterElement, Selection as d3Selection } from 'd3-selection';
 import { Props as TippyProps } from 'tippy.js';
 
-export type AttributeValue = string | WordToStringCallback;
+/**
+ * Types
+ */
+type AttributeValue = string | WordToStringCallback;
 
+type MinMaxPair = [number, number];
+
+type Scale = 'linear' | 'log' | 'sqrt';
+
+type Selection = d3Selection<SVGElement, Word, SVGElement, Word>;
+
+type Enter = d3Selection<EnterElement, Word, SVGElement, Word>;
+
+type Spiral = 'archimedean' | 'rectangular';
+
+type WordToStringCallback = (word: Word) => void;
+
+type WordEventCallback = (word: Word, event?: MouseEvent) => void;
+
+type Optional<T> = {
+  [P in keyof T]?: T[P];
+};
+
+/**
+ * Public typings
+ */
 export interface Callbacks {
   /**
    * Set the word color using the word object.
@@ -26,7 +50,7 @@ export interface Callbacks {
   onWordMouseOver?: WordEventCallback;
 }
 
-export type MinMaxPair = [number, number];
+export type CallbacksProp = Optional<Callbacks>;
 
 export interface Options {
   /**
@@ -98,20 +122,41 @@ export interface Options {
    * refer to the documentation for
    * [Tippy.js Props](https://atomiks.github.io/tippyjs/v6/all-props/).
    */
-  tooltipOptions: TippyProps;
+  tooltipOptions: Optional<TippyProps>;
   /**
    * Sets the animation transition time in milliseconds.
    */
   transitionDuration: number;
 }
 
-export type Scale = 'linear' | 'log' | 'sqrt';
+export type OptionsProp = Optional<Options>;
 
-export type Selection = d3Selection<SVGElement, Word, SVGElement, Word>;
-
-export type Enter = d3Selection<EnterElement, Word, SVGElement, Word>;
-
-export type Spiral = 'archimedean' | 'rectangular';
+export interface Props {
+  /**
+   * Callbacks to control various word properties and behaviors.
+   */
+  callbacks?: CallbacksProp;
+  /**
+   * Maximum number of words to display.
+   */
+  maxWords?: number;
+  /**
+   * Set minimum [width, height] values for the SVG container.
+   */
+  minSize?: MinMaxPair;
+  /**
+   * Configure the wordcloud with various options.
+   */
+  options?: OptionsProp;
+  /**
+   * Set explicit [width, height] values for the SVG container.  This will disable responsive resizing.  If undefined, the wordcloud will responsively size to its parent container.
+   */
+  size?: MinMaxPair;
+  /**
+   * An array of word.  A word is an object that must contain the 'text' and 'value' keys.
+   */
+  words: Word[];
+}
 
 export interface Word {
   [key: string]: any;
@@ -119,6 +164,11 @@ export interface Word {
   value: number;
 }
 
-export type WordToStringCallback = (word: Word) => void;
+/**
+ * Public interfaces
+ */
+export const defaultCallbacks: CallbacksProp;
 
-export type WordEventCallback = (word: Word, event?: MouseEvent) => void;
+export const defaultOptions: OptionsProp;
+
+export default function ReactWordcloud(props: Props): JSX.Element;

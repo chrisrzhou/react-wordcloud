@@ -1,4 +1,4 @@
-# ☁️ React Wordcloud
+# ☁️ react-wordcloud
 
 Simple React + D3 wordcloud component with powerful features. Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
 
@@ -8,9 +8,71 @@ Simple React + D3 wordcloud component with powerful features. Uses the [`d3-clou
 
 ```sh
 npm install react-wordcloud
-``
+```
 
 Note that `react-wordcloud` requires `react^16.13.0` as a peer dependency.
+
+## Use
+
+### Simple
+
+```js
+import React from 'react';
+import ReactWordcloud from 'react-wordcloud';
+
+const words = [
+  {
+    text: 'told',
+    value: 64,
+  },
+  {
+    text: 'mistake',
+    value: 11,
+  },
+  {
+    text: 'thought',
+    value: 16,
+  },
+  {
+    text: 'bad',
+    value: 17,
+  },
+]
+
+function SimpleWordcloud() {
+  return <ReactWordcloud words={words} />
+}
+```
+
+### Kitchen Sink
+
+An example showing various features (callbacks, options, size).
+
+```js
+const callbacks = {
+  getWordColor: word => word.value > 50 ? "blue" : "red",
+  onWordClick: console.log,
+  onWordMouseOver: console.log,
+  getWordTooltip: word => `${word.text} (${word.value}) [${word.value > 50 ? "good" : "bad"}]`,
+}
+const options = {
+  rotations: 2,
+  rotationAngles: [-90, 0],
+};
+const size = [600, 400];
+const words = [...];
+
+function MyWordcloud() {
+  return (
+    <ReactWordcloud
+      callbacks={callbacks}
+      options={options}
+      size={size}
+      words={words}
+    />
+  );
+}
+```
 
 ## Examples
 
@@ -18,26 +80,26 @@ View all documented examples and gallery of `react-wordcloud` applications at ht
 
 You can also run the examples locally:
 
-```bash
+```sh
 git clone git@github.com:chrisrzhou/react-wordcloud
-cd react-wordcloud && npm install && npm run docs
+
+cd react-wordcloud
+npm install && npm run docs
 ```
 
-### Codesandbox examples
-
-#### No props
+### No props
 
 [![Edit react-wordcloud-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/bgov9)
 
-#### Responsive
+### Responsive
 
 [![Edit react-wordcloud-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/55sb8)
 
-#### Configurable Options
+### Configurable Options
 
 [![Edit react-wordcloud-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fnk8w)
 
-#### Callbacks
+### Callbacks
 
 [![Edit react-wordcloud-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/4lecp)
 
@@ -51,3 +113,9 @@ Features supported:
 - Various NLP features (stopwords, ngrams)
 - Wordcloud configurations
 - Export/save/share wordclouds
+
+## Contributing
+
+The code is written in `typescript`, linted with `xo`, and built with `microbundle`. Examples and documentations are built with `docz`.
+
+Feel free to contribute by submitting a pull request.

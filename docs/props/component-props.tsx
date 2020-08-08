@@ -1,7 +1,5 @@
-import { Props } from '~/src';
+import { Props } from '../react-wordcloud';
 
-function ComponentProps(_props: Props): JSX.Element {
+export default function ComponentProps(_props: Props): JSX.Element {
   return null;
 }
-
-export default ComponentProps;
