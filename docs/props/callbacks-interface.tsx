@@ -1,7 +1,5 @@
-import { CallbacksProp } from '~/src';
+import { CallbacksProp } from '../react-wordcloud';
 
-function CallbacksInterface(_props: CallbacksProp): JSX.Element {
+export default function CallbacksInterface(_props: CallbacksProp): JSX.Element {
   return null;
 }
-
-export default CallbacksInterface;

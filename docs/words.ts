@@ -1,6 +1,4 @@
-import { Word } from '~/src';
-
-const words: Word[] = [
+export default [
   {
     text: 'told',
     value: 64,
@@ -502,5 +500,3 @@ const words: Word[] = [
     value: 10,
   },
 ];
-
-export default words;

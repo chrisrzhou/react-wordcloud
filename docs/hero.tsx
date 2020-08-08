@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import ReactWordcloud, { MinMaxPair, Scale, Spiral } from '~/src';
-import { choose } from '~/src/utils';
-
+import { choose } from '../src/utils';
+import ReactWordcloud, { MinMaxPair, Scale, Spiral } from './react-wordcloud';
 import words from './words';
 
 const { random } = Math;

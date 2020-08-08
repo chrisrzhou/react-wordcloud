@@ -4,11 +4,10 @@ menu: Usage
 route: /usage/options
 ---
 
-import { Playground } from "docz";
+import { Playground } from 'docz';
 
-import ReactWordcloud from "~/src";
-
-import words from "../words";
+import ReactWordcloud from '../react-wordcloud';
+import words from '../words';
 
 # Options
 
@@ -21,7 +20,7 @@ You can customize many visual and layout properties of `react-wordcloud` by usin
 <Playground>
   <ReactWordcloud
     options={{
-      colors: ["#1f77b4", "#9467bd", "#8c564b"],
+      colors: ['#1f77b4', '#9467bd', '#8c564b'],
     }}
     words={words}
   />
@@ -48,10 +47,10 @@ Configure word font styles using the `fontFamily`, `fontSizes`, `fontStyle`, `fo
 <Playground>
   <ReactWordcloud
     options={{
-      fontFamily: "courier new",
+      fontFamily: 'courier new',
       fontSizes: [10, 20],
-      fontStyle: "italic",
-      fontWeight: "bold",
+      fontStyle: 'italic',
+      fontWeight: 'bold',
     }}
     words={words}
   />
@@ -103,8 +102,8 @@ Configure the wordcloud layout by using the `scale`, `spiral` options.
 <Playground>
   <ReactWordcloud
     options={{
-      scale: "log",
-      spiral: "rectangular",
+      scale: 'log',
+      spiral: 'rectangular',
     }}
     words={words}
   />
@@ -121,7 +120,7 @@ You can set custom attributes on the `svg` or `text` nodes by using the `svgAttr
         role: 'list',
       },
       textAttributes: {
-        'aria-label': word => `Word: "${word.text}", Count: "${word.value}"`,
+        'aria-label': word => `Word: '${word.text}', Count: '${word.value}'`,
         fill: 'red',
         role: 'img',
       },
@@ -139,36 +138,36 @@ Use the Playground to edit and play around with some of these options!
     words={words}
     options={{
       colors: [
-        "#1f77b4",
-        "#ff7f0e",
-        "#2ca02c",
-        "#d62728",
-        "#9467bd",
-        "#8c564b",
+        '#1f77b4',
+        '#ff7f0e',
+        '#2ca02c',
+        '#d62728',
+        '#9467bd',
+        '#8c564b',
       ],
       deterministic: false,
       enableTooltip: true,
-      fontFamily: "impact",
+      fontFamily: 'impact',
       fontSizes: [5, 60],
-      fontStyle: "normal",
-      fontWeight: "normal",
+      fontStyle: 'normal',
+      fontWeight: 'normal',
       padding: 1,
       randomSeed: null,
       rotations: 3,
       rotationAngles: [0, 90],
-      scale: "sqrt",
-      spiral: "archimedean",
+      scale: 'sqrt',
+      spiral: 'archimedean',
       svgAttributes: {
         role: 'list',
       },
       textAttributes: {
-        'aria-label': word => `Word: "${word.text}", Count: "${word.value}"`,
+        'aria-label': word => `Word: '${word.text}', Count: '${word.value}'`,
         role: 'img',
       },
       tooltipOptions: {
         allowHTML: true,
         arrow: false,
-        placement: "bottom",
+        placement: 'bottom',
       },
       transitionDuration: 1000,
     }}

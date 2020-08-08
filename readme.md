@@ -113,3 +113,9 @@ Features supported:
 - Various NLP features (stopwords, ngrams)
 - Wordcloud configurations
 - Export/save/share wordclouds
+
+## Contributing
+
+The code is written in `typescript`, linted with `xo`, and built with `microbundle`. Examples and documentations are built with `docz`.
+
+Feel free to contribute by submitting a pull request.
