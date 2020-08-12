@@ -1,6 +1,6 @@
 ---
-name: Common Issues
-route: /common-issues
+name: FAQ
+route: /faq
 ---
 
 import { Playground } from 'docz';
@@ -9,7 +9,7 @@ import { useMemo, useState } from 'react';
 import ReactWordcloud from './react-wordcloud';
 import words from './words';
 
-# Common Issues
+# FAQ
 
 ## Re-rendering issues
 
@@ -98,14 +98,36 @@ Please refer to the [Deterministic Behavior](../usage/options#deterministic-beha
 
 ## Performance issues
 
+### Cloud-based
 Performance issues in the underlying `d3-cloud` layout can be encountered in these common situations:
 
-- Multiple instances of `react-wordcloud`.
+- Multiple wordcloud instances.
 - Large `words` data.
 - High `maxWords` prop.
 - Large `fontSizes` with small `size` prop (or parent container size).
 
 The `options.enableOptimizations` flag can be uesd to solve the first two performance problems. For the other problems, you will have to experiment and pick ideal options to configure your wordclouds.
+
+### Browser-based
+`react-wordcloud` requires access to canvas data to render.  If browsers are blocking canvas data access (e.g. Firefox's `privacy.resistFingerprinting = true`), you need to enable it.  If you are implementing projects that use `react-wordcloud`, you should inform users on how to get around the issue as shown in the example below:
+
+```js
+function MyWordcloud(props) {
+  let entries = [];
+  performance.mark('check');
+  entries = performance.getEntries();
+
+  if (entries.length === 0) {
+    return (
+      <p>
+        React wordcloud requires access to canvas image data. Please allow
+        access in your browser and try again.
+      </p>
+    );
+  }
+
+  return <ReactWordcloud {...props} />
+```
 
 ## Dropped Words
 

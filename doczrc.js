@@ -16,7 +16,7 @@ export default {
         'Optimizations',
       ],
     },
-    'Common Issues',
+    'FAQ',
     'Changelog',
   ],
   public: 'public',

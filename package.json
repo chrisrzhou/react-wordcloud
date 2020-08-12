@@ -82,6 +82,9 @@
   },
   "xo": {
     "prettier": true,
+    "env": [
+      "browser"
+    ],
     "extends": [
       "xo-react"
     ],

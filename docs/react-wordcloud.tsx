@@ -8,5 +8,18 @@ import ReactWordcloudSrc, { Props } from '..';
 export * from '..';
 
 export default function ReactWordcloud(props: Props): JSX.Element {
+  let entries = [];
+  performance.mark('check');
+  entries = performance.getEntries();
+
+  if (entries.length === 0) {
+    return (
+      <p>
+        React wordcloud requires access to canvas image data. Please allow
+        access in your browser and try again.
+      </p>
+    );
+  }
+
   return <ReactWordcloudSrc {...props} />;
 }
