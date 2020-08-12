@@ -19,6 +19,8 @@ Note that `react-wordcloud` requires `react^16.13.0` as a peer dependency.
 ```js
 import React from 'react';
 import ReactWordcloud from 'react-wordcloud';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
 
 const words = [
   {
@@ -43,6 +45,8 @@ function SimpleWordcloud() {
   return <ReactWordcloud words={words} />
 }
 ```
+
+By default, `ReactWordcloud` is configured with animated tooltips enabled and requires CSS for styling. Tippy provides base styling in the resources above or you can create your own.
 
 ### Kitchen Sink
 
