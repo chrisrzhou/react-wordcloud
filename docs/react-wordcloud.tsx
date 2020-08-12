@@ -9,8 +9,11 @@ export * from '..';
 
 export default function ReactWordcloud(props: Props): JSX.Element {
   let entries = [];
-  performance.mark('check');
-  entries = performance.getEntries();
+
+  if (typeof window !== 'undefined') {
+    window.performance.mark('check');
+    entries = window.performance.getEntries();
+  }
 
   if (entries.length === 0) {
     return (
