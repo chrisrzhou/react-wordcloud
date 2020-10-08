@@ -35,9 +35,6 @@ function ReactWordCloud({
   words,
   ...rest
 }) {
-  const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
-  const mergedOptions = { ...defaultOptions, ...options };
-
   const [ref, selection, size] = useResponsiveSvgSelection(
     minSize,
     initialSize,
@@ -48,6 +45,9 @@ function ReactWordCloud({
 
   useEffect(() => {
     if (selection) {
+      const mergedCallbacks = { ...defaultCallbacks, ...callbacks };
+      const mergedOptions = { ...defaultOptions, ...options };
+
       render.current({
         callbacks: mergedCallbacks,
         maxWords,
@@ -57,7 +57,7 @@ function ReactWordCloud({
         words,
       });
     }
-  }, [maxWords, mergedCallbacks, mergedOptions, selection, size, words]);
+  }, [maxWords, callbacks, options, selection, size, words]);
 
   return <div ref={ref} style={{ height: '100%', width: '100%' }} {...rest} />;
 }
