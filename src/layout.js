@@ -52,11 +52,18 @@ export function render({ callbacks, options, random, selection, words }) {
           }
         })
         .on('mouseover', word => {
-          if (enableTooltip) {
+          if (
+            enableTooltip &&
+            (!tooltipInstance || tooltipInstance.isDestroyed)
+          ) {
             tooltipInstance = tippy(event.target, {
               animation: 'scale',
               arrow: true,
               content: () => getWordTooltip(word),
+              onHidden: (instance) => {
+                instance.destroy();
+                tooltipInstance = null;
+              },
               ...tooltipOptions,
             });
           }
@@ -66,7 +73,7 @@ export function render({ callbacks, options, random, selection, words }) {
           }
         })
         .on('mouseout', word => {
-          if (tooltipInstance) {
+          if (tooltipInstance && !tooltipInstance.state.isVisible) {
             tooltipInstance.destroy();
           }
 
