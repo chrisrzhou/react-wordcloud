@@ -33,6 +33,7 @@ function ReactWordCloud({
   options,
   size: initialSize,
   words,
+  initRender,
   ...rest
 }) {
   const [ref, selection, size] = useResponsiveSvgSelection(
@@ -55,6 +56,7 @@ function ReactWordCloud({
         selection,
         size,
         words,
+        initRender,
       });
     }
   }, [maxWords, callbacks, options, selection, size, words]);
