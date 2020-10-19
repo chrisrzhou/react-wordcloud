@@ -131,6 +131,7 @@ export function layout({
   selection,
   size,
   words,
+  initRender,
 }) {
   const MAX_LAYOUT_ATTEMPTS = 10;
   const SHRINK_FACTOR = 0.95;
@@ -217,6 +218,15 @@ export function layout({
             minFontSize,
           );
 
+          if (attempts === 1 && initRender) {
+            render({
+              callbacks,
+              options,
+              random,
+              selection,
+              words: computedWords,
+            })
+          }
           draw([minFontSize, maxFontSize], attempts + 1);
         } else {
           render({
