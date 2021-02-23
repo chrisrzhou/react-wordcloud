@@ -2,7 +2,7 @@
 
 Simple React + D3 wordcloud component with powerful features. Uses the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
 
-![image](/public/wordcloud.png)
+<img src="./public/wordcloud.png" alt="WordCloud Image" />
 
 ## Install
 
@@ -94,19 +94,19 @@ npm install && npm run docs
 
 ### No props
 
-[![Edit react-wordcloud-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/bgov9)
+<a href="https://codesandbox.io/s/bgov9g" target="_blank"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="No props" /></a>
 
 ### Responsive
 
-[![Edit react-wordcloud-simple](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/55sb8)
+<a href="https://codesandbox.io/s/55sb8" target="_blank"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Responsive" /></a>
 
 ### Configurable Options
 
-[![Edit react-wordcloud-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fnk8w)
+<a href="https://codesandbox.io/s/fnk8w" target="_blank"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Configurable Options" /></a>
 
 ### Callbacks
 
-[![Edit react-wordcloud-interactive](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/4lecp)
+<a href="https://codesandbox.io/s/4lecp" target="_blank"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Callbacks" /></a>
 
 ## Wordcloud Generator
 
