@@ -36,7 +36,7 @@ export function render({ callbacks, options, random, selection, words }) {
   const { fontFamily, transitionDuration } = options;
 
   function getFill(word) {
-    return getWordColor ? getWordColor(word) : choose(colors, random);
+    return getWordColor ? getWordColor(word) : word.color ? word.color : choose(colors, random);
   }
 
   // Load words
