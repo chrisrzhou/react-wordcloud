@@ -162,6 +162,7 @@ export interface Word {
   [key: string]: any;
   text: string;
   value: number;
+  color?: string;
 }
 
 /**
