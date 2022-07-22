@@ -1,8 +1,14 @@
 import { select } from 'd3-selection';
 import { useEffect, useRef, useState } from 'react';
+import debounce from 'lodash.debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 
-export function useResponsiveSvgSelection(minSize, initialSize, svgAttributes) {
+export function useResponsiveSvgSelection(
+  minSize,
+  initialSize,
+  svgAttributes,
+  debounceTime = 0,
+) {
   const elementRef = useRef();
   const [size, setSize] = useState(initialSize);
   const [selection, setSelection] = useState(null);
@@ -46,16 +52,19 @@ export function useResponsiveSvgSelection(minSize, initialSize, svgAttributes) {
     updateSize(width, height);
 
     // Update resize using a resize observer
-    const resizeObserver = new ResizeObserver(entries => {
-      if (!entries || entries.length === 0) {
-        return;
-      }
+    const resizeObserver = new ResizeObserver(
+      debounce((entries) => {
+        if (!entries || entries.length === 0) {
+          return;
+        }
 
-      if (initialSize === undefined) {
-        const { width, height } = entries[0].contentRect;
-        updateSize(width, height);
-      }
-    });
+        if (initialSize === undefined) {
+          const { width, height } = entries[0].contentRect;
+          updateSize(width, height);
+        }
+      }, debounceTime)
+    );
+
     resizeObserver.observe(element);
 
     // Cleanup
