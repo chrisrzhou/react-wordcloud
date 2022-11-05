@@ -14,3 +14,4 @@ node_modules
 .docz
 dist
 package-lock.json
+.vscode/settings.json
