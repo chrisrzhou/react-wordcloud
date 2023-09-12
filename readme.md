@@ -7,7 +7,7 @@ Simple React + D3 wordcloud component with powerful features. Uses the [`d3-clou
 ## Install
 
 ```sh
-npm install react-wordcloud
+yarn add @viral-nation-official/react-wordcloud
 ```
 
 Note that `react-wordcloud` requires `react^16.13.0` as a peer dependency.
@@ -17,33 +17,33 @@ Note that `react-wordcloud` requires `react^16.13.0` as a peer dependency.
 ### Simple
 
 ```js
-import React from 'react';
-import ReactWordcloud from 'react-wordcloud';
+import React from "react";
+import ReactWordcloud from "@viral-nation-official/react-wordcloud";
 
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/scale.css";
 
 const words = [
   {
-    text: 'told',
+    text: "told",
     value: 64,
   },
   {
-    text: 'mistake',
+    text: "mistake",
     value: 11,
   },
   {
-    text: 'thought',
+    text: "thought",
     value: 16,
   },
   {
-    text: 'bad',
+    text: "bad",
     value: 17,
   },
-]
+];
 
 function SimpleWordcloud() {
-  return <ReactWordcloud words={words} />
+  return <ReactWordcloud words={words} />;
 }
 ```
 
@@ -77,19 +77,6 @@ function MyWordcloud() {
     />
   );
 }
-```
-
-## Examples
-
-View all documented examples and gallery of `react-wordcloud` applications at https://react-wordcloud.netlify.com/.
-
-You can also run the examples locally:
-
-```sh
-git clone git@github.com:chrisrzhou/react-wordcloud
-
-cd react-wordcloud
-npm install && npm run docs
 ```
 
 ### No props
