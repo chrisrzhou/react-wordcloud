@@ -1,10 +1,10 @@
 {
-  "name": "react-wordcloud",
-  "version": "1.2.7",
+  "name": "@viral-nation-official/react-wordcloud",
+  "version": "1.2.8",
   "description": "Simple React + D3 wordcloud component with powerful features.",
   "license": "MIT",
-  "homepage": "https://react-wordcloud.netlify.com/",
-  "repository": "chrisrzhou/react-wordcloud",
+  "homepage": "https://github.com/bong-vn/react-wordcloud",
+  "repository": "bong-vn/react-wordcloud",
   "bugs": "https://github.com/chrisrzhou/react-wordcloud/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
   "keywords": [
@@ -31,13 +31,13 @@
     "types/index.d.ts"
   ],
   "dependencies": {
-    "d3-array": "^2.5.0",
+    "d3-array": "^3.0.0",
     "d3-cloud": "^1.2.5",
     "d3-dispatch": "^1.0.6",
     "d3-scale": "^3.2.1",
-    "d3-scale-chromatic": "^1.5.0",
-    "d3-selection": "^1.4.2",
-    "d3-transition": "^1.3.2",
+    "d3-scale-chromatic": "^3.0.0",
+    "d3-selection": "^3.0.0",
+    "d3-transition": "^3.0.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "resize-observer-polyfill": "^1.5.1",
@@ -45,11 +45,11 @@
     "tippy.js": "^6.2.6"
   },
   "devDependencies": {
-    "@types/d3-array": "^2.0.0",
+    "@types/d3-array": "^3.0.0",
     "@types/d3-cloud": "^1.2.3",
-    "@types/d3-scale": "^2.2.0",
-    "@types/d3-scale-chromatic": "^1.5.0",
-    "@types/d3-selection": "^1.4.1",
+    "@types/d3-scale": "^3.0.0",
+    "@types/d3-scale-chromatic": "^3.0.0",
+    "@types/d3-selection": "^3.0.0",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.debounce": "^4.0.6",
     "@types/seedrandom": "^2.4.28",

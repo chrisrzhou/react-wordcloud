@@ -1,13 +1,13 @@
-import 'd3-transition';
+import "d3-transition";
 
-import { descending } from 'd3-array';
-import d3Cloud from 'd3-cloud';
-import { event } from 'd3-selection';
-import clonedeep from 'lodash.clonedeep';
-import seedrandom from 'seedrandom';
-import tippy from 'tippy.js';
+import { descending } from "d3-array";
+import d3Cloud from "d3-cloud";
 
-import optimizedD3Cloud from './optimized-d3-cloud';
+import clonedeep from "lodash.clonedeep";
+import seedrandom from "seedrandom";
+import tippy from "tippy.js";
+
+import optimizedD3Cloud from "./optimized-d3-cloud";
 import {
   choose,
   getFontScale,
@@ -15,7 +15,7 @@ import {
   getText,
   getTransform,
   rotate,
-} from './utils';
+} from "./utils";
 
 export function render({ callbacks, options, random, selection, words }) {
   const {
@@ -41,23 +41,23 @@ export function render({ callbacks, options, random, selection, words }) {
 
   // Load words
   let tooltipInstance;
-  const vizWords = selection.selectAll('text').data(words);
+  const vizWords = selection.selectAll("text").data(words);
   vizWords.join(
-    enter => {
+    (enter) => {
       let text = enter
-        .append('text')
-        .on('click', word => {
+        .append("text")
+        .on("click", (event, word) => {
           if (onWordClick) {
             onWordClick(word, event);
           }
         })
-        .on('mouseover', word => {
+        .on("mouseover", (event, word) => {
           if (
             enableTooltip &&
             (!tooltipInstance || tooltipInstance.isDestroyed)
           ) {
             tooltipInstance = tippy(event.target, {
-              animation: 'scale',
+              animation: "scale",
               arrow: true,
               content: () => getWordTooltip(word),
               onHidden: (instance) => {
@@ -72,7 +72,7 @@ export function render({ callbacks, options, random, selection, words }) {
             onWordMouseOver(word, event);
           }
         })
-        .on('mouseout', word => {
+        .on("mouseout", (event, word) => {
           if (tooltipInstance && !tooltipInstance.state.isVisible) {
             tooltipInstance.destroy();
           }
@@ -81,44 +81,44 @@ export function render({ callbacks, options, random, selection, words }) {
             onWordMouseOut(word, event);
           }
         })
-        .attr('cursor', onWordClick ? 'pointer' : 'default')
-        .attr('fill', getFill)
-        .attr('font-family', fontFamily)
-        .attr('font-style', fontStyle)
-        .attr('font-weight', fontWeight)
-        .attr('text-anchor', 'middle')
-        .attr('transform', 'translate(0, 0) rotate(0)');
+        .attr("cursor", onWordClick ? "pointer" : "default")
+        .attr("fill", getFill)
+        .attr("font-family", fontFamily)
+        .attr("font-style", fontStyle)
+        .attr("font-weight", fontWeight)
+        .attr("text-anchor", "middle")
+        .attr("transform", "translate(0, 0) rotate(0)");
 
-      if (typeof textAttributes === 'object') {
-        Object.keys(textAttributes).forEach(key => {
+      if (typeof textAttributes === "object") {
+        Object.keys(textAttributes).forEach((key) => {
           text = text.attr(key, textAttributes[key]);
         });
       }
 
-      text = text.call(enter =>
+      text = text.call((enter) =>
         enter
           .transition()
           .duration(transitionDuration)
-          .attr('font-size', getFontSize)
-          .attr('transform', getTransform)
+          .attr("font-size", getFontSize)
+          .attr("transform", getTransform)
           .text(getText),
       );
     },
-    update => {
+    (update) => {
       update
         .transition()
         .duration(transitionDuration)
-        .attr('fill', getFill)
-        .attr('font-family', fontFamily)
-        .attr('font-size', getFontSize)
-        .attr('transform', getTransform)
+        .attr("fill", getFill)
+        .attr("font-family", fontFamily)
+        .attr("font-size", getFontSize)
+        .attr("transform", getTransform)
         .text(getText);
     },
-    exit => {
+    (exit) => {
       exit
         .transition()
         .duration(transitionDuration)
-        .attr('fill-opacity', 0)
+        .attr("fill-opacity", 0)
         .remove();
     },
   );
@@ -155,7 +155,7 @@ export function layout({
     .slice(0, maxWords);
 
   const random = seedrandom(
-    deterministic ? randomSeed || 'deterministic' : null,
+    deterministic ? randomSeed || "deterministic" : null,
   );
 
   let cloud;
@@ -191,11 +191,11 @@ export function layout({
     }
 
     cloud
-      .fontSize(word => {
+      .fontSize((word) => {
         const fontScale = getFontScale(sortedWords, fontSizes, scale);
         return fontScale(word.value);
       })
-      .on('end', computedWords => {
+      .on("end", (computedWords) => {
         /** KNOWN ISSUE: https://github.com/jasondavies/d3-cloud/issues/36
          * Recursively layout and decrease font-sizes by a SHRINK_FACTOR.
          * Bail out with a warning message after MAX_LAYOUT_ATTEMPTS.
@@ -206,8 +206,9 @@ export function layout({
         ) {
           if (attempts === MAX_LAYOUT_ATTEMPTS) {
             console.warn(
-              `Unable to layout ${sortedWords.length -
-                computedWords.length} word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
+              `Unable to layout ${
+                sortedWords.length - computedWords.length
+              } word(s) after ${attempts} attempts.  Consider: (1) Increasing the container/component size. (2) Lowering the max font size. (3) Limiting the rotation angles.`,
             );
           }
 
