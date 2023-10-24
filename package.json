@@ -64,7 +64,7 @@
     "xo": "^0.32.1"
   },
   "peerDependencies": {
-    "react": "^16.13.0"
+    "react": ">=16.13.0"
   },
   "husky": {
     "hooks": {
