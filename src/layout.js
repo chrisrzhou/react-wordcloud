@@ -13,6 +13,7 @@ import {
   getFontScale,
   getFontSize,
   getText,
+  getRotation,
   getTransform,
   rotate,
 } from './utils';
@@ -170,10 +171,15 @@ export function layout({
     // @ts-ignore
     .padding(padding)
     .words(clonedeep(sortedWords))
-    .rotate(() => {
+    .rotate((word) => {
       if (rotations === undefined) {
         // Default rotation algorithm
         return (~~(random() * 6) - 3) * 30;
+      }
+
+      // get rotation from word
+      if (getRotate(word)){
+        return getRotate(word);
       }
 
       return rotate(rotations, rotationAngles, random);

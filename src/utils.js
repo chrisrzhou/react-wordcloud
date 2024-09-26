@@ -43,6 +43,10 @@ export function getText(word) {
   return word.text;
 }
 
+export function getRotation(word) {
+  return word.rotation;
+}
+
 export function getTransform(word) {
   const translate = `translate(${word.x}, ${word.y})`;
   const rotate =
