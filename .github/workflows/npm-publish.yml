@@ -1,33 +1,146 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: Node.js Package
+# This workflow will create releases, tags and publish the package to NPM
+# when changes are pushed to the main branch or when a release is manually created
+name: Release and NPM Publish
 
 on:
+  push:
+    branches: [main]
   release:
     types: [created]
 
 jobs:
-  build:
+  # Always run CI checks first
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
       - run: npm ci
       - run: npm test
+      - run: npm run build
+      
+      # Upload build artifacts for potential use in release job
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist/
 
-  publish-npm:
-    needs: build
+  # Create release and tag when pushed to main (only if version changed)
+  release:
+    needs: ci
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    outputs:
+      version: ${{ steps.version-check.outputs.version }}
+      should-release: ${{ steps.version-check.outputs.should-release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for version comparison
+          
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      - name: Check if version changed
+        id: version-check
+        run: |
+          # Get current version from package.json
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Check if this version tag already exists
+          if git tag -l | grep -q "^v$CURRENT_VERSION$"; then
+            echo "Version v$CURRENT_VERSION already exists as a tag"
+            echo "should-release=false" >> $GITHUB_OUTPUT
+          else
+            echo "New version detected: $CURRENT_VERSION"
+            echo "should-release=true" >> $GITHUB_OUTPUT
+            echo "version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create Release
+        if: steps.version-check.outputs.should-release == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=${{ steps.version-check.outputs.version }}
+          
+          # Create the tag
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"
+          
+          # Create release notes from recent commits
+          RELEASE_NOTES="## Release v$VERSION
+
+          ### Changes in this release:
+          $(git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo $(git rev-list --max-parents=0 HEAD))..HEAD || echo "- Initial release")"
+          
+          # Create the release
+          gh release create "v$VERSION" \
+            --title "Release v$VERSION" \
+            --notes "$RELEASE_NOTES" \
+            --latest
+
+  # Publish to NPM for main branch pushes when a new release was created
+  publish-npm-auto:
+    needs: [ci, release]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.release.outputs.should-release == 'true'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+          cache: 'npm'
+          
+      # Download build artifacts from CI job
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist/
+          
       - run: npm ci
-      - run: npm publish
+      
+      # Verify the package can be packed
+      - run: npm pack --dry-run
+      
+      - name: Publish to NPM
+        run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Publish to NPM for manual releases
+  publish-npm-manual:
+    needs: ci
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+          cache: 'npm'
+          
+      # Download build artifacts from CI job
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist/
+          
+      - run: npm ci
+      
+      # Verify the package can be packed
+      - run: npm pack --dry-run
+      
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
