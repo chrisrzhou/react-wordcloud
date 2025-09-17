@@ -78,3 +78,28 @@ function MyWordcloud() {
 }
 ```
 
+## Development
+
+### Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Build the package
+npm run build
+
+# Run tests
+npm test
+```
+
+### Release Process
+
+This project uses automated releases. To publish a new version:
+
+1. Update version in `package.json`: `npm version [patch|minor|major]`
+2. Push to main: `git push origin main`  
+3. GitHub Actions will automatically create a release and publish to NPM
+
+See [RELEASE.md](./RELEASE.md) for detailed information about the release process.
+
