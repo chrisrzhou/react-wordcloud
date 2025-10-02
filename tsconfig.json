@@ -5,6 +5,8 @@
     "esModuleInterop": true,
     "jsx": "react",
     "noEmit": true,
+    "skipLibCheck": true,
+    "strict": false
   },
   "exclude": ["**/dist", "**/node_modules"]
 }

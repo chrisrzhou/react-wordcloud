@@ -32,11 +32,13 @@ export function useResponsiveSvgSelection(minSize, initialSize, svgAttributes) {
 
     let width = 0;
     let height = 0;
-    if (initialSize === undefined) {
+    if (initialSize === undefined && element) {
       // Use parentNode size if resized has not occurred
-      width = element.parentElement.offsetWidth;
-      height = element.parentElement.offsetHeight;
-    } else {
+      // @ts-ignore - TypeScript incorrectly infers element as never
+      width = element.parentElement?.offsetWidth || 0;
+      // @ts-ignore - TypeScript incorrectly infers element as never
+      height = element.parentElement?.offsetHeight || 0;
+    } else if (initialSize) {
       // Use initialSize if it is provided
       [width, height] = initialSize;
     }

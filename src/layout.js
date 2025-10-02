@@ -60,7 +60,7 @@ export function render({ callbacks, options, random, selection, words }) {
               animation: 'scale',
               arrow: true,
               content: () => getWordTooltip(word),
-              onHidden: (instance) => {
+              onHidden: instance => {
                 instance.destroy();
                 tooltipInstance = null;
               },

@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import { useResponsiveSvgSelection } from './hooks';
 import { layout } from './layout';
@@ -9,8 +9,10 @@ export const defaultCallbacks = {
   getWordTooltip: ({ text, value }) => `${text} (${value})`,
 };
 
+const defaultColors = getDefaultColors();
+
 export const defaultOptions = {
-  colors: getDefaultColors(),
+  colors: defaultColors,
   deterministic: false,
   enableOptimizations: false,
   enableTooltip: true,
@@ -26,19 +28,27 @@ export const defaultOptions = {
   transitionDuration: 600,
 };
 
+const DEFAULT_MIN_SIZE = [300, 300];
+
 function ReactWordCloud({
-  callbacks,
+  callbacks = defaultCallbacks,
   maxWords = 100,
-  minSize,
-  options,
+  minSize: minSizeProp,
+  options = defaultOptions,
   size: initialSize,
   words,
   ...rest
 }) {
+  const minSize = useMemo(() => minSizeProp || DEFAULT_MIN_SIZE, [minSizeProp]);
+
+  const svgAttributes = useMemo(() => options.svgAttributes, [
+    options.svgAttributes,
+  ]);
+
   const [ref, selection, size] = useResponsiveSvgSelection(
     minSize,
     initialSize,
-    options.svgAttributes,
+    svgAttributes,
   );
 
   const render = useRef(debounce(layout, 100));
@@ -57,16 +67,13 @@ function ReactWordCloud({
         words,
       });
     }
-  }, [maxWords, callbacks, options, selection, size, words]);
+    // Note: 'size' is intentionally excluded from dependencies to prevent
+    // potential infinite loops, as it's updated by useResponsiveSvgSelection.
+    // The debounced render function will use the latest size value via closure.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callbacks, maxWords, options, selection, words]);
 
   return <div ref={ref} style={{ height: '100%', width: '100%' }} {...rest} />;
 }
-
-ReactWordCloud.defaultProps = {
-  callbacks: defaultCallbacks,
-  maxWords: 100,
-  minSize: [300, 300],
-  options: defaultOptions,
-};
 
 export default ReactWordCloud;

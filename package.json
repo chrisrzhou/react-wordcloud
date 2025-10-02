@@ -52,6 +52,8 @@
     "@types/d3-selection": "^1.4.1",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.debounce": "^4.0.6",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "@types/seedrandom": "^2.4.28",
     "docz": "^2.3.1",
     "eslint-config-xo-react": "^0.23.0",
@@ -60,7 +62,7 @@
     "microbundle": "^0.12.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "typescript": "^3.8.3",
+    "typescript": "^5.0.0",
     "xo": "^0.32.1"
   },
   "peerDependencies": {
