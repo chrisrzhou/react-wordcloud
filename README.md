@@ -2,12 +2,16 @@
 
 Typed React + D3 word cloud component built on the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
 
-This package is a maintained fork of [`react-wordcloud`](https://github.com/chrisrzhou/react-wordcloud) with a modern TypeScript source tree, updated tooling, and current React 18/19-friendly dependencies.
+This is an **independently maintained fork** of Chris Zhou's [`react-wordcloud`](https://github.com/chrisrzhou/react-wordcloud), established to continue development beyond the original React 16-oriented dependency and tooling baseline. Cecil-IA Labs maintains its own codebase, public API decisions, tests, release process, and roadmap. It is **not an official upstream release**.
+
+Its development includes a TypeScript implementation, changes to component and layout logic, modernized D3/dependency tooling, expanded documentation, automated Vitest tests, and CI/release workflows. The original upstream copyright and MIT license are preserved alongside copyright for subsequent modifications. See [NOTICE.md](NOTICE.md) and [LICENSE](LICENSE).
+
+**Supported React versions:** the current published `package.json` declares `react: ^18.3.1` as a peer dependency. Do not interpret TypeScript or toolchain compatibility as verified React 19 runtime support; update the peer range only after CI and runtime validation.
 
 ## Install
 
 ```bash
-npm install d3-wordcloud-react
+npm install @cecilialabs/d3-wordcloud-react
 ```
 
 ## Usage
@@ -15,7 +19,7 @@ npm install d3-wordcloud-react
 ### Minimal example
 
 ```tsx
-import { ReactWordCloud } from 'd3-wordcloud-react';
+import { ReactWordCloud } from '@cecilialabs/d3-wordcloud-react';
 
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
@@ -37,7 +41,7 @@ export function SimpleWordCloud() {
 ### Fully customized example
 
 ```tsx
-import { ReactWordCloud, type ReactWordCloudProps } from 'd3-wordcloud-react';
+import { ReactWordCloud, type ReactWordCloudProps } from '@cecilialabs/d3-wordcloud-react';
 
 const callbacks: ReactWordCloudProps['callbacks'] = {
   getWordColor: word => (word.value > 50 ? '#0d6efd' : '#dc3545'),
@@ -86,7 +90,7 @@ import type {
   Options,
   ReactWordCloudProps,
   Word,
-} from 'd3-wordcloud-react';
+} from '@cecilialabs/d3-wordcloud-react';
 ```
 
 ## API notes
