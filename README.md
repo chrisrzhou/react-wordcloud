@@ -1,124 +1,49 @@
-# d3-wordcloud-react
+# D3 WordCloud React
 
-Typed React + D3 word cloud component built on the [`d3-cloud`](https://github.com/jasondavies/d3-cloud) layout.
+**Languages:** [English](README.md) · [Português (Brasil)](README.pt-BR.md) · [Italiano](README.it.md)
 
-This is an **independently maintained fork** of Chris Zhou's [`react-wordcloud`](https://github.com/chrisrzhou/react-wordcloud), established to continue development beyond the original React 16-oriented dependency and tooling baseline. Cecil-IA Labs maintains its own codebase, public API decisions, tests, release process, and roadmap. It is **not an official upstream release**.
+**Words become worlds.** An expressive React word-cloud component that combines D3 layout with a typed interface for data visualization, independently maintained by Cecil-IA Labs.
 
-Its development includes a TypeScript implementation, changes to component and layout logic, modernized D3/dependency tooling, expanded documentation, automated Vitest tests, and CI/release workflows. The original upstream copyright and MIT license are preserved alongside copyright for subsequent modifications. See [NOTICE.md](NOTICE.md) and [LICENSE](LICENSE).
+**[Explore the WordCloud Studio](https://cecil-ia-labs.github.io/d3-wordcloud-react/)** · **[Install from npm](https://www.npmjs.com/package/@cecilialabs/d3-wordcloud-react)** · **[Source on GitHub](https://github.com/cecil-ia-labs/d3-wordcloud-react)**
 
-**Supported React versions:** the current published `package.json` declares `react: ^18.3.1` as a peer dependency. Do not interpret TypeScript or toolchain compatibility as verified React 19 runtime support; update the peer range only after CI and runtime validation.
+## What you can build
 
-## Install
+Interactive, responsive word clouds that make word frequency and thematic emphasis visible. Supply words with numeric weights, and customize layout, colors, font sizes, spirals, rotation, tooltips and click/hover interactions.
+
+The library exports **`ReactWordCloud`** (plus the backwards-compatible `ReactWordcloud` alias). It accepts `words`, `options`, `callbacks`, and optional `size` or `minSize`.
+
+## Quick start
 
 ```bash
 npm install @cecilialabs/d3-wordcloud-react
 ```
 
-## Usage
-
-### Minimal example
-
 ```tsx
 import { ReactWordCloud } from '@cecilialabs/d3-wordcloud-react';
-
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 
 const words = [
-  { text: 'told', value: 64 },
-  { text: 'mistake', value: 11 },
-  { text: 'thought', value: 16 },
-  { text: 'bad', value: 17 },
+  { text: 'research', value: 42 },
+  { text: 'design', value: 28 },
+  { text: 'open source', value: 18 },
 ];
 
-export function SimpleWordCloud() {
+export function ResearchCloud() {
   return <ReactWordCloud words={words} />;
 }
 ```
 
-`ReactWordCloud` renders responsively by default and enables tooltips out of the box. If you want tooltips to match the default styling shown in the examples, keep the Tippy CSS imports above.
+For a customized `options` and `callbacks` example, see the [technical reference](docs/README.legacy.en.md) and source types at [src/types.ts](src/types.ts).
 
-### Fully customized example
+## Current state and compatibility
 
-```tsx
-import { ReactWordCloud, type ReactWordCloudProps } from '@cecilialabs/d3-wordcloud-react';
+The current package declares **React `^18.3.1`** as its peer dependency; do not treat React 19 as confirmed support unless separately validated. Version, supported options, and required dependencies are in [package.json](package.json). This independently maintained TypeScript fork includes D3 layout integration, tests, tooling and a release pipeline.
 
-const callbacks: ReactWordCloudProps['callbacks'] = {
-  getWordColor: word => (word.value > 50 ? '#0d6efd' : '#dc3545'),
-  getWordTooltip: word => `${word.text} (${word.value})`,
-  onWordClick: (word, event) => {
-    console.log('clicked', word.text, event.type);
-  },
-};
+The **WordCloud Studio** is a static UX/showroom experiment with an original illustrative SVG arrangement. It does **not** execute the library's optimized D3 word collision engine or provide performance comparisons.
 
-const options: ReactWordCloudProps['options'] = {
-  fontFamily: 'Inter, system-ui, sans-serif',
-  rotations: 2,
-  rotationAngles: [-90, 0],
-  transitionDuration: 450,
-};
+## Open source and authorship
 
-const size: [number, number] = [600, 400];
+This project descends from [Chris Zhou's react-wordcloud](https://github.com/chrisrzhou/react-wordcloud) and is maintained separately by Cecil-IA Labs. Original copyright and MIT license obligations remain preserved, with subsequent work attributed in [NOTICE.md](NOTICE.md) and [LICENSE](LICENSE). Reuse, modifications and commercial forks are permitted under MIT terms with required notices.
 
-const words: ReactWordCloudProps['words'] = [
-  { text: 'analysis', value: 42 },
-  { text: 'design', value: 26 },
-  { text: 'tests', value: 18 },
-  { text: 'typescript', value: 12 },
-];
-
-export function RichWordCloud() {
-  return (
-    <ReactWordCloud
-      callbacks={callbacks}
-      options={options}
-      size={size}
-      words={words}
-    />
-  );
-}
-```
-
-### Exported types
-
-The package also exports the component props and shared utility types, so you can type your own helpers against the same public contract:
-
-```ts
-import type {
-  Callbacks,
-  LayoutWord,
-  Options,
-  ReactWordCloudProps,
-  Word,
-} from '@cecilialabs/d3-wordcloud-react';
-```
-
-## API notes
-
-- `ReactWordCloud` is the canonical export.
-- `ReactWordcloud` is kept as a backwards-compatible alias.
-- `words` must contain at least `text` and `value`.
-- `options.svgAttributes` and `options.textAttributes` allow you to pass additional SVG attributes.
-- `options.tooltipOptions` is forwarded to Tippy.js.
-
-## Development
-
-```bash
-npm install
-npm run lint
-npm run lint:fix
-npm run typecheck
-npm test
-npm run test:coverage
-npm run build
-```
-
-## Release process
-
-Releases are automated through GitHub Actions:
-
-1. Update the package version.
-2. Push the tagged commit to `main`.
-3. The publish workflow builds the package and uploads the release artifacts to npm.
-
-See [RELEASE.md](./RELEASE.md) for the manual release notes and maintenance checklist.
+**For contributors and AI agents:** read [AGENTS.md](AGENTS.md), the project [agent skills](.agents/skills/), and the [technical reference](docs/README.legacy.en.md). The showroom can be published by a manual GitHub Pages workflow only.
