@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#faf6ff"><meta name="description" content="Explore WordCloud Studio by Cecil-IA Labs: a React+D3 word cloud library with TypeScript, responsive layouts, options, callbacks and npm installation.">
+<link rel="canonical" href="https://cecil-ia-labs.github.io/d3-wordcloud-react/">
+<meta property="og:type" content="website"><meta property="og:title" content="WordCloud Studio — Cecil-IA Labs">
+<meta property="og:description" content="Compose word clouds, explore palette and typography, and learn the typed React D3 component API.">
+<meta property="og:url" content="https://cecil-ia-labs.github.io/d3-wordcloud-react/">
+<link rel="stylesheet" href="./studio.css"><script src="./studio.js" defer></script><title>WordCloud Studio | Cecil-IA Labs</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"d3-wordcloud-react","codeRepository":"https://github.com/cecil-ia-labs/d3-wordcloud-react","license":"https://github.com/cecil-ia-labs/d3-wordcloud-react/blob/main/LICENSE","programmingLanguage":"TypeScript"}</script>
+</head><body>
+<a class="skip" href="#main">Skip to content</a><div class="topline"></div>
+<header class="shell header"><a class="brand" href="https://cecil-ia-labs.github.io/"><span>W✦</span> CECIL-IA <small>VISUAL LAB</small></a><nav aria-label="Site navigation"><a href="#studio">Studio</a><a href="#docs">Documentation</a><a href="#origin">Origins</a></nav><a class="source" href="https://github.com/cecil-ia-labs/d3-wordcloud-react">SOURCE ↗</a></header>
+<main id="main">
+<section class="hero shell"><div><p class="eyebrow">VISUAL COMPUTING / SERIES 02</p><h1>Words become <em>worlds.</em></h1><p class="lead">Text isn't just data. It's texture, proportion, and meaning. Compose expressive word-cloud visualizations and bring them into React using D3.</p>
+<div class="actions"><a class="button primary" href="#studio">Open the studio ↘</a><a class="button secondary" href="https://www.npmjs.com/package/@cecilialabs/d3-wordcloud-react">Install on npm ↗</a></div><p class="meta">TYPESCRIPT · REACT 18 PEER RANGE · MIT</p></div>
+<div class="hero-art" aria-label="Decorative typographic composition"><b class="w a">create</b><b class="w b">shape</b><b class="w c">discover</b><b class="w d">iterate</b><b class="w e">imagine</b><b class="w f">typography</b><b class="w g">meaning</b><b class="w h">data</b></div></section>
+<section class="workshop" id="studio"><div class="shell"><p class="eyebrow">01 / EXPERIMENTAL SHOWROOM</p><div class="section-head"><div><h2>Compose the <em>unexpected.</em></h2><p>Explore word prominence, palette, orientation and layout. This custom SVG preview is illustrative: it does not run the package's actual D3 collision algorithm.</p></div><span class="tag">INTERACTIVE VISUAL PREVIEW</span></div>
+<div class="workspace"><aside class="controls"><div class="panel-head">COMPOSITION TOOLS <span>01 / 03</span></div><label for="dataset">WORD COLLECTION</label><select id="dataset"><option value="research">Research & discovery</option><option value="engineering">Software engineering</option><option value="arts">Language & creativity</option></select>
+<label for="palette">COLOR PALETTE</label><div id="palette" class="palette" role="group" aria-label="Select palette"><button class="swatch" data-palette="violet" aria-label="Violet & coral" aria-pressed="true"><span></span></button><button class="swatch" data-palette="sunset" aria-label="Sunset coral" aria-pressed="false"><span></span></button><button class="swatch" data-palette="graphite" aria-label="Graphite" aria-pressed="false"><span></span></button></div>
+<label for="limit">MAX WORDS <output id="count">18</output></label><input id="limit" type="range" min="6" max="24" value="18">
+<label for="rotation">ORIENTATION</label><select id="rotation"><option value="mix">Mixed angles</option><option value="flat">Horizontal</option><option value="vertical">Vertical accents</option></select>
+<label for="seed">REPEATABLE SEED <output id="seed-value">07</output></label><input id="seed" type="range" min="1" max="99" value="7">
+<div class="buttons"><button id="regenerate" type="button">Regenerate ↻</button><button id="export" type="button">Export SVG ↓</button></div>
+<p class="help">A local, original SVG composition for experimenting with controls—not a benchmark or reproduction of the library's word-collision placement.</p></aside>
+<section class="display"><div class="display-head"><span>LIVE COMPOSITION</span><span id="state" aria-live="polite">18 WORDS</span></div><div class="canvas"><svg id="word-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 510" role="img" aria-label="Illustrative, deterministic word composition"><title>Illustrative word composition</title></svg></div><div class="display-foot"><span>RENDERED LOCALLY · NO INPUT UPLOAD</span><span id="render-desc">SVG / PREVIEW</span></div></section></div></div></section>
+<section class="docs shell" id="docs"><p class="eyebrow">02 / THE REACT COMPONENT</p><div class="docs-intro"><h2>From data to delight.</h2><p>The real library provides responsive SVG rendering using D3-cloud, customizable layout options, seeded randomness, tooltips and callbacks through a typed React API.</p></div>
+<div class="install"><code>npm install @cecilialabs/d3-wordcloud-react</code><button type="button" id="copy-install">Copy</button></div>
+<div class="features"><article><small>01 / DATA</small><h3>Words with weight</h3><p>Supply <code>{text, value}</code> objects. Numeric values determine word prominence.</p></article><article><small>02 / DESIGN</small><h3>Layout control</h3><p>Adjust scaling, font size, rotation and spiral in typed <code>options</code>.</p></article><article><small>03 / FEEDBACK</small><h3>Interactions</h3><p>Add tooltips, click/hover actions and colors via <code>callbacks</code>.</p></article></div>
+<div class="example"><div class="example-head"><span>REACT / TYPESCRIPT</span><button id="copy-example" type="button">Copy snippet</button></div><pre><code id="example-code">import { ReactWordCloud } from '@cecilialabs/d3-wordcloud-react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
+
+const words = [
+  { text: 'research', value: 42 },
+  { text: 'design', value: 28 },
+  { text: 'open source', value: 18 },
+];
+
+export function ResearchCloud() {
+  return &lt;ReactWordCloud words={words} /&gt;;
+}</code></pre></div>
+</section>
+<section class="origin" id="origin"><div class="shell origins"><div><p class="eyebrow">03 / PROVENANCE & STEWARDSHIP</p><h2>Visual thinking.<br>Open foundations.</h2></div><div><p>Independently maintained by Cecil-IA Labs as a fork of Chris Zhou's original <em>react-wordcloud</em>. The TypeScript and D3-related modernization retains the original MIT copyright and attribution.</p><p>Use the actual source code, tests and npm release for authoritative behavior and supported React versions. React 19 support is not assumed from tooling alone.</p><a href="https://github.com/cecil-ia-labs/d3-wordcloud-react/blob/main/NOTICE.md">Authorship and provenance ↗</a></div></div></section>
+</main><footer class="shell footer"><a href="https://cecil-ia-labs.github.io/">← OPEN SOURCE OBSERVATORY</a><span>CECIL-IA LABS / WORDCLOUD STUDIO</span><a href="https://www.npmjs.com/package/@cecilialabs/d3-wordcloud-react">NPM ↗</a></footer>
+</body></html>
